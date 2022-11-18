@@ -27,10 +27,21 @@ set(DEPS
 
 # sources
 set(SRCS 
-  src/tutorials_topic_demo1_initial_env.cpp)
+  src/tutorials_topic_demo1_initial_env.cpp
+  src/tutorials_topic_demo2_member_function.cpp
+  src/tutorials_topic_demo3_lambda.cpp)
 
+# demo1
 add_executable(tutorial.topic.initial_env_test ${SRCS} src/tutorials_topic_demo1_initial_env_test.cpp)
 ament_target_dependencies(tutorial.topic.initial_env_test ${DEPS})
+
+# demo2 tutorials_topic_demo2_member_function_test
+add_executable(tutorial.topic.member_function_test ${SRCS} src/tutorials_topic_demo2_member_function_test.cpp)
+ament_target_dependencies(tutorial.topic.member_function_test ${DEPS})
+
+# demo3 tutorials_topic_demo3_lambda_test
+add_executable(tutorial.topic.lambda_test ${SRCS} src/tutorials_topic_demo3_lambda_test.cpp)
+ament_target_dependencies(tutorial.topic.lambda_test ${DEPS})
 
 # add_executable(publisher_member_function member_function.cpp)
 # ament_target_dependencies(publisher_member_function rclcpp std_msgs)
@@ -43,6 +54,8 @@ ament_target_dependencies(tutorial.topic.initial_env_test ${DEPS})
 
 install(TARGETS
   tutorial.topic.initial_env_test
+  tutorial.topic.member_function_test
+  tutorial.topic.lambda_test
   # publisher_member_function
   # publisher_member_function_with_unique_network_flow_endpoints
   # publisher_not_composable
