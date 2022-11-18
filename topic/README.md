@@ -289,3 +289,88 @@ ros2 launch topic tutorials_topic_demo3_lambda_test_launch.py
 
 ![tutorials_topic.member_function_test](./images/tutorials_topic.lambda_test.png)
 
+
+
+# 4 tutorial 3(lambda_test)
+
+## 4.1  功能介绍
+
+> 创建一个消息发布者（处理函数是lambda表达式），每隔500ms发布一次消息“'Hello, world!”
+
+## 4.2 代码
+
+**测试文件tutorials_topic_demo4_not_composable_test.cpp**
+
+```cpp
+#include <chrono>
+#include <string>
+
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
+
+using namespace std::chrono_literals;
+
+/* We do not recommend this style anymore, because composition of multiple
+ * nodes in the same executable is not possible. Please see one of the subclass
+ * examples for the "new" recommended styles. This example is only included
+ * for completeness because it is similar to "classic" standalone ROS nodes. 
+ */
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared("not_composable_minimal_publisher");
+  auto publisher = node->create_publisher<std_msgs::msg::String>("topic", 10);
+  std_msgs::msg::String message;
+  auto publish_count = 0;
+  rclcpp::WallRate loop_rate(500ms);
+
+  while (rclcpp::ok()) {
+    message.data = "Hello, world! " + std::to_string(publish_count++);
+    RCLCPP_INFO(node->get_logger(), "Publishing: '%s'", message.data.c_str());
+    try {
+      publisher->publish(message);
+      rclcpp::spin_some(node);
+    } catch (const rclcpp::exceptions::RCLError & e) {
+      RCLCPP_ERROR(
+        node->get_logger(),
+        "unexpectedly failed with %s",
+        e.what());
+    }
+    loop_rate.sleep();
+  }
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+## 4.3 编译
+
+```perl
+colcon build  --packages-up-to topic
+```
+
+## 4.4 运行
+
+source环境变量
+
+```shell
+source install/setup.zsh
+```
+
+方式1
+
+```shell
+cd install/topic/lib/topic/
+./tutorial.topic.tutorial.topic.not_composable_test
+```
+
+方式2
+
+```shell
+ros2 launch topic tutorials.topic.demo4_not_composable_test.launch.py
+```
+
+## 4.5 运行结果
+
+![tutorials_topic.member_function_test](./images/tutorials_topic.not_composable_test.png)
+
