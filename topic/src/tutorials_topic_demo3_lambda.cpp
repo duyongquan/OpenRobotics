@@ -20,5 +20,16 @@ MinimalPublisherWithLambda::MinimalPublisherWithLambda()
     timer_ = this->create_wall_timer(500ms, timer_callback);
 }
 
+
+MinimalSubscriberWithLambda::MinimalSubscriberWithLambda()
+: Node("labmbda_minimal_subscriber")
+{
+    subscription_ = this->create_subscription<std_msgs::msg::String>("topic", 10,
+        [this](std_msgs::msg::String::UniquePtr msg) {
+            RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
+        });
+}
+
+
 }  // namespace topic
 }  // namespace ros2_tutorials

@@ -29,6 +29,15 @@ private:
   size_t count_;
 };
 
+class MinimalSubscriberWithLambda : public rclcpp::Node
+{
+public:
+  MinimalSubscriberWithLambda();
+
+private:
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+};
+
 }  // namespace topic
 }  // namespace ros2_tutorials
 

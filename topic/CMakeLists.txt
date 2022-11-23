@@ -29,7 +29,8 @@ set(DEPS
 set(SRCS 
   src/tutorials_topic_demo1_initial_env.cpp
   src/tutorials_topic_demo2_member_function.cpp
-  src/tutorials_topic_demo3_lambda.cpp)
+  src/tutorials_topic_demo3_lambda.cpp
+  src/tutorials_topic_demo5_member_function_with_topic_statistics.cpp)
 
 # demo1
 add_executable(tutorial.topic.initial_env_test ${SRCS} src/tutorials_topic_demo1_initial_env_test.cpp)
@@ -47,11 +48,17 @@ ament_target_dependencies(tutorial.topic.lambda_test ${DEPS})
 add_executable(tutorial.topic.not_composable_test src/tutorials_topic_demo4_not_composable_test.cpp)
 ament_target_dependencies(tutorial.topic.not_composable_test ${DEPS})
 
+# demo5 tutorials_topic_demo5_member_function_with_topic_statistics_test
+add_executable(tutorials.topic.member_function_with_topic_statistics_test ${SRCS}
+  src/tutorials_topic_demo5_member_function_with_topic_statistics_test.cpp)
+ament_target_dependencies(tutorials.topic.member_function_with_topic_statistics_test ${DEPS})
+
 install(TARGETS
   tutorial.topic.initial_env_test
   tutorial.topic.member_function_test
   tutorial.topic.lambda_test
   tutorial.topic.not_composable_test
+  tutorials.topic.member_function_with_topic_statistics_test
   # publisher_member_function
   # publisher_member_function_with_unique_network_flow_endpoints
   # publisher_not_composable

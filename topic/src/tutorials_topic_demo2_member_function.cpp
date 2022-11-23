@@ -27,5 +27,18 @@ void MinimalPublisher::HandleTimerCallback()
     publisher_->publish(message);
 }
 
+//####################################################################################
+MinimalSubscriber::MinimalSubscriber()
+: Node("member_minimal_subscriber")
+{
+    subscription_ = this->create_subscription<std_msgs::msg::String>(
+        "topic", 10, std::bind(&MinimalSubscriber::HandleTopicCallback, this, std::placeholders::_1));
+}
+
+void MinimalSubscriber::HandleTopicCallback(const std_msgs::msg::String::SharedPtr msg) const
+{
+    RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
+}
+
 }  // namespace topic
 }  // namespace ros2_tutorials

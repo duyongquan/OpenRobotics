@@ -31,6 +31,17 @@ private:
     size_t count_;
 };
 
+class MinimalSubscriber : public rclcpp::Node
+{
+public:
+  MinimalSubscriber();
+
+private:
+  void HandleTopicCallback(const std_msgs::msg::String::SharedPtr msg) const;
+
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+};
+
 }  // namespace topic
 }  // namespace ros2_tutorials
 
