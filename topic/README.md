@@ -718,5 +718,261 @@ ros2 launch topic tutorials.topic.demo5_member_function_with_topic_statistics_te
 
 ![tutorials_topic.demo5](./images/tutorials_topic.demo7.png)
 
-# 8 tutorial 8(订阅器-lambda_test)
+# 8 tutorial 8(订阅器-member_function_with_unique_network_flow_endpoints)
 
+## 8.1  功能介绍
+
+> 
+
+## 8.2 代码
+
+**头文件**tutorials_topic_demo6_member_function_with_unique_network_flow_endpoints.hpp.
+
+```c++
+class MinimalPublisherWithUniqueNetworkFlowEndpoints : public rclcpp::Node
+{
+public:
+  MinimalPublisherWithUniqueNetworkFlowEndpoints();
+
+private:
+  void timer_1_callback();
+  void timer_2_callback();
+
+  /// Print network flow endpoints in JSON-like format
+  void print_network_flow_endpoints(
+    const std::vector<rclcpp::NetworkFlowEndpoint> & network_flow_endpoints) const;
+
+  rclcpp::TimerBase::SharedPtr timer_1_;
+  rclcpp::TimerBase::SharedPtr timer_2_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_1_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_2_;
+  size_t count_1_;
+  size_t count_2_;
+};
+
+class MinimalSubscriberWithUniqueNetworkFlowEndpoints : public rclcpp::Node
+{
+public:
+  MinimalSubscriberWithUniqueNetworkFlowEndpoints();
+
+private:
+  void topic_1_callback(const std_msgs::msg::String::SharedPtr msg) const;
+  void topic_2_callback(const std_msgs::msg::String::SharedPtr msg) const;
+
+  /// Print network flow endpoints in JSON-like format
+  void print_network_flow_endpoints(
+    const std::vector<rclcpp::NetworkFlowEndpoint> & network_flow_endpoints) const;
+
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_1_;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_2_;
+};
+```
+
+**源文件tutorials_topic_demo6_member_function_with_unique_network_flow_endpoints.cpp**
+
+```cpp
+MinimalPublisherWithUniqueNetworkFlowEndpoints::MinimalPublisherWithUniqueNetworkFlowEndpoints()
+: Node("minimal_publisher_with_unique_network_flow_endpoints"), count_1_(0), count_2_(0)
+{
+    // Create publisher with unique network flow endpoints
+    // Enable unique network flow endpoints via options
+    auto options_1 = rclcpp::PublisherOptions();
+    options_1.require_unique_network_flow_endpoints =
+        RMW_UNIQUE_NETWORK_FLOW_ENDPOINTS_OPTIONALLY_REQUIRED;
+    publisher_1_ = this->create_publisher<std_msgs::msg::String>("topic_1", 10, options_1);
+    timer_1_ = this->create_wall_timer(
+        500ms, std::bind(&MinimalPublisherWithUniqueNetworkFlowEndpoints::timer_1_callback, this));
+
+    // Create publisher without unique network flow endpoints
+    // Unique network flow endpoints are disabled in default options
+    auto options_2 = rclcpp::PublisherOptions();
+    publisher_2_ = this->create_publisher<std_msgs::msg::String>("topic_2", 10);
+    timer_2_ = this->create_wall_timer(
+        1000ms, std::bind(&MinimalPublisherWithUniqueNetworkFlowEndpoints::timer_2_callback, this));
+
+    // Get network flow endpoints
+    auto network_flow_endpoints_1 = publisher_1_->get_network_flow_endpoints();
+    auto network_flow_endpoints_2 = publisher_2_->get_network_flow_endpoints();
+
+    // Print network flow endpoints
+    print_network_flow_endpoints(network_flow_endpoints_1);
+    print_network_flow_endpoints(network_flow_endpoints_2);
+}
+
+
+void MinimalPublisherWithUniqueNetworkFlowEndpoints::timer_1_callback()
+{
+    auto message = std_msgs::msg::String();
+    message.data = "Hello, world! " + std::to_string(count_1_++);
+
+    RCLCPP_INFO(
+        this->get_logger(), "Publishing: '%s'", message.data.c_str());
+    publisher_1_->publish(message);
+}
+
+void MinimalPublisherWithUniqueNetworkFlowEndpoints::timer_2_callback()
+{
+    auto message = std_msgs::msg::String();
+    message.data = "Hej, världen! " + std::to_string(count_2_++);
+
+    RCLCPP_INFO(
+        this->get_logger(), "Publishing: '%s'", message.data.c_str());
+    publisher_2_->publish(message);
+}
+
+/// Print network flow endpoints in JSON-like format
+void MinimalPublisherWithUniqueNetworkFlowEndpoints::print_network_flow_endpoints(
+    const std::vector<rclcpp::NetworkFlowEndpoint> & network_flow_endpoints) const
+{
+    std::ostringstream stream;
+    stream << "{\"networkFlowEndpoints\": [";
+    bool comma_skip = true;
+    for (auto network_flow_endpoint : network_flow_endpoints) {
+        if (comma_skip) {
+        comma_skip = false;
+        } else {
+        stream << ",";
+        }
+        stream << network_flow_endpoint;
+    }
+    stream << "]}";
+    RCLCPP_INFO(
+        this->get_logger(), "%s",
+        stream.str().c_str());
+}
+  
+
+MinimalSubscriberWithUniqueNetworkFlowEndpoints::MinimalSubscriberWithUniqueNetworkFlowEndpoints()
+: Node("minimal_subscriber_with_unique_network_flow_endpoints")
+{
+    try 
+    {
+        // Create subscription with unique network flow endpoints
+        // Enable unique network flow endpoints via options
+        // Since option is strict, expect exception
+        auto options_1 = rclcpp::SubscriptionOptions();
+        options_1.require_unique_network_flow_endpoints =
+        RMW_UNIQUE_NETWORK_FLOW_ENDPOINTS_STRICTLY_REQUIRED;
+
+        subscription_1_ = this->create_subscription<std_msgs::msg::String>(
+        "topic_1", 10, std::bind(
+            &MinimalSubscriberWithUniqueNetworkFlowEndpoints::topic_1_callback, this,
+            _1), options_1);
+
+        // Create subscription without unique network flow endpoints
+        // Unique network flow endpoints are disabled by default
+        auto options_2 = rclcpp::SubscriptionOptions();
+        subscription_2_ = this->create_subscription<std_msgs::msg::String>(
+        "topic_2", 10, std::bind(
+            &MinimalSubscriberWithUniqueNetworkFlowEndpoints::topic_2_callback, this,
+            _1), options_2);
+
+        // Get network flow endpoints
+        auto network_flow_endpoints_1 = subscription_1_->get_network_flow_endpoints();
+        auto network_flow_endpoints_2 = subscription_2_->get_network_flow_endpoints();
+
+        // Check if network flow endpoints are unique
+        for (auto network_flow_endpoint_1 : network_flow_endpoints_1) {
+        for (auto network_flow_endpoint_2 : network_flow_endpoints_2) {
+            if (network_flow_endpoint_1 == network_flow_endpoint_2) {
+            RCLCPP_ERROR(
+                this->get_logger(), "Network flow endpoints across subscriptions are not unique");
+            break;
+            }
+        }
+        }
+
+        // Print network flow endpoints
+        print_network_flow_endpoints(network_flow_endpoints_1);
+        print_network_flow_endpoints(network_flow_endpoints_2);
+    } catch (const rclcpp::exceptions::RCLError & e) {
+        RCLCPP_ERROR(
+        this->get_logger(),
+        "Error: %s",
+        e.what());
+    }
+}
+
+
+void MinimalSubscriberWithUniqueNetworkFlowEndpoints::topic_1_callback(
+    const std_msgs::msg::String::SharedPtr msg) const
+{
+    RCLCPP_INFO(this->get_logger(), "Topic 1 news: '%s'", msg->data.c_str());
+}
+
+void MinimalSubscriberWithUniqueNetworkFlowEndpoints::topic_2_callback(
+    const std_msgs::msg::String::SharedPtr msg) const
+{
+    RCLCPP_INFO(this->get_logger(), "Topic 2 news: '%s'", msg->data.c_str());
+}
+
+/// Print network flow endpoints in JSON-like format
+void MinimalSubscriberWithUniqueNetworkFlowEndpoints::print_network_flow_endpoints(
+    const std::vector<rclcpp::NetworkFlowEndpoint> & network_flow_endpoints) const
+{
+    std::ostringstream stream;
+    stream << "{\"networkFlowEndpoints\": [";
+    bool comma_skip = true;
+    for (auto network_flow_endpoint : network_flow_endpoints) {
+        if (comma_skip) {
+        comma_skip = false;
+        } else {
+        stream << ",";
+        }
+        stream << network_flow_endpoint;
+    }
+    stream << "]}";
+    RCLCPP_INFO(
+        this->get_logger(), "%s",
+        stream.str().c_str());
+}
+```
+
+**测试文件tutorials_topic_demo6_member_function_with_unique_network_flow_endpoints.cpp**
+
+```cpp
+#include "topic/tutorials_topic_demo6_member_function_with_unique_network_flow_endpoints.hpp"
+
+#include "topic/tutorials_topic_demo5_member_function_with_topic_statistics.hpp"
+#include "topic/tutorials_topic_demo2_member_function.hpp"
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+
+  // You MUST use the MultiThreadedExecutor to use, well, multiple threads
+  rclcpp::executors::MultiThreadedExecutor executor;
+  auto publisher_node = std::make_shared<ros2_tutorials::topic::MinimalPublisherWithUniqueNetworkFlowEndpoints>();
+  auto subscriber_node = std::make_shared<ros2_tutorials::topic::MinimalSubscriberWithUniqueNetworkFlowEndpoints>();  // This contains BOTH subscriber callbacks.
+                                                        // They will still run on different threads
+                                                        // One Node. Two callbacks. Two Threads
+  executor.add_node(publisher_node);
+  executor.add_node(subscriber_node);
+  executor.spin();
+  rclcpp::shutdown();
+  return 0;
+}
+
+```
+
+## 8.3 编译
+
+```perl
+colcon build  --packages-up-to topic
+```
+
+## 8.4 运行
+
+source环境变量
+
+```shell
+source install/setup.zsh
+```
+
+运行命令
+
+```shell
+ros2 launch topic tutorials.topic.demo6_member_function_with_unique_network_flow_endpoints_test.launch.py
+```
+
+## 8.5 运行结果
