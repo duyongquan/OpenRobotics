@@ -66,7 +66,7 @@ void Server::HandleClientRequest(
     const std::shared_ptr<AddTwoInts::Request> request,
     const std::shared_ptr<AddTwoInts::Response> response)
 {
-    RCLCPP_INFO(this->get_logger(), "Incoming request\n a: %", " b: %", request->a, request->b);
+    RCLCPP_INFO(this->get_logger(), "Incoming request a: %d,  b: %d", request->a, request->b);
     response->sum = request->a + request->b;
 }
 
