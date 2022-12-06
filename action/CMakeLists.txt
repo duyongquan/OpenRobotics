@@ -13,6 +13,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tutorials_msgs REQUIRED)
 
@@ -24,12 +25,16 @@ include_directories(
 # dependency
 set(DEPS 
   rclcpp
+  rclcpp_action
   std_msgs
   tutorials_msgs)
 
 # sources
 set(SRCS 
   src/tutorials_action_demo1_member_functions.cpp)
+
+add_library(tutorial_action SHARED ${SRCS})
+target_link_libraries(tutorial_action ${DEPS})
 
 # demo1
 # add_executable(tutorial.action.initial_env_test ${SRCS} src/tutorials_action_demo1_member_functions.cpp)
