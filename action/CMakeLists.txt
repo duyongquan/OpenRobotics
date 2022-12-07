@@ -29,7 +29,8 @@ set(DEPS
 
 # sources
 set(SRCS 
-  src/tutorials_action_demo1_member_functions.cpp)
+  src/tutorials_action_demo1_member_functions.cpp
+  src/tutorials_action_demo2_member_functions_with_cancel.cpp)
 
 # demo1 tutorials_action_demo1_member_functions_client_test
 add_executable(tutorial.action.member_functions_client_test ${SRCS} src/tutorials_action_demo1_member_functions_client_test.cpp ${SRCS})
@@ -39,9 +40,15 @@ ament_target_dependencies(tutorial.action.member_functions_client_test ${DEPS})
 add_executable(tutorial.action.member_functions_server_test ${SRCS} src/tutorials_action_demo1_member_functions_server_test.cpp ${SRCS})
 ament_target_dependencies(tutorial.action.member_functions_server_test ${DEPS})
 
+# demo1 tutorials_action_demo2_member_functions_with_cancel
+add_executable(tutorial.action.member_functions_with_cancel_client_test ${SRCS} src/tutorials_action_demo2_member_functions_with_cancel_client_test.cpp ${SRCS})
+ament_target_dependencies(tutorial.action.member_functions_with_cancel_client_test ${DEPS})
+
+
 install(TARGETS
   tutorial.action.member_functions_client_test
   tutorial.action.member_functions_server_test
+  tutorial.action.member_functions_with_cancel_client_test
   DESTINATION lib/${PROJECT_NAME}
 )
 

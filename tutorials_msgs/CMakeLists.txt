@@ -14,10 +14,11 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  # "action/Fibonacci.action"
+  "action/Fibonacci.action"
   "srv/AddTwoInts.srv"
 )
 
-ament_export_include_directories(include)
 ament_export_dependencies(rosidl_default_runtime)
+ament_export_include_directories(include)
+
 ament_package()
