@@ -1,10 +1,76 @@
-#include "action/tutorials_action_demo1_member_functions.hpp"
+<center>  <font size=10 color='green'> ros2_tutorials —— action使用 </font></center>
 
-namespace ros2_tutorials
-{
-namespace action
-{
+<center> <font color=red size=8> Part I 客户端(Client & Server) </font> </center>
 
+# 1 tutorial 1(member_functions_test)
+
+## 1.1 功能介绍
+
+> 客户端fibonacci请求，服务器fibonacci生成fibonacci数据
+>
+> fibonacci： 1， 2， 3， 5， 8，13，  ...
+
+## 1.2 代码
+
+**头文件tutorials_action_demo1_member_functions.hpp**
+
+```c++
+class MinimalActionClient : public rclcpp::Node
+{
+public:
+  using Fibonacci = tutorials_msgs::action::Fibonacci;
+  using GoalHandleFibonacci = rclcpp_action::ClientGoalHandle<Fibonacci>;
+
+  explicit MinimalActionClient(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
+
+  bool is_goal_done() const;
+
+  void send_goal();
+
+private:
+  void goal_response_callback(GoalHandleFibonacci::SharedPtr goal_handle);
+
+  void feedback_callback(
+    GoalHandleFibonacci::SharedPtr,
+    const std::shared_ptr<const Fibonacci::Feedback> feedback);
+
+  void result_callback(const GoalHandleFibonacci::WrappedResult & result);
+
+  rclcpp_action::Client<Fibonacci>::SharedPtr client_ptr_;
+  rclcpp::TimerBase::SharedPtr timer_;
+  bool goal_done_;
+};  // class MinimalActionClient
+
+//#####################################################################################
+
+class MinimalActionServer : public rclcpp::Node
+{
+public:
+  using Fibonacci = tutorials_msgs::action::Fibonacci;
+  using GoalHandleFibonacci = rclcpp_action::ServerGoalHandle<Fibonacci>;
+
+  explicit MinimalActionServer(const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
+
+private:
+  rclcpp_action::Server<Fibonacci>::SharedPtr action_server_;
+
+  rclcpp_action::GoalResponse handle_goal(
+    const rclcpp_action::GoalUUID & uuid,
+    std::shared_ptr<const Fibonacci::Goal> goal);
+
+  rclcpp_action::CancelResponse handle_cancel(
+    const std::shared_ptr<GoalHandleFibonacci> goal_handle);
+
+  void execute(const std::shared_ptr<GoalHandleFibonacci> goal_handle);
+
+  void handle_accepted(const std::shared_ptr<GoalHandleFibonacci> goal_handle);
+};  // class MinimalActionServer
+
+```
+
+**tutorials_action_demo1_member_functions.cpp**
+
+```cpp
 MinimalActionClient::MinimalActionClient(const rclcpp::NodeOptions & node_options)
 : Node("minimal_action_client", node_options),
   goal_done_(false)
@@ -182,6 +248,104 @@ void MinimalActionServer::handle_accepted(const std::shared_ptr<GoalHandleFibona
     // this needs to return quickly to avoid blocking the executor, so spin up a new thread
     std::thread{std::bind(&MinimalActionServer::execute, this, _1), goal_handle}.detach();
 }
+```
 
-}  // namespace action
-}  // namespace ros2_tutorials
+**测试文件tutorials_action_demo1_member_functions_client_test.cpp**
+
+```cpp
+#include "action/tutorials_action_demo1_member_functions.hpp"
+
+// int main(int argc, char * argv[])
+// {
+//   rclcpp::init(argc, argv);
+
+//   rclcpp::executors::MultiThreadedExecutor executor;
+//   auto action_server = std::make_shared<ros2_tutorials::action::MinimalActionServer>();
+//   auto action_client = std::make_shared<ros2_tutorials::action::MinimalActionClient>();
+
+//   while (!action_client->is_goal_done()) {
+//     executor.add_node(action_server);
+//     executor.add_node(action_client);
+//   }
+
+//   executor.spin();
+//   rclcpp::shutdown();
+//   return 0;
+// }
+
+int main(int argc, char ** argv)
+{
+  rclcpp::init(argc, argv);
+
+  auto action_server = std::make_shared<ros2_tutorials::action::MinimalActionClient>();
+
+  rclcpp::spin(action_server);
+
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+**测试文件tutorials_action_demo1_member_functions_server_test.cpp**
+
+```cpp
+#include "action/tutorials_action_demo1_member_functions.hpp"
+
+// int main(int argc, char * argv[])
+// {
+//   rclcpp::init(argc, argv);
+
+//   rclcpp::executors::MultiThreadedExecutor executor;
+//   auto action_server = std::make_shared<ros2_tutorials::action::MinimalActionServer>();
+//   auto action_client = std::make_shared<ros2_tutorials::action::MinimalActionClient>();
+
+//   while (!action_client->is_goal_done()) {
+//     executor.add_node(action_server);
+//     executor.add_node(action_client);
+//   }
+
+//   executor.spin();
+//   rclcpp::shutdown();
+//   return 0;
+// }
+
+int main(int argc, char ** argv)
+{
+  rclcpp::init(argc, argv);
+
+  auto action_server = std::make_shared<ros2_tutorials::action::MinimalActionServer>();
+
+  rclcpp::spin(action_server);
+
+  rclcpp::shutdown();
+  return 0;
+}
+
+```
+
+
+
+## 1.3 编译
+
+```perl
+colcon build  --packages-up-to action
+```
+
+## 1.4 运行
+
+source环境变量
+
+```shell
+source install/setup.zsh
+```
+
+```shell
+ros2 launch action tutorials.action.demo1_member_function_test.launch.py
+```
+
+## 1.5 运行结果
+
+![topic_tutorial.topic.initial_env_test](./images/tutorials_action_demo1_member_functions.png)
+
+
+

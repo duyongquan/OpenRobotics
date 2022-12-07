@@ -12,15 +12,13 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(tutorials_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(tutorials_msgs REQUIRED)
 
 # include
-include_directories(
-  include
-)
+include_directories(include)
 
 # dependency
 set(DEPS 
@@ -33,18 +31,26 @@ set(DEPS
 set(SRCS 
   src/tutorials_action_demo1_member_functions.cpp)
 
-add_library(tutorial_action SHARED ${SRCS})
-target_link_libraries(tutorial_action ${DEPS})
+# demo1 tutorials_action_demo1_member_functions_client_test
+add_executable(tutorial.action.member_functions_client_test ${SRCS} src/tutorials_action_demo1_member_functions_client_test.cpp ${SRCS})
+ament_target_dependencies(tutorial.action.member_functions_client_test ${DEPS})
 
-# demo1
-# add_executable(tutorial.action.initial_env_test ${SRCS} src/tutorials_action_demo1_member_functions.cpp)
-# ament_target_dependencies(tutorial.topic.initial_env_test ${DEPS})
+# demo1 tutorials_action_demo1_member_functions_server_test
+add_executable(tutorial.action.member_functions_server_test ${SRCS} src/tutorials_action_demo1_member_functions_server_test.cpp ${SRCS})
+ament_target_dependencies(tutorial.action.member_functions_server_test ${DEPS})
+
+install(TARGETS
+  tutorial.action.member_functions_client_test
+  tutorial.action.member_functions_server_test
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
-  find_package(ament_cmake_gtest REQUIRED)
-  add_subdirectory(test)
 endif()
 
+ament_export_include_directories(include)
 ament_package()
