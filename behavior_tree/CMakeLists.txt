@@ -17,9 +17,10 @@ find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED) 
 find_package(geometry_msgs REQUIRED)
 find_package(nav2_util REQUIRED)
+find_package(nav2_msgs REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
 
 # include
@@ -38,6 +39,7 @@ set(dependencies
   sensor_msgs
   geometry_msgs
   nav2_util
+  nav2_msgs
   behaviortree_cpp_v3)
 
 # sources
@@ -125,6 +127,19 @@ target_link_libraries(tutorials_13_waypoints bt_sample_nodes)
 # add_executable(tutorials_14_broken_sequence src/tutorials_14_broken_sequence.cpp)
 # target_link_libraries(tutorials_14_broken_sequence bt_sample_nodes)
 
+# spin_action_bt_node
+add_library(spin_action_bt_node SHARED plugins/action/spin_action.cpp)
+list(APPEND plugin_libs spin_action_bt_node)
+
+# navigate_to_pose_action_bt_node
+add_library(navigate_to_pose_action_bt_node SHARED plugins/action/navigate_to_pose_action.cpp)
+list(APPEND plugin_libs navigate_to_pose_action_bt_node)
+
+# back_up_action_bt_node
+add_library(back_up_action_bt_node SHARED plugins/action/back_up_action.cpp)
+list(APPEND plugin_libs back_up_action_bt_node)
+
+# goal_reached_condition_bt_node
 add_library(goal_reached_condition_bt_node SHARED plugins/condition/goal_reached_condition.cpp)
 list(APPEND plugin_libs goal_reached_condition_bt_node)
 
