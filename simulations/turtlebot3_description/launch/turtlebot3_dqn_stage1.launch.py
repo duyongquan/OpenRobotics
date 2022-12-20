@@ -26,7 +26,7 @@ from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
-    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
+    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_description'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
@@ -34,7 +34,7 @@ def generate_launch_description():
     y_pose = LaunchConfiguration('y_pose', default='0.0')
 
     world = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
+        get_package_share_directory('turtlebot3_description'),
         'worlds',
         'turtlebot3_dqn_stage1.world'
     )
