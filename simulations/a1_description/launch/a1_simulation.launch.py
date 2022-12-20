@@ -5,7 +5,7 @@ import os
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='a1_description').find('a1_description')
-    default_model_path = os.path.join(pkg_share, 'urdf/sam_bot_description.urdf')
+    default_model_path = os.path.join(pkg_share, 'urdf/a1.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
     world_path=os.path.join(pkg_share, 'world/my_world.sdf')
     
@@ -30,7 +30,7 @@ def generate_launch_description():
     spawn_entity = launch_ros.actions.Node(
     	package='gazebo_ros', 
     	executable='spawn_entity.py',
-        arguments=['-entity', 'sam_bot', '-topic', 'robot_description'],
+        arguments=['-entity', 'a1', '-topic', 'robot_description'],
         output='screen'
     )
     # robot_localization_node = launch_ros.actions.Node(

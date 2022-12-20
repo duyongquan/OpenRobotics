@@ -24,5 +24,4 @@ install(DIRECTORY launch models rviz urdf worlds
   DESTINATION share/${PROJECT_NAME}/
 )
 
-
 ament_package()
