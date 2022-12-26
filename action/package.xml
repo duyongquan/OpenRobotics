@@ -4,7 +4,7 @@
   <name>action</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="duyongquan1@xiaomi.com">quan</maintainer>
+  <maintainer email="quandy2020@126.com">quan</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
