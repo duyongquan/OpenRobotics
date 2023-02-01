@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(timer)
+project(tf2_demos)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -11,8 +11,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(nav2_util REQUIRED) 
+
 # include
 include_directories(
   include
@@ -23,25 +22,18 @@ set(DEPS
   rclcpp
   std_msgs
   tf2
-  tf2_ros
-  geometry_msgs
-  nav2_util)
+  tf2_ros)
 
 # sources
 set(SRCS 
-  src/tutorials_timer_demo1_initial_env.cpp)
+  src/tutorials_tf2_demo1_can_transform_test.cpp)
 
 # demo1
-add_executable(tutorial.timer.initial_env_test ${SRCS} src/tutorials_timer_demo1_initial_env_test.cpp)
-ament_target_dependencies(tutorial.timer.initial_env_test ${DEPS})
-
-#demo2 tutorials_timer_demo2_start_stop_test
-add_executable(tutorial.timer.start_stop_test ${SRCS} src/tutorials_timer_demo2_start_stop_test.cpp)
-ament_target_dependencies(tutorial.timer.start_stop_test ${DEPS})
+add_executable(tutorial.tf2.can_transform_test ${SRCS} src/tutorials_tf2_demo1_can_transform_test.cpp)
+ament_target_dependencies(tutorial.tf2.can_transform_test ${DEPS})
 
 install(TARGETS
-  tutorial.timer.initial_env_test
-  tutorial.timer.start_stop_test
+  tutorial.tf2.can_transform_test
   DESTINATION lib/${PROJECT_NAME}
 )
 

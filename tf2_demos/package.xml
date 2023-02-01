@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>timer</name>
+  <name>tf2_demos</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="quandy2020@126.com">quan</maintainer>
@@ -11,10 +11,8 @@
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>tf2</depend>
-  <depend>tf2_ros</depend> 
-  <depend>geometry_msgs</depend>
-  <depend>nav2_util</depend>
-  
+  <depend>tf2_ros</depend>
+
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
