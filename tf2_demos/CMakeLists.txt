@@ -24,16 +24,17 @@ set(DEPS
   tf2
   tf2_ros)
 
-# sources
-set(SRCS 
-  src/tutorials_tf2_demo1_can_transform_test.cpp)
-
 # demo1
-add_executable(tutorial.tf2.can_transform_test ${SRCS} src/tutorials_tf2_demo1_can_transform_test.cpp)
+add_executable(tutorial.tf2.can_transform_test src/tutorials_tf2_demo1_can_transform_test.cpp)
 ament_target_dependencies(tutorial.tf2.can_transform_test ${DEPS})
+
+#demo2 tutorials_tf2_demo2_dynamic_tf_transform_test.cpp
+add_executable(tutorial.tf2.dynamic_tf_transform_test src/tutorials_tf2_demo2_dynamic_tf_transform_test.cpp)
+ament_target_dependencies(tutorial.tf2.dynamic_tf_transform_test ${DEPS})
 
 install(TARGETS
   tutorial.tf2.can_transform_test
+  tutorial.tf2.dynamic_tf_transform_test
   DESTINATION lib/${PROJECT_NAME}
 )
 

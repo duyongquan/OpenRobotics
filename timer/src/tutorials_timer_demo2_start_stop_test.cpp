@@ -79,8 +79,6 @@ private:
         geometry_msgs::msg::PoseStamped gloabl_pose;
         if (!nav2_util::getCurrentPose(gloabl_pose, *tf_buffer_, "map", "base_link", 2.0)) {
             RCLCPP_WARN(this->get_logger(), "Failed to obtain current pose based on map coordinate system.");
-            std::this_thread::sleep_for(std::chrono::seconds(5));
-            return;
         } else {
             pos_pub_->publish(gloabl_pose);
         }
