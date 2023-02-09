@@ -54,6 +54,11 @@ private:
         return points;
     }
 
+    void Show()
+    {
+        
+    }
+
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<PosesPublisher> pose_publisher_ {nullptr};
 };  
