@@ -8,6 +8,7 @@
 #include "std_msgs/msg/string.hpp"
 #include "nav_msgs/msg/path.hpp"
 
+#include "boost/math/interpolators/cardinal_quadratic_b_spline.hpp"
 #include "nav2_demos/tutorials_nav2_utils_poses_publisher.hpp"
 
 using namespace std::chrono_literals;
@@ -45,21 +46,31 @@ private:
         points.header.frame_id = "map";
         points.header.stamp = this->get_clock()->now();
 
-        for (int i = 0; i < 10; i++) {
+        std::vector<double> way_point_x = {-1.0, 3.0, 4.0, 2.0, 1.0};
+        std::vector<double> way_point_y = {0.0, -3.0, 1.0, 1.0, 3.0};
+
+        for (int i = 0; i < way_point_x.size(); i++) {
             geometry_msgs::msg::Point32 point;
-            point.x = i;
-            point.y = pow(i, 2);
+            point.x = way_point_x[i];
+            point.y = way_point_y[i];
             points.points.push_back(point);
         }
         return points;
     }
 
+
+    void ApproximateBSplinePath(const sensor_msgs::msg::PointCloud& points, 
+        int n_course_point, int smooth_weight)
+    {
+    }
+
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<PosesPublisher> pose_publisher_ {nullptr};
+    boost::math::interpolators::cardinal_quadratic_b_spline<double> spline_;
 };  
 }
 
-}  // namespace nav2
+}  // namespace nav2WW
 }  // namespace ros2_tutorials
 
 
