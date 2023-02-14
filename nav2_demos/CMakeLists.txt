@@ -48,11 +48,19 @@ set(SRCS
 add_executable(tutorial.nav2.b_spline_path_test src/tutorials_nav2_demo1_b_spline_path_test.cpp ${SRCS})
 ament_target_dependencies(tutorial.nav2.b_spline_path_test ${DEPS})
 
-#demo2
+# demo2
 
+# demo3
+add_executable(tutorial.nav2.cubic_spline_path_test src/tutorials_nav2_demo3_cubic_spline_planner_test.cpp ${SRCS})
+ament_target_dependencies(tutorial.nav2.cubic_spline_path_test ${DEPS})
 
 install(TARGETS
   tutorial.nav2.b_spline_path_test
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS
+  tutorial.nav2.cubic_spline_path_test
   DESTINATION lib/${PROJECT_NAME}
 )
 

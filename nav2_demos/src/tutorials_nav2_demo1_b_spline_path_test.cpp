@@ -8,7 +8,7 @@
 #include "std_msgs/msg/string.hpp"
 #include "nav_msgs/msg/path.hpp"
 
-#include "boost/math/interpolators/cardinal_quadratic_b_spline.hpp"
+#include "spline.h"
 #include "nav2_demos/tutorials_nav2_utils_poses_publisher.hpp"
 
 using namespace std::chrono_literals;
@@ -46,8 +46,8 @@ private:
         points.header.frame_id = "map";
         points.header.stamp = this->get_clock()->now();
 
-        std::vector<double> way_point_x = {-1.0, 3.0, 4.0, 2.0, 1.0};
-        std::vector<double> way_point_y = {0.0, -3.0, 1.0, 1.0, 3.0};
+        std::vector<double> way_point_x = {-0.1, 0.4, 1.2, 1.8, 2.0};;
+        std::vector<double> way_point_y = {0.1, 0.7, 0.6, 1.1, 0.9};
 
         for (int i = 0; i < way_point_x.size(); i++) {
             geometry_msgs::msg::Point32 point;
@@ -58,7 +58,6 @@ private:
         return points;
     }
 
-
     void ApproximateBSplinePath(const sensor_msgs::msg::PointCloud& points, 
         int n_course_point, int smooth_weight)
     {
@@ -66,7 +65,7 @@ private:
 
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<PosesPublisher> pose_publisher_ {nullptr};
-    boost::math::interpolators::cardinal_quadratic_b_spline<double> spline_;
+    // boost::math::interpolators::cardinal_quadratic_b_spline<double> spline_;
 };  
 }
 
