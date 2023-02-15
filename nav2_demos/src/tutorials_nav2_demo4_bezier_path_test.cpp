@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include <cmath>
+#include <Eigen/Dense>
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -19,13 +20,6 @@ namespace nav2
 namespace
 {
 
-struct Point
-{
-    double x;
-    double y;
-    double yaw;
-};
-
 class BezierPathNode : public rclcpp::Node
 {
 public:
@@ -42,118 +36,99 @@ private:
 
     void HandleTimerCallback()
     {
-        auto points = CreatePoints();
+        int interpolation_order = 100;
+        BezierCurve(interpolation_order);
+    }
+
+    void BezierCurve(int interpolation_order)
+    {
+        std::vector<Eigen::Vector2d> points {
+            Eigen::Vector2d (0,0),
+            Eigen::Vector2d(1,1),
+            Eigen::Vector2d(2,1),
+            Eigen::Vector2d(3,0),
+            Eigen::Vector2d(4,2)
+        };
+
+        auto reference_points = ToROSReferencePoints(points);
+        ShowBezierCurveReferencePoints(reference_points);
+
+        std::vector<Eigen::Vector2d> eigen_points;
+        for(int t = 0; t < interpolation_order; t++){
+            Eigen::Vector2d pose = BezierCommon(points, (double)t / interpolation_order);
+            eigen_points.push_back(pose);
+        }
+        ShowBezierCurve(ToROS(eigen_points));
+    }
+
+
+    void ShowBezierCurve(const sensor_msgs::msg::PointCloud& points)
+    {
         pose_publisher_->PublishPoses(points);
     }
 
-    sensor_msgs::msg::PointCloud CreatePoints()
+    void ShowBezierCurveReferencePoints(const geometry_msgs::msg::PoseArray& poses)
+    {
+        pose_publisher_->PublishReferencePoses(poses);
+    }
+
+
+    sensor_msgs::msg::PointCloud ToROS(const std::vector<Eigen::Vector2d>& eigen_points)
     {
         sensor_msgs::msg::PointCloud points;
         points.header.frame_id = "map";
         points.header.stamp = this->get_clock()->now();
 
-        for (int i = 0; i < 10; i++) {
+        for (long unsigned i = 0; i < eigen_points.size(); i++) {
             geometry_msgs::msg::Point32 point;
-            point.x = i;
-            point.y = pow(i, 2);
+            point.x = eigen_points[i].x();
+            point.y = eigen_points[i].y();
             points.points.push_back(point);
         }
         return points;
     }
 
-    void Show()
+    geometry_msgs::msg::PoseArray ToROSReferencePoints(const std::vector<Eigen::Vector2d>& eigen_points)
     {
-        // Plot an example bezier curve.
-        // double start_x = 10.0;      // [m]
-        // double start_y = 1.0;       // [m]
-        // double start_yaw = M_PI;    // [rad]
+        geometry_msgs::msg::PoseArray poses;
+        poses.header.frame_id = "map";
+        poses.header.stamp = this->get_clock()->now();
 
-        // double end_x = -0.0;        // [m]
-        // double end_y = -3.0;        // [m]
-        // double end_yaw = -M_PI/4;   // [rad]
-        double offset = 3.0;
-        Point start = {10.0, 1.0, M_PI};
-        Point end = {-0.0, -3.0, -M_PI/4};
-    }
-
-    std::vector<Point> Calc4PointsBezierPath(
-        const Point& start, const Point& end, const double offset)
-    {
-        // control_points 
-        auto control_points = CreateControlPoints(start, end, offset);
-        auto path = CalcBezierPath(control_points, 100);
-    }
-
-
-    std::vector<Point> CreateControlPoints(const Point& start, const Point& end, const double offset)
-    {
-        std::vector<Point> points;
-        double dist = std::hypot(start.x - end.x, start.y - end.y) / offset;
-        points.push_back(start);
-        points.push_back(Point{
-            start.x + dist * std::cos(start.yaw),
-            start.y + dist * std::sin(start.yaw),
-        });
-
-        points.push_back(Point{
-            end.x - dist * std::cos(end.yaw),
-            end.y + dist * std::sin(end.yaw),
-        });
-        points.push_back(end);
-        return points;
-    }
-
-    std::vector<Point> CalcBezierPath(const std::vector<Point>& control_points, double n_points)
-    {
-        std::vector<Point> path;
-
-        // for t in np.linspace(0, 1, n_points):
-        // traj.append(bezier(t, control_points))
-
-        double step = 1.0 / n_points;
-        
-        for (int i = 0; i <= n_points; i++) {
-            Bezier(i / n_points, control_points);
-            // path.push_back(0.0);
+        for (auto const point : eigen_points) {
+            geometry_msgs::msg::Pose pose;
+            pose.position.x = point.x();
+            pose.position.y = point.y();
+            poses.poses.push_back(pose);
         }
-
-        return path;
-    }
-
-    double Bezier(double t, const std::vector<Point>& control_points)
-    {
-        // n = len(control_points) - 1
-        // return np.sum([bernstein_poly(n, i, t) * control_points[i] for i in range(n + 1)], axis=0)
-        double sum = 0.0f;
-        int n = control_points.size() - 1;
-        for (int i = 0; i < n; i++) {
-            sum += BernsteinPoly(n, i, t) * control_points[i].x;
-        }
-        return sum;
+        return poses;
     }
 
     /**
-     * Bernstein polynom
-     * 
-     * @param n: (int) polynom degree
-     * @param i: (int)
-     * @param t: (double)
-     * @param n: (int) polynom degree
-     * 
-     * @return: (double)
+     * 阶乘实现
      */
-    double BernsteinPoly(int n, int i, double t)
+    double Factorial(int n)
     {
-        // return scipy.special.comb(n, i) * t ** i * (1 - t) ** (n - i)
-        return BinomialCoefficients(n, i) * std::pow(t, i) * std::pow(1 - t, n - i);
+        if(n <= 1) return 1;
+            return Factorial(n - 1) * n;
     }
+   
+    /**
+     * 贝塞尔公式
+     */
+    Eigen::Vector2d BezierCommon(const std::vector<Eigen::Vector2d>& points,  double t)
+    {
+        if(points.size() == 1) {
+            return points[0];
+        }
 
-    // c(n,k) = c(n-1 , k-1) + c(n-1, k)
-    // c(n, 0) = c(n, n) = 1
-    int BinomialCoefficients(int n, int k) {
-        if (k == 0 || k == n)
-            return 1;
-        return BinomialCoefficients(n - 1, k - 1) + BinomialCoefficients(n - 1, k);
+        Eigen::Vector2d p_t(0., 0.);
+        int n = points.size() - 1;
+
+        for(long unsigned i = 0; i < points.size(); i++) {
+            double C_n_i = Factorial(n) / (Factorial(i) * Factorial(n-i));
+            p_t +=  C_n_i*pow((1 - t),(n - i)) * pow(t,i) * points[i];
+        }
+        return p_t;
     }
 
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
