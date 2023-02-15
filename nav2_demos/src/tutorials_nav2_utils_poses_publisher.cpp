@@ -36,7 +36,7 @@ void PosesPublisher::PublishPoses(const sensor_msgs::msg::PointCloud& points)
 
 void PosesPublisher::PublishPath(const nav_msgs::msg::Path& path)
 {
-
+    path_publisher_->publish(path);
 }
 
 void PosesPublisher::PublishReferencePoses(const geometry_msgs::msg::PoseArray& reference_points)

@@ -58,9 +58,13 @@ private:
             Eigen::Vector2d pose = BezierCommon(points, (double)t / interpolation_order);
             eigen_points.push_back(pose);
         }
-        ShowBezierCurve(ToROS(eigen_points));
+        ShowBezierCurve(ToPath(eigen_points));
     }
 
+    void ShowBezierCurve(const nav_msgs::msg::Path& path)
+    {
+        pose_publisher_->PublishPath(path);
+    }
 
     void ShowBezierCurve(const sensor_msgs::msg::PointCloud& points)
     {
@@ -101,6 +105,24 @@ private:
             poses.poses.push_back(pose);
         }
         return poses;
+    }
+
+    nav_msgs::msg::Path ToPath(const std::vector<Eigen::Vector2d>& eigen_points)
+    {
+        nav_msgs::msg::Path path;
+        path.header.frame_id = "map";
+        path.header.stamp = this->get_clock()->now();
+        
+        for (auto point : eigen_points) {
+            geometry_msgs::msg::PoseStamped pose;
+            pose.header.frame_id = "map";
+            pose.header.stamp = this->get_clock()->now();
+            pose.pose.position.x = point.x();
+            pose.pose.position.y = point.y();
+            path.poses.push_back(pose);
+        }
+
+        return path;
     }
 
     /**
