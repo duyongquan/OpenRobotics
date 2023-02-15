@@ -2,7 +2,11 @@ cmake_minimum_required (VERSION 2.8.7)
 
 project(ros2_tutorials)
 
-find_package(Sphinx)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+find_package(PythonInterp REQUIRED)
+find_package(Sphinx REQUIRED)
+
 if(SPHINX_FOUND)
   set(OUTPUT_DIR "${PROJECT_BINARY_DIR}/docs/html")
   add_custom_target(build_doc ALL
