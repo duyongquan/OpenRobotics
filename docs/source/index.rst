@@ -6,7 +6,7 @@ ROS2 Tutorials documents index page, created by duyongquan
 Session 1 - ROS 2 Concepts and Fundamentals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    Chapter 1 - ROS2-Filesystem <_source/basics/ROS2-Filesystem.md>
    Chapter 2 - ROS2-Publisher-Subscriber <_source/basics/ROS2-Filesystem.md>
@@ -23,7 +23,7 @@ Session 1 - ROS 2 Concepts and Fundamentals
 Session 2 - ROS2 SLAM
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    Chapter 12 - Cartographer SLAM
    Chapter 13 - SLAM Toolbox
@@ -31,7 +31,7 @@ Session 2 - ROS2 SLAM
 Session 3 - ROS2 Navigation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: \1
 
    Chapter 14 - Nav2-TF2
    Chapter 15 - Nav2-Costmap
