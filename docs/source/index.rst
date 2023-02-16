@@ -19,6 +19,7 @@ Session 1 - ROS 2 Concepts and Fundamentals
    Chapter 9 - ROS2-Executors <_source/basics/ROS2-Executors.md>
    Chapter 10 - ROS2-Rviz <_source/basics/ROS2-Rviz.md>
    Chapter 11 - ROS2-Gazebo <_source/basics/ROS2-Gazebo.md>
+   Chapter 12 - ROS2-Command-Line-Interface <_source/basics/ROS2-Command-Line-Interface.md>
 
 Session 2 - ROS2 SLAM
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
