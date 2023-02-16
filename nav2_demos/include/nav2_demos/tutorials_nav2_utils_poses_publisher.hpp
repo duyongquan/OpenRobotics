@@ -1,3 +1,6 @@
+#ifndef ROS2_TUTORIALS__TUTORIALS_NAV2_UTILS_POSES_PUBLISHER_HPP_
+#define ROS2_TUTORIALS__TUTORIALS_NAV2_UTILS_POSES_PUBLISHER_HPP_
+
 #include <chrono>
 #include <memory>
 #include <string>
@@ -48,3 +51,4 @@ private:
 }  // namespace nav2
 }  // namespace ros2_tutorials
 
+#endif  // ROS2_TUTORIALS__TUTORIALS_NAV2_UTILS_POSES_PUBLISHER_HPP_
