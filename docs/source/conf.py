@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('.'))
 from sphinx import version_info as sphinx_version_info
 # -- Project information -----------------------------------------------------
 project = 'ROS2 Tutorials'
-copyright = '2021, duyongquan'
+copyright = '2022, duyongquan'
 author = 'duyongquan'
 # -- General configuration ---------------------------------------------------
 # Add any Sphinx extension module names here, as strings. They can be
