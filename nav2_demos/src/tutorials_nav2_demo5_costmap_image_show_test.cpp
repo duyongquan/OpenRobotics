@@ -38,7 +38,7 @@ private:
     void HandleTimerCallback()
     {
         // ShowImage();
-        auto map = costmap_2d_->GetMap("map02.png");
+        auto map = costmap_2d_->GetMap("map03.pgm");
         map.header.frame_id = "map";
         map.header.stamp = this->get_clock()->now();
         costmap_2d_->PublishMap(map);
