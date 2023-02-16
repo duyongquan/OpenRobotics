@@ -2,7 +2,7 @@
 
 # Introduction
 
-> 此工程为导航算法需要的基础知识。
+> 此工程为导航算法需要的基础知识。[详细文档](https://ros2-tutorials.readthedocs.io/en/latest/#)
 
 # Part I ROS2 rclcpp
 
@@ -58,7 +58,6 @@
 * control
 * condition
 * decorator
-* 
 
 # Part V GridMap
 
@@ -75,8 +74,6 @@
 * TEB local planner
 
 * costmap2d
-
-** 
 
   
 
