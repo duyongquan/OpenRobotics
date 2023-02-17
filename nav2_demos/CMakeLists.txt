@@ -81,6 +81,10 @@ ament_target_dependencies(tutorial.nav2.bezier_path ${DEPS})
 add_executable(tutorial.nav2.costmap_image_show src/tutorials_nav2_demo5_costmap_image_show_test ${SRCS})
 ament_target_dependencies(tutorial.nav2.costmap_image_show ${DEPS})
 
+# demo6 utorials_nav2_demo6_navfn_planner_test.cpp
+add_executable(tutorial.nav2.navfn_planner src/tutorials_nav2_demo6_navfn_planner_test ${SRCS})
+ament_target_dependencies(tutorial.nav2.navfn_planner ${DEPS})
+
 install(TARGETS
   tutorial.nav2.b_spline_path_test
   DESTINATION lib/${PROJECT_NAME}
@@ -90,6 +94,7 @@ install(TARGETS
   tutorial.nav2.cubic_spline_path_test
   tutorial.nav2.bezier_path
   tutorial.nav2.costmap_image_show
+  tutorial.nav2.navfn_planner
   DESTINATION lib/${PROJECT_NAME}
 )
 
