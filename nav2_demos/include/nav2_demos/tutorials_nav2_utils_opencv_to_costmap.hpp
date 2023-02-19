@@ -18,6 +18,8 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "nav2_costmap_2d/costmap_2d.hpp"
 #include "nav2_costmap_2d/costmap_2d_ros.hpp"
+#include "nav2_map_server/map_io.hpp"
+#include "nav2_map_server/map_server.hpp"
 #include "grid_map_ros/grid_map_ros.hpp"
 #include "cv_bridge/cv_bridge.h"
 
@@ -27,7 +29,7 @@ namespace ros2_tutorials
 {
 namespace nav2
 {
-
+// map create: https://convertio.co/zh/
 class ImageConvertCostmap2D
 {
 public:
@@ -36,15 +38,23 @@ public:
 
     nav_msgs::msg::OccupancyGrid GetMap(const std::string& image_file);
 
+    bool GetOccupancyGridMapFromImage(const std::string& image_file,  nav_msgs::msg::OccupancyGrid& map);
+
+    bool GetOccupancyGridMapFromYaml(const std::string& yaml_file,  nav_msgs::msg::OccupancyGrid& map);
+
     void PublishMap(const nav_msgs::msg::OccupancyGrid& data);
 
     void SetTopic(const std::string & name);
 
-     sensor_msgs::msg::Image::SharedPtr ToROS(const cv::Mat& image);
+    sensor_msgs::msg::Image::SharedPtr ToROS(const cv::Mat& image);
+
+    // nav2_costmap_2d::Costmap2D* GetCostmap2D();
 
 private:
     rclcpp::Node::SharedPtr node_{nullptr};
     rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr costmap_pub_{nullptr};
+    // nav2_costmap_2d::Costmap2D* costmap_{nullptr};
+    // std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros_{nullptr};
     std::shared_ptr<grid_map::GridMap> map_{nullptr};
     std::string map_topic_;
     double resolution_;

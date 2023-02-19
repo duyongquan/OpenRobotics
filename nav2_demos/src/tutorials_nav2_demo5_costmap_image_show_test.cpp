@@ -24,7 +24,7 @@ namespace
 class ImageCostmap2D : public rclcpp::Node
 {
 public:
-    ImageCostmap2D() : Node("bezier_path")
+    ImageCostmap2D() : Node("costmap")
     {
         costmap_2d_ = std::make_shared<ImageConvertCostmap2D>(this, "global_map");
 
@@ -38,16 +38,42 @@ private:
     void HandleTimerCallback()
     {
         // ShowImage();
-        auto map = costmap_2d_->GetMap("map03.pgm");
-        map.header.frame_id = "map";
-        map.header.stamp = this->get_clock()->now();
-        costmap_2d_->PublishMap(map);
+        // auto map = costmap_2d_->GetMap("map03.pgm");
+        // map.header.frame_id = "map";
+        // map.header.stamp = this->get_clock()->now();
+        // costmap_2d_->PublishMap(map);
+        // TestShowCostmapFromImage();
+        TestMapServer();
     }
 
     void ShowImage()
     {
-        LoadImage("map02.png", true);
+        LoadImage("map02.png", true);   
     }
+
+    void TestShowCostmapFromImage()
+    {
+        nav_msgs::msg::OccupancyGrid map;
+        bool success = costmap_2d_->GetOccupancyGridMapFromImage("map03.pgm", map);
+        if (!success) {
+            RCLCPP_ERROR(this->get_logger(), "Load OccupancyGrid error");
+            return;
+        }
+        costmap_2d_->PublishMap(map);
+    }
+
+    void TestMapServer()
+    {
+        std::string map_name = GetMapsPath() + "map01.yaml";
+        nav_msgs::msg::OccupancyGrid map;
+        bool success = costmap_2d_->GetOccupancyGridMapFromYaml(map_name, map);
+        if (!success) {
+            RCLCPP_ERROR(this->get_logger(), "Load OccupancyGrid error");
+            return;
+        }
+        costmap_2d_->PublishMap(map);
+    }
+
 
     rclcpp::TimerBase::SharedPtr timer_{nullptr};
     std::shared_ptr<ImageConvertCostmap2D> costmap_2d_{nullptr};

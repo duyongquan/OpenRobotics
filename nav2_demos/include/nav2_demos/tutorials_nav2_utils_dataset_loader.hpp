@@ -19,6 +19,8 @@ namespace nav2
 
 std::string GetImagePath();
 
+std::string GetMapsPath();
+
 cv::Mat LoadImage(const std::string& filename, bool show = false);
 
 }  // namespace nav2

@@ -14,6 +14,11 @@ std::string GetImagePath()
     return kSourceDirectory + "/images/";
 }
 
+std::string GetMapsPath()
+{
+    return kSourceDirectory + "/maps/";
+}
+
 cv::Mat LoadImage(const std::string& filename, bool show)
 {
     cv::Mat image = cv::imread(GetImagePath() + filename, cv::IMREAD_COLOR);
@@ -22,7 +27,7 @@ cv::Mat LoadImage(const std::string& filename, bool show)
         throw error;
     }
 
-    std::cout << "[width, height] : " 
+    std::cout << "opencv image " << filename << " [width, height] : " 
               << "["  << image.cols
               << ", " << image.rows
               << "]" << std::endl;

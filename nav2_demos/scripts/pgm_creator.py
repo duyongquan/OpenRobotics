@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import sys
 from PyQt5.QtWidgets import QApplication, QGraphicsScene, QGraphicsView, QScrollArea, QFileDialog, QWidget, QFrame, QPushButton, QToolTip, QDesktopWidget, QGridLayout, QLabel, QSizePolicy, QGraphicsItem, QColorDialog, QComboBox, QHBoxLayout, QVBoxLayout, QSlider, QLineEdit, QCheckBox
 from PyQt5.QtGui import QFont, QPainter, QBrush, QColor, QIntValidator
 from PyQt5.QtCore import Qt, QRectF, QLineF
+
 
 
 class Field(QGraphicsItem):
@@ -232,7 +234,7 @@ class CellChoice(QHBoxLayout):
         self.addWidget(self.btnColor)
         self.btnColor.clicked.connect(self.changeColor)  
         self.cmbID = QComboBox()
-        self.cmbID.addItems([str(num) for num in range(128)])
+        self.cmbID.addItems([str(num) for num in range(255)])
         self.cmbID.setCurrentIndex(self.id)
         self.cmbID.setStyleSheet("combobox-popup: 0")
         self.cmbID.currentIndexChanged.connect(self.changeID)
@@ -382,7 +384,7 @@ class MainWidget(QWidget):
         self.grid.addLayout(inletChoice, 2, 0)
         outletChoice = CellChoice('Outlet', 2, 'darkred', parent=self)
         self.grid.addLayout(outletChoice, 3, 0)
-        wallChoice = CellChoice('Wall', 3, 'dimgrey', parent=self)
+        wallChoice = CellChoice('Obstacle', 255, 'black', parent=self)
         self.grid.addLayout(wallChoice, 4, 0)
         self.categories = [fluidChoice, inletChoice, outletChoice, wallChoice]
 
@@ -442,29 +444,52 @@ class MainWidget(QWidget):
     def savePGM(self):
         """ Save the grid as a pgm file. """
         name, extension = QFileDialog.getSaveFileName(self, 'Save File', '', " PGM File(*.pgm);; All Files (*)")
+
+     
+        print(name)
+        self.saveYaml(name)
+        self.savePGMImage(name)
+    
+    def saveYaml(self, name):
         if name != '':
             with open(name, 'w') as f:
-                f.write("P2\n")
-                f.write("# {}\n".format(name))
+                f.write("image: {}.pgm\n".format(name))
+                f.write("resolution: 0.05\n")
+                f.write("origin: [0.0, 0.0, 1.0]\n")
+                f.write("occupied_thresh: 0.65\n")
+                f.write("free_thresh: 0.196\n")
+                f.write("negate: 0\n")
+                f.write("mode: \"trinary\"\n")
+
+    def savePGMImage(self, name):
+        if name != '':
+            with open(name, 'w') as f:
+                f.write("P5\n")
                 f.write("{} {}\n".format(self.scene.cols, self.scene.rows))
                 items = [(item.y, item.x, item.idx) for item in self.scene.items()]
                 uniqueIDs = set([item[2] for item in items])                
-                f.write("{}\n".format(max(uniqueIDs)))
+                f.write("255\n")
 
                 # Write the cells in correct order
                 items.sort()
                 for j in range(self.scene.rows):
                     for i in range(self.scene.cols):
-                        f.write(str(items[j * self.scene.cols + i][2]).ljust(4))
-                    f.write("\n")
-                f.write("\n")
+                        # f.write(str(items[j * self.scene.cols + i][2]).ljust(4))
+                        f.write('\\'+str(hex(items[j * self.scene.cols + i][2]))[2:])
+                        print (items[j * self.scene.cols + i][2])
+
+                        
+                        #print (bin(items[j * self.scene.cols + i][2]))
+                        # print (bin(items[j * self.scene.cols + i][2])[2:])
+                        # f.write(bin(items[j * self.scene.cols + i][2])[2:])
+                #     f.write("\n")
+                # f.write("\n")
 
                 # write a small legend
                 for i in sorted(uniqueIDs):
                     for cat in self.categories:
                         if cat.id == i:
                             f.write("# {}: {}\n".format(i, cat.name))
-        
 
 
 def main():

@@ -14,6 +14,8 @@ find_package(tf2_ros REQUIRED)
 find_package(nav2_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(nav2_costmap_2d REQUIRED)
+find_package(nav2_map_server REQUIRED)
+find_package(nav2_navfn_planner REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -43,6 +45,8 @@ set(DEPS
   nav2_msgs
   nav_msgs
   nav2_costmap_2d
+  nav2_map_server
+  nav2_navfn_planner
   sensor_msgs
   geometry_msgs
   tf2_geometry_msgs
@@ -98,7 +102,7 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY images DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY images maps DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
