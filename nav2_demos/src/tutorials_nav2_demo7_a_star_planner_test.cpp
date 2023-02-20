@@ -45,9 +45,7 @@ private:
         nav_msgs::msg::Path path;
 
         if (start_ok && goal_ok) {
-            // bool success = a_star_palnner_->createPlan(start, goal, path);
-
-            bool success = a_star_palnner_->defaultPlannerRandomTests(100, 0.1);
+            bool success = a_star_palnner_->createPlan(start, goal, path);
             if (!success) {
                 RCLCPP_ERROR(this->get_logger(), "create path failed");
             } else {

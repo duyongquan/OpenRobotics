@@ -406,6 +406,9 @@ bool PlannerTester::createPlan(
   const geometry_msgs::msg::PoseStamped& goal,
   ComputePathToPoseResult & path)
 {
+  // Update the costmap of the planner to the set data
+  planner_tester_->setCostmap(costmap_.get());
+
   RCLCPP_DEBUG(this->get_logger(), "Getting the path from the planner");
 
   // First make available the current robot position for the planner to take as starting point
