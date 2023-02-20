@@ -1,47 +1,13 @@
-# Nav2-Path-Planner
+#include <chrono>
+#include <memory>
+#include <string>
+#include <cmath>
 
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
+#include "std_msgs/msg/string.hpp"
+#include "nav_msgs/msg/path.hpp"
 
-
-## A* 算法路径规划
-
-### 1 编译
-
-```shell
-cd ros2_ws
-colcon build --packages-up-to nav2_demos
-```
-
-
-
-### 2 运行
-
-```shell
-# 配置环境变量
-source install/setup.zsh 
-or
-source install/setup.bash
-
-# ros2 launch 启动
-ros2 launch nav2_demos tutorials_nav2_demo7_a_star_planner_test_launch.py
-```
-
-### 3 设置A点和B点，AB点路径规划
-
-点击A点和B点，进行路径规划，可以选择自定义的地图
-
-![tutorials_nav2_demo7_a_star_planner_test](../../../source/_static/navigation/tutorials_nav2_demo7_a_star_planner_test.png)
-
-
-
-运行结果
-
-![tutorials_nav2_demo7_a_star_planner_test_result](../../../source/_static/navigation/tutorials_nav2_demo7_a_star_planner_test_result.png)
-
-
-
-code
-
-```c++
 #include "nav2_demos/tutorials_nav2_utils.hpp"
 
 using namespace std::chrono_literals;
@@ -119,9 +85,3 @@ int main(int argc, char ** argv)
   rclcpp::shutdown();
   return 0;
 }
-```
-
-
-
-
-
