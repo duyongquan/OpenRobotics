@@ -32,4 +32,4 @@ source install/setup.bash
 
 运行结果
 
-![tutorials_nav2_demo7_a_star_planner_test_result](/home/quan/workspace/robot/github/ros2_ws/src/ros2_tutorials/docs/source/_static/navigation/tutorials_nav2_demo7_a_star_planner_test_result.png)
+![tutorials_nav2_demo7_a_star_planner_test_result](../../../source/_static/navigation/tutorials_nav2_demo7_a_star_planner_test_result.png)
