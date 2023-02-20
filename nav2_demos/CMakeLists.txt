@@ -16,6 +16,7 @@ find_package(nav_msgs REQUIRED)
 find_package(nav2_costmap_2d REQUIRED)
 find_package(nav2_map_server REQUIRED)
 find_package(nav2_navfn_planner REQUIRED)
+find_package(nav2_planner REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -46,6 +47,7 @@ set(DEPS
   nav_msgs
   nav2_costmap_2d
   nav2_map_server
+  nav2_planner
   nav2_navfn_planner
   sensor_msgs
   geometry_msgs
@@ -65,7 +67,8 @@ configure_file(
 set(SRCS 
   src/tutorials_nav2_utils_poses_publisher.cpp
   src/tutorials_nav2_utils_opencv_to_costmap.cpp
-  src/tutorials_nav2_utils_dataset_loader.cpp)
+  src/tutorials_nav2_utils_dataset_loader.cpp
+  src/tutorials_nav2_utils_planner_test.cpp)
 
 # demo1
 add_executable(tutorial.nav2.b_spline_path_test src/tutorials_nav2_demo1_b_spline_path_test.cpp ${SRCS})
@@ -89,6 +92,10 @@ ament_target_dependencies(tutorial.nav2.costmap_image_show ${DEPS})
 add_executable(tutorial.nav2.navfn_planner src/tutorials_nav2_demo6_navfn_planner_test ${SRCS})
 ament_target_dependencies(tutorial.nav2.navfn_planner ${DEPS})
 
+# tutorials_nav2_demo7_a_star_planner_test.cpp
+add_executable(tutorial.nav2.a_star_planner src/tutorials_nav2_demo7_a_star_planner_test ${SRCS})
+ament_target_dependencies(tutorial.nav2.a_star_planner ${DEPS})
+
 install(TARGETS
   tutorial.nav2.b_spline_path_test
   DESTINATION lib/${PROJECT_NAME}
@@ -99,10 +106,14 @@ install(TARGETS
   tutorial.nav2.bezier_path
   tutorial.nav2.costmap_image_show
   tutorial.nav2.navfn_planner
+  tutorial.nav2.a_star_planner
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY images maps DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY images DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY maps DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY rviz DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

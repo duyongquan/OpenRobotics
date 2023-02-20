@@ -17,6 +17,7 @@
   <depend>grid_map_ros</depend>
   <depend>grid_map_core</depend> 
   <depend>grid_map_cv</depend> 
+  <depend>nav2_planner</depend>
   <depend>grid_map_msgs</depend> 
   <depend>nav2_costmap_2d</depend>
   <depend>nav2_map_server</depend>
