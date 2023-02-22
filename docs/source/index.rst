@@ -9,6 +9,7 @@ Session 1 - ROS 2 Concepts and Fundamentals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. toctree::
    :maxdepth: 1
+
    Chapter 0 - ROS2-Inroduction <_source/inroduction/ROS2-Inroduction.md>
    Chapter 1 - ROS2-Filesystem <_source/basics/ROS2-Filesystem.md>
    Chapter 2 - ROS2-Publisher-Subscriber <_source/basics/ROS2-Filesystem.md>
