@@ -44,8 +44,8 @@ set(dependencies
 )
 
 add_library(${library_name} SHARED
-  src/navfn_planner.cpp
-  src/navfn.cpp
+  src/cubic_spline_planner.cpp
+  src/cubic_spline.cpp
 )
 
 ament_target_dependencies(${library_name}
