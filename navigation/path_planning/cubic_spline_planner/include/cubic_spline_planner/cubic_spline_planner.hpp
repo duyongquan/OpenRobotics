@@ -23,6 +23,7 @@
 #include "nav2_costmap_2d/costmap_2d_ros.hpp"
 #include "nav2_util/geometry_utils.hpp"
 
+#include "cubic_spline_planner/cubic_spline.hpp"
 
 using namespace std::chrono_literals;
 
@@ -96,61 +97,6 @@ protected:
     nav_msgs::msg::Path & plan);
 
   /**
-   * @brief Compute the navigation function given a seed point in the world to start from
-   * @param world_point Point in world coordinate frame
-   * @return true if can compute
-   */
-  bool computePotential(const geometry_msgs::msg::Point & world_point);
-
-  /**
-   * @brief Compute a plan to a goal from a potential - must call computePotential first
-   * @param goal Goal pose
-   * @param plan Path to be computed
-   * @return true if can compute a plan path
-   */
-  bool getPlanFromPotential(
-    const geometry_msgs::msg::Pose & goal,
-    nav_msgs::msg::Path & plan);
-
-  /**
-   * @brief Remove artifacts at the end of the path - originated from planning on a discretized world
-   * @param goal Goal pose
-   * @param plan Computed path
-   */
-  void smoothApproachToGoal(
-    const geometry_msgs::msg::Pose & goal,
-    nav_msgs::msg::Path & plan);
-
-  /**
-   * @brief Compute the potential, or navigation cost, at a given point in the world
-   *        must call computePotential first
-   * @param world_point Point in world coordinate frame
-   * @return double point potential (navigation cost)
-   */
-  double getPointPotential(const geometry_msgs::msg::Point & world_point);
-
-  // Check for a valid potential value at a given point in the world
-  // - must call computePotential first
-  // - currently unused
-  // bool validPointPotential(const geometry_msgs::msg::Point & world_point);
-  // bool validPointPotential(const geometry_msgs::msg::Point & world_point, double tolerance);
-
-  /**
-   * @brief Compute the squared distance between two points
-   * @param p1 Point 1
-   * @param p2 Point 2
-   * @return double squared distance between two points
-   */
-  inline double squared_distance(
-    const geometry_msgs::msg::Pose & p1,
-    const geometry_msgs::msg::Pose & p2)
-  {
-    double dx = p1.position.x - p2.position.x;
-    double dy = p1.position.y - p2.position.y;
-    return dx * dx + dy * dy;
-  }
-
-  /**
    * @brief Transform a point from world to map frame
    * @param wx double of world X coordinate
    * @param wy double of world Y coordinate
@@ -169,21 +115,8 @@ protected:
    */
   void mapToWorld(double mx, double my, double & wx, double & wy);
 
-  /**
-   * @brief Set the corresponding cell cost to be free space
-   * @param mx int of map X coordinate
-   * @param my int of map Y coordinate
-   */
-  void clearRobotCell(unsigned int mx, unsigned int my);
-
-  /**
-   * @brief Determine if a new planner object should be made
-   * @return true if planner object is out of date
-   */
-  bool isPlannerOutOfDate();
-
   // Planner based on ROS1 NavFn algorithm
-  std::unique_ptr<NavFn> planner_;
+  std::unique_ptr<CubicSpline> planner_;
 
   // TF buffer
   std::shared_ptr<tf2_ros::Buffer> tf_;
@@ -192,16 +125,13 @@ protected:
   rclcpp::Clock::SharedPtr clock_;
 
   // Logger
-  rclcpp::Logger logger_{rclcpp::get_logger("NavfnPlanner")};
+  rclcpp::Logger logger_{rclcpp::get_logger("CubicSplinePlanner")};
 
   // Global Costmap
   nav2_costmap_2d::Costmap2D * costmap_;
 
   // The global frame of the costmap
   std::string global_frame_, name_;
-
-  // Whether or not the planner should be allowed to plan through unknown space
-  bool allow_unknown_, use_final_approach_orientation_;
 
   // If the goal is obstructed, the tolerance specifies how many meters the planner
   // can relax the constraint in x and y before failing

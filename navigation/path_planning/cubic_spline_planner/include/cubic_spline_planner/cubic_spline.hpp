@@ -13,6 +13,7 @@ namespace path_planner
 
 class CubicSpline
 {
+public:
   /**
    * @brief  Constructs the planner
    * @param nx The x size of the map
