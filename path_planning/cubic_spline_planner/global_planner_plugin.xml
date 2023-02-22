@@ -1,5 +1,0 @@
-<library path="cubic_spline_planner">
-	<class name="cubic_spline_planner/CubicSplinePlanner" type="cubic_spline_planner::CubicSplinePlanner" base_class_type="nav2_core::GlobalPlanner">
-	  <description></description>
-	</class>
-</library>
