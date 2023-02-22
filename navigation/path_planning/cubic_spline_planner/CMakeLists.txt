@@ -46,6 +46,8 @@ set(dependencies
 add_library(${library_name} SHARED
   src/cubic_spline_planner.cpp
   src/cubic_spline.cpp
+  src/spline_2d.cpp
+  src/spline.cpp
 )
 
 ament_target_dependencies(${library_name}
