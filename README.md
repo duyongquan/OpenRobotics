@@ -4,6 +4,8 @@
 
 > 此工程为导航算法需要的基础知识。[详细文档](https://ros2-tutorials.readthedocs.io/en/latest/#)
 
+如果编译此工程，[请看详细编译说明]()
+
 # Part I ROS2 rclcpp
 
 
