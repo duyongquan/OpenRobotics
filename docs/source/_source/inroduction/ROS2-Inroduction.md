@@ -1,7 +1,5 @@
 # ROS2-Introduction
 
-
-
 ## 1 搭建环境
 
 * ubuntu20
