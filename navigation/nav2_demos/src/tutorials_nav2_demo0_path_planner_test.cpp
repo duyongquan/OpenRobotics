@@ -10,8 +10,6 @@
 
 #include "nav2_demos/tutorials_nav2_utils.hpp"
 
-using namespace std::chrono_literals;
-
 namespace ros2_tutorials
 {
 namespace nav2
@@ -19,18 +17,18 @@ namespace nav2
 namespace
 {
 
-class AStarPlanner : public rclcpp::Node
+class PathPlanner : public rclcpp::Node
 {
 public:
-    AStarPlanner() : Node("a_star_planner")
+    PathPlanner() : Node("path_planner")
     {
-        a_star_palnner_ = std::make_shared<PlannerTester>();
+        path_planner_ = std::make_shared<PlannerTester>();
         pose_publisher_ = std::make_shared<PosesPublisher>(this);
         timer_ = create_wall_timer(
-            2000ms, std::bind(&AStarPlanner::HandleTimerCallback, this));
+            2000ms, std::bind(&PathPlanner::HandleTimerCallback, this));
     }
 
-    ~AStarPlanner() {}
+    ~PathPlanner() {}
 
 private:
 
@@ -45,11 +43,13 @@ private:
         nav_msgs::msg::Path path;
 
         if (start_ok && goal_ok) {
-            bool success = a_star_palnner_->createPlan(start, goal, path);
+            RCLCPP_ERROR(this->get_logger(), "Start compute A->B path");
+            bool success = path_planner_->createPlan(start, goal, path);
+            RCLCPP_ERROR(this->get_logger(), "Start compute A->B finished");
             if (!success) {
                 RCLCPP_ERROR(this->get_logger(), "create path failed");
             } else {
-                a_star_palnner_->publishPath(path);
+                path_planner_->publishPath(path);
             }
         }
     }
@@ -60,27 +60,26 @@ private:
             return;
         }
         std::string pgm = GetMapsPath() + "map.pgm";
-        a_star_palnner_->activate();
-        a_star_palnner_->loadMap(pgm);
+        path_planner_->activate();
+        path_planner_->loadMap(pgm);
         load_finished_ = true;
     }
 
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<PosesPublisher> pose_publisher_ {nullptr};
-    std::shared_ptr<PlannerTester> a_star_palnner_{nullptr};
+    std::shared_ptr<PlannerTester> path_planner_{nullptr};
 
     bool load_finished_{false};
-};
+}; 
 
 }  // namespace
-}  // namespace nav2WW
+}  // namespace nav2
 }  // namespace ros2_tutorials
-
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
-  auto node = std::make_shared<ros2_tutorials::nav2::AStarPlanner>();
+  auto node = std::make_shared<ros2_tutorials::nav2::PathPlanner>();
   rclcpp::spin(node);
   rclcpp::shutdown();
   return 0;
