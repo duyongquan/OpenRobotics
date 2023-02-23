@@ -39,7 +39,7 @@ cd ros2_ws/src
 * ros2_tutorials
 
   ```shell
-  git clone -b https://github.com/duyongquan/ros2_tutorials
+  git clone https://github.com/duyongquan/ros2_tutorials
   ```
 
 ## 3 编译
