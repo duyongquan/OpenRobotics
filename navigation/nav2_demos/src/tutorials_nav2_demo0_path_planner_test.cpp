@@ -22,6 +22,8 @@ class PathPlanner : public rclcpp::Node
 public:
     PathPlanner() : Node("path_planner")
     {
+        declare_parameter("yaml_filename", rclcpp::PARAMETER_STRING);
+
         path_planner_ = std::make_shared<PlannerTester>();
         pose_publisher_ = std::make_shared<PosesPublisher>(this);
         timer_ = create_wall_timer(
@@ -45,7 +47,6 @@ private:
         if (start_ok && goal_ok) {
             RCLCPP_ERROR(this->get_logger(), "Start compute A->B path");
             bool success = path_planner_->createPlan(start, goal, path);
-            RCLCPP_ERROR(this->get_logger(), "Start compute A->B finished");
             if (!success) {
                 RCLCPP_ERROR(this->get_logger(), "create path failed");
             } else {
@@ -59,9 +60,17 @@ private:
         if (load_finished_) {
             return;
         }
-        std::string pgm = GetMapsPath() + "map.pgm";
+        // std::string pgm = GetMapsPath() + "map.pgm";
         path_planner_->activate();
-        path_planner_->loadMap(pgm);
+
+        // Get the name of the YAML file to use
+        std::string yaml_filename =  GetMapsPath() + get_parameter("yaml_filename").as_string();
+        RCLCPP_INFO(this->get_logger(), "yaml_filename %s",yaml_filename.c_str());
+        bool success = path_planner_->loadMapFromYaml(yaml_filename);
+        if (!success) {
+            RCLCPP_ERROR(this->get_logger(), "Load map %s failed",yaml_filename.c_str() );
+            return;
+        }
         load_finished_ = true;
     }
 

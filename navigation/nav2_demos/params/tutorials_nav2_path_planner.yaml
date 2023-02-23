@@ -1,6 +1,7 @@
 path_planner:
   ros__parameters:
     expected_planner_frequency: 20.0
+    yaml_filename: "empty_room.yaml"
     use_sim_time: True
     planner_plugins: ["GridBased"]
     GridBased:

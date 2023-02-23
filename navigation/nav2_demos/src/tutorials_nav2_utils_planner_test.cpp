@@ -246,6 +246,45 @@ void PlannerTester::loadMap(const std::string& pgm_filename)
   setCostmap();
 }
 
+bool PlannerTester::loadMapFromYaml(const std::string& yaml_file)
+{
+  if (map_ == nullptr) {
+    map_ = std::make_shared<nav_msgs::msg::OccupancyGrid>();
+  }
+  
+  switch (nav2_map_server::loadMapFromYaml(yaml_file, *map_)) {
+    case nav2_map_server::MAP_DOES_NOT_EXIST:
+        RCLCPP_ERROR(this->get_logger(), "map not exist");
+        return false;
+    case nav2_map_server::INVALID_MAP_METADATA:
+        RCLCPP_ERROR(this->get_logger(), "map metadata is invalid");
+        return false;
+    case nav2_map_server::INVALID_MAP_DATA:
+        RCLCPP_ERROR(this->get_logger(), "map data is invalid");
+        return false;
+    case nav2_map_server::LOAD_MAP_SUCCESS:
+        // Correcting msg_ header when it belongs to spiecific node
+        RCLCPP_INFO(this->get_logger(), "map load is success");
+        map_->info.map_load_time = this->get_clock()->now();
+        map_->header.frame_id = "map";
+        map_->header.stamp = this->get_clock()->now();
+  }
+
+  map_->header.stamp = this->now();
+  map_->header.frame_id = "map";
+  map_->info.map_load_time = this->now();
+
+  // TODO(orduno): #443 replace with a latched topic
+  map_timer_ = create_wall_timer(1s, [this]() -> void {map_pub_->publish(*map_);});
+
+  map_set_ = true;
+  costmap_set_ = false;
+  using_fake_costmap_ = false;
+
+  setCostmap();
+  return true;
+}
+
 void PlannerTester::loadSimpleCostmap(const TestCostmap & testCostmapType)
 {
   RCLCPP_INFO(get_logger(), "loadSimpleCostmap called.");
