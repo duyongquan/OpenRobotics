@@ -84,7 +84,6 @@ private:
 }  // namespace ros2_tutorials
 
 
-
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
