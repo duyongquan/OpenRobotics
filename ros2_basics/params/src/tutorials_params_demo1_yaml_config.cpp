@@ -27,7 +27,7 @@ void ParametersParser::ReadParams()
     param_double_ = this->get_parameter("param_double").as_double();
     param_int_ = this->get_parameter("param_int").as_int();
     param_float_ = this->get_parameter("param_float").as_double();
-    param_str_ = this->get_parameter("param_str_").as_string();
+    param_str_ = this->get_parameter("param_str").as_string();
 
     // Print
     RCLCPP_INFO(this->get_logger(), "double : %lf", param_double_);
