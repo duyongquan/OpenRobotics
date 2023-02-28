@@ -3,9 +3,10 @@ path_planner:
     expected_planner_frequency: 20.0
     yaml_filename: "empty_room.yaml"
     use_sim_time: True
+    visualize_potential: True
     planner_plugins: ["GridBased"]
     GridBased:
-      plugin: "nav2_straightline_planner/StraightLine"
+      plugin: "nav2_navfn_planner/NavfnPlanner"
       interpolation_resolution: 0.1
 
 path_planner_rclcpp_node:
