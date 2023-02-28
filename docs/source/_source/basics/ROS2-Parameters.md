@@ -1,6 +1,8 @@
-# 1 ROS2参数概述
+# ROS2-Parameters
 
-## 1.1参数定义
+## 1 ROS2参数概述
+
+### 1.1参数定义
 
 ROS2官方对参数的定义是：
 
@@ -8,7 +10,7 @@ ROS2官方对参数的定义是：
 
 **参数是节点的一个配置值，可以认为参数是一个节点的设置**
 
-## 1.2参数的组成
+### 1.2参数的组成
 
 ROS2参数是由键值对组成，如
 
@@ -25,9 +27,9 @@ age: 5
 - string 和string[]
 - byte[]
 
-# 2 参数使用示例
+## 2 参数使用示例
 
-## 2.1 声明并使用参数
+### 2.1 声明并使用参数
 
 ```c++
 // 声明参数名，并为其赋初值
@@ -43,7 +45,7 @@ param_float_ = this->get_parameter("param_float").as_double();
 param_str_ = this->get_parameter("param_str").as_string();
 ```
 
-## 2.2 使用默认参数值
+### 2.2 使用默认参数值
 
 按照如下方式编译并运行代码，上述参数值为默认值
 
@@ -53,7 +55,7 @@ param_str_ = this->get_parameter("param_str").as_string();
  ros2 run params tutorial.params.yaml_config_test
  ```
 
-## 2.3 使用launch文件设置参数
+### 2.3 使用launch文件设置参数
 
 若launch文件中设置了参数值，启动时会覆盖参数的初始值
 
@@ -75,9 +77,7 @@ param_str_ = this->get_parameter("param_str").as_string();
 ros2 launch params  tutorials_params_demo1_yaml_conmfig_test.launch.py 
 ```
 
-
-
-## 2.4 使用ymal文件设置参数
+### 2.4 使用ymal文件设置参数
 
 启动时也可以读取ymal文件来覆盖参数的初始值，使用ymal配置参数需使用固定格式。其中，minimal_paser为Node名，ros__parameters为固定值，其余的为键值对，示例如下
 
@@ -97,9 +97,7 @@ ros2 launch params  tutorials_params_demo1_yaml_conmfig_test.launch.py
 ros2 run  params tutorial.params.yaml_config_test --ros-args --params-file ./parameters.yaml
 ```
 
-
-
-# 4 有关参数的命令
+## 3 有关参数的命令
 
 ```bash
 ros2 param list
