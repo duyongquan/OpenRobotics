@@ -1,6 +1,7 @@
 # Nav2-Path-Planner
 
-
+* author :  duyongquan
+* e-mail: quandy2020@126.com
 
 ## A* 算法路径规划
 
@@ -122,6 +123,22 @@ int main(int argc, char ** argv)
 ```
 
 
+
+## 1 二叉树和图
+
+### 1.1 二叉树的层次遍历
+
+
+
+### 1.2 图的BFS & DFS
+
+
+
+## 2 Dijkstra Path Planner
+
+
+
+## 3 A* Path Planner
 
 
 

@@ -1,5 +1,8 @@
 # ROS2-Parameters
 
+* author :  yipeng
+* e-mail: evenap96@qq.com
+
 ## 1 ROS2参数概述
 
 ### 1.1参数定义
