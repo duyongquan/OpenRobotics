@@ -5,6 +5,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+add_compile_options(-g)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -17,15 +19,6 @@ find_package(nav2_util REQUIRED)
 include_directories(
   include
 )
-
-# dependency
-set(DEPS 
-  rclcpp
-  std_msgs
-  tf2
-  tf2_ros
-  geometry_msgs
-  nav2_util)
 
 # sources
 set(SRCS 
