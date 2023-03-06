@@ -93,19 +93,16 @@ def generate_launch_description():
         default_value='True',
         description='Whether to start RVIZ')
 
+    # urdf bring up
+    urdf_bringup_dir = get_package_share_directory('a1_description')
+    urdf_launch_dir = os.path.join(urdf_bringup_dir, 'launch')
+    urdf_bringup_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(urdf_launch_dir, 'a1_description.launch.py')),
+        launch_arguments={'namespace': namespace,
+                          'use_namespace': use_namespace,
+                          'use_sim_time': use_sim_time}.items())
 
-    urdf = os.path.join(bringup_dir, 'urdf', 'turtlebot3_waffle.urdf')
-
-    start_robot_state_publisher_cmd = Node(
-        condition=IfCondition(use_robot_state_pub),
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        namespace=namespace,
-        output='screen',
-        parameters=[{'use_sim_time': use_sim_time}],
-        remappings=remappings,
-        arguments=[urdf])
 
     rviz_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -114,7 +111,6 @@ def generate_launch_description():
         launch_arguments={'namespace': '',
                           'use_namespace': 'False',
                           'rviz_config': rviz_config_file}.items())
-
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -130,11 +126,8 @@ def generate_launch_description():
     ld.add_action(declare_use_robot_state_pub_cmd)
     ld.add_action(declare_use_rviz_cmd)
 
-
-
-
     # Add the actions to launch all of the navigation nodes
-    ld.add_action(start_robot_state_publisher_cmd)
+    ld.add_action(urdf_bringup_cmd)
     ld.add_action(rviz_cmd)
 
     return ld
