@@ -19,7 +19,7 @@
   <exec_depend>quad_local_planner</exec_depend>
   <exec_depend>quad_nmpc_controller</exec_depend>
   <exec_depend>quad_gazebo</exec_depend>
-  <exec_depend>quad_a1_description</exec_depend>
+  <exec_depend>a1_description</exec_depend>
   
   
   <export>
