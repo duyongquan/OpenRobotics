@@ -4,6 +4,7 @@
   <name>ros2_quadruped</name>
   <version>1.0.12</version>
   <description>
+    This ros2 quadruped tutorials
   </description>
   <maintainer email="quandy2020@126.com">Du YongQuan</maintainer>
   <license>Apache-2.0</license>
@@ -14,10 +15,12 @@
   <exec_depend>quad_bringup</exec_depend>
   <exec_depend>quad_mgs</exec_depend>
   <exec_depend>quad_utils</exec_depend>
-  <exec_depend>quad_simulator</exec_depend>
   <exec_depend>quad_global_body_planner</exec_depend>
   <exec_depend>quad_local_planner</exec_depend>
   <exec_depend>quad_nmpc_controller</exec_depend>
+  <exec_depend>quad_gazebo</exec_depend>
+  <exec_depend>quad_a1_description</exec_depend>
+  
   
   <export>
     <build_type>ament_cmake</build_type>
