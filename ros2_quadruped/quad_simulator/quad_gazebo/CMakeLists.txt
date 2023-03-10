@@ -17,10 +17,11 @@ find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(quad_msgs REQUIRED)
 find_package(gazebo_msgs REQUIRED)
+find_package(gazebo_ros_pkgs REQUIRED)
 find_package(quad_utils REQUIRED)
 find_package(message_filters REQUIRED)
+find_package(angles REQUIRED)
 find_package(controller_manager REQUIRED)
-find_package(joint_state_controller REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 find_package(controller_interface REQUIRED)
 find_package(control_msgs REQUIRED)
@@ -38,7 +39,7 @@ include_directories(
 )
 
 # dependency
-set(DEPS 
+set(dependencies 
   rclcpp
   std_msgs
   tf2
@@ -51,7 +52,6 @@ set(DEPS
   quad_utils
   message_filters
   controller_manager
-  joint_state_controller
   robot_state_publisher
   angles
   controller_interface
@@ -68,7 +68,7 @@ list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 
 # contact
 add_library(contact SHARED src/contact_plugin.cpp)
-add_dependencies(contact ${catkin_EXPORTED_TARGETS})
+ament_target_dependencies(contact ${dependencies})
 
 install(TARGETS
   contact

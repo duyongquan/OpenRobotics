@@ -15,12 +15,12 @@
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>controller_manager</depend>
-  <depend>joint_state_controller</depend>
   <depend>joint_state_publisher</depend>
   <depend>robot_state_publisher</depend>
   <depend>quad_msgs</depend>
   <depend>quad_utils</depend>
   <depend>gazebo_msgs</depend>
+  <depend>gazebo_ros_pkgs</depend>
   <depend>angles</depend>
   <depend>controller_interface</depend>
   <depend>control_msgs</depend>
