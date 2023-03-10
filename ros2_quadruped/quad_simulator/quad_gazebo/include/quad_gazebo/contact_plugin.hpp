@@ -5,7 +5,7 @@
 // #include "geometry_msgs/msgs/vector3.hpp"
 // #include "quad_msgs/msg/ContactMode.hpp"
 
-#include <gazebo/common/Plugin.hh>
+// #include <gazebo/common/Plugin.hh>
 
 
 namespace gazebo_plugins
