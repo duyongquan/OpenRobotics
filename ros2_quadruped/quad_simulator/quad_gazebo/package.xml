@@ -14,22 +14,17 @@
 
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
-  <depend>controller_manager</depend>
-  <depend>joint_state_publisher</depend>
-  <depend>robot_state_publisher</depend>
-  <depend>quad_msgs</depend>
-  <depend>quad_utils</depend>
+  <depend>gazebo_dev</depend>
   <depend>gazebo_msgs</depend>
-  <depend>gazebo_ros_pkgs</depend>
-  <depend>angles</depend>
-  <depend>controller_interface</depend>
-  <depend>control_msgs</depend>
-  <depend>control_toolbox</depend>
-  <depend>realtime_tools</depend> 
-  <depend>urdf</depend>
-  <depend>forward_command_controller</depend>
-  <depend>pluginlib</depend>
-  <depend>rviz2</depend>
+  <depend>gazebo_ros</depend>
+  <depend>geometry_msgs</depend>
+  <depend>quad_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>trajectory_msgs</depend> 
   <depend>xacro</depend>
 
   <export>
