@@ -10,8 +10,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
-find_package(xacro REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(xacro REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -40,11 +40,10 @@ include_directories(
 )
 
 # dependency
-set(dependencies 
+set(DEPS 
   rclcpp
   std_msgs
   tf2
-  tf2_ros
   geometry_msgs
   nav_msgs
   std_msgs
@@ -63,25 +62,16 @@ set(dependencies
   urdf
   pluginlib)
 
-# dependency
-include_directories(SYSTEM include ${Boost_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
-link_directories(${GAZEBO_LIBRARY_DIRS})
-list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
-
 # srcs
 set(SRCS 
   src/contact_state_publisher.cpp)
-
-# contact
-# add_library(contact SHARED src/contact_plugin.cpp)
-# ament_target_dependencies(contact ${dependencies})
 
 # contact_state_publisher
 add_executable(contact_state_publisher src/main.cpp ${SRCS})
 ament_target_dependencies(contact_state_publisher ${DEPS})
 
 install(TARGETS
-  # contact_state_publisher
+  contact_state_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 

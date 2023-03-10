@@ -31,7 +31,6 @@
   <depend>pluginlib</depend>
   <depend>rviz2</depend>
   <depend>xacro</depend>
-  <depend>robot_localization</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
