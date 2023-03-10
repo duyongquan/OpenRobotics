@@ -2,13 +2,15 @@
 #ifndef ROS2_QUADRUPED__QUAD_SIMULATOR_QUAD_GAZEBO_CONTACT_PLUGIN_HPP_
 #define ROS2_QUADRUPED__QUAD_SIMULATOR_QUAD_GAZEBO_CONTACT_PLUGIN_HPP_
 
-#include <chrono>
-#include <memory>
-#include <string>
+// #include "geometry_msgs/msgs/vector3.hpp"
+// #include "quad_msgs/msg/ContactMode.hpp"
 
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
+#include <gazebo/common/Plugin.hh>
 
 
+namespace gazebo_plugins
+{
+
+}
 
 #endif  // ROS2_QUADRUPED__QUAD_SIMULATOR_QUAD_GAZEBO_CONTACT_PLUGIN_HPP_
