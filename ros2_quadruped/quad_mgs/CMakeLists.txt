@@ -7,19 +7,32 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  # "msg/BodyPlan.msg"
+  # "msg/BodyState.msg"
+  # "msg/ContactMode.msg"
+  # "msg/FootPlanDiscrete.msg"
+  # "msg/FootState.msg"
+  # "msg/GRFArray.msg"
+  # "msg/LegCommand.msg"
+  # "msg/LegCommandArray.msg"
+  # "msg/LegContactMode.msg"
+  # "msg/LocalPlan.msg"
+  # "msg/MotorCommand.msg"
+  # "msg/MultiFootPlanContinuous.msg"
+  # "msg/MultiFootPlanDiscrete.msg"
+  # "msg/MultiFootState.msg"
+  # "msg/RobotPlan.msg"
+  # "msg/RobotPlanDiagnostics.msg"
+  # "msg/RobotState.msg"
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
 endif()
 
+ament_export_dependencies(rosidl_default_runtime)
+ament_export_include_directories(include)
 ament_package()
