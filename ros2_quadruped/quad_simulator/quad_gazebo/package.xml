@@ -12,6 +12,27 @@
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>controller_manager</depend>
+  <depend>joint_state_controller</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>quad_msgs</depend>
+  <depend>quad_utils</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>angles</depend>
+  <depend>controller_interface</depend>
+  <depend>control_msgs</depend>
+  <depend>control_toolbox</depend>
+  <depend>realtime_tools</depend> 
+  <depend>urdf</depend>
+  <depend>forward_command_controller</depend>
+  <depend>pluginlib</depend>
+  <depend>rviz2</depend>
+  <depend>xacro</depend>
+  <depend>robot_localization</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>
