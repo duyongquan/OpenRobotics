@@ -5,6 +5,7 @@ namespace quad_utils {
 
 TerrainMapPublisher::TerrainMapPublisher() : Node("terrain_map_publisher")
 {
+    map_converter_ = std::make_shared<MeshToGridMapConverter>(this);
 }
 
 TerrainMapPublisher::~TerrainMapPublisher() 
