@@ -70,6 +70,8 @@ set(SRCS
   src/mesh_to_grid_map_converter.cpp
   src/quad_kd.cpp
   src/ros_utils.cpp
+  src/rviz_interface.cpp
+  src/rviz_interface_node.cpp
   src/terrain_map_publisher.cpp
   src/trajectory_publisher.cpp)
 

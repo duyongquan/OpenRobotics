@@ -21,6 +21,15 @@ TerrainMapPublisher::TerrainMapPublisher() : rclcpp::Node("terrain_map_publisher
     declare_parameter("resolution", rclcpp::ParameterValue(0.2));
     declare_parameter("map_data_source", rclcpp::ParameterValue("internal"));
     declare_parameter("terrain_type", rclcpp::ParameterValue("slope"));
+    declare_parameter("obstacle_x", rclcpp::ParameterValue(2.0));
+    declare_parameter("obstacle_y", rclcpp::ParameterValue(2.0));
+    declare_parameter("obstacle_height", rclcpp::ParameterValue(0.5));
+    declare_parameter("obstacle_radius", rclcpp::ParameterValue(1.0));
+    declare_parameter("step1_x", rclcpp::ParameterValue(4.0));
+    declare_parameter("step1_height", rclcpp::ParameterValue(0.3));
+    declare_parameter("step2_x", rclcpp::ParameterValue(6.0));
+    declare_parameter("step2_height", rclcpp::ParameterValue(-0.3));
+
 
     get_parameter("terrain_map_raw", terrain_map_topic);
     get_parameter("map_frame", map_frame_);
@@ -28,6 +37,14 @@ TerrainMapPublisher::TerrainMapPublisher() : rclcpp::Node("terrain_map_publisher
     get_parameter("resolution", resolution_);
     get_parameter("update_rate", update_rate_);
     get_parameter("terrain_type", terrain_type_);
+    get_parameter("obstacle_x", obstacle_.x);
+    get_parameter("obstacle_y", obstacle_.y);
+    get_parameter("obstacle_height", obstacle_.height);
+    get_parameter("obstacle_radius", obstacle_.radius);
+    get_parameter("step1_x", step1_.x);
+    get_parameter("step1_height", step1_.height);
+    get_parameter("step2_x", step2_.height);
+    get_parameter("step2_height", step2_.height);
 
     // Setup pubs and subs
     terrain_map_pub_ = create_publisher<grid_map_msgs::msg::GridMap>(terrain_map_topic, 1);
@@ -58,23 +75,14 @@ TerrainMapPublisher::~TerrainMapPublisher()
 
 void TerrainMapPublisher::updateParams() 
 {
-    declare_parameter("obstacle_x", rclcpp::ParameterValue(2.0));
-    declare_parameter("obstacle_y", rclcpp::ParameterValue(2.0));
-    declare_parameter("obstacle_height", rclcpp::ParameterValue(0.5));
-    declare_parameter("obstacle_radius", rclcpp::ParameterValue(1.0));
-    declare_parameter("step1_x", rclcpp::ParameterValue(4.0));
-    declare_parameter("step1_height", rclcpp::ParameterValue(0.3));
-    declare_parameter("step2_x", rclcpp::ParameterValue(6.0));
-    declare_parameter("step2_height", rclcpp::ParameterValue(-0.3));
-
-    get_parameter("obstacle_x", obstacle_.x);
-    get_parameter("obstacle_y", obstacle_.y);
-    get_parameter("obstacle_height", obstacle_.height);
-    get_parameter("obstacle_radius", obstacle_.radius);
-    get_parameter("step1_x", step1_.x);
-    get_parameter("step1_height", step1_.height);
-    get_parameter("step2_x", step2_.height);
-    get_parameter("step2_height", step2_.height);
+    this->set_parameter(rclcpp::Parameter("obstacle_x", 2.0));
+    this->set_parameter(rclcpp::Parameter("obstacle_y", 0.0));
+    this->set_parameter(rclcpp::Parameter("obstacle_height", 0.5));
+    this->set_parameter(rclcpp::Parameter("obstacle_radius", 1.0));
+    this->set_parameter(rclcpp::Parameter("step1_x", 4.0));
+    this->set_parameter(rclcpp::Parameter("step1_height", 0.3));
+    this->set_parameter(rclcpp::Parameter("step2_x", 6.0));
+    this->set_parameter(rclcpp::Parameter("step2_height", -0.3));
 }
 
 void TerrainMapPublisher::createMap() 

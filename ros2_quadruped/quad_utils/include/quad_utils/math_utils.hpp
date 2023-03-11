@@ -19,10 +19,9 @@
 #include "quad_utils/function_timer.hpp"
 #include "quad_utils/quad_kd.hpp"
 
-
 namespace ros2_quadruped {
 namespace quad_utils {
-
+namespace math_utils {
 /**
  * @brief Linearly interpolate data (a + t*(b-a)). DOES NOT CHECK FOR
  * EXTRAPOLATION.
@@ -151,6 +150,7 @@ std::vector<double> unwrap(std::vector<double> data);
  */
 Eigen::MatrixXd sdlsInv(const Eigen::MatrixXd &jacobian);
 
+}  // namespace math_utils 
 }  // namespace quad_utils
 }  // namespace ros2_quadruped
 

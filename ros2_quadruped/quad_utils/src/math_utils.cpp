@@ -2,6 +2,7 @@
 
 namespace ros2_quadruped {
 namespace quad_utils {
+namespace math_utils {
 
 std::vector<double> interpMat(const std::vector<double> input_vec,
     const std::vector<std::vector<double>> input_mat,
@@ -217,6 +218,6 @@ Eigen::MatrixXd sdlsInv(const Eigen::MatrixXd &jacobian)
     Eigen::MatrixXd jacobian_inv = svd.matrixV() * sig_inv.asDiagonal() * svd.matrixU().transpose();
     return jacobian_inv;
 }
-
+}  // namespace math_utils 
 }  // namespace quad_utils
 }  // namespace ros2_quadruped

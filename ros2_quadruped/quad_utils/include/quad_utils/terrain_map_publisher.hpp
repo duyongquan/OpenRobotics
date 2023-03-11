@@ -31,7 +31,6 @@ struct Step
     double height;
 };
 
-
 class TerrainMapPublisher : public rclcpp::Node
 {
 public:
