@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(quad_msgs REQUIRED)
+find_package(quad_gazebo REQUIRED)
 find_package(pcl_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -45,6 +46,7 @@ include_directories(
 set(DEPS 
   rclcpp
   quad_msgs
+  quad_gazebo
   geometry_msgs
   grid_map_msgs
   grid_map_core

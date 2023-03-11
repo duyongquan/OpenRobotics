@@ -20,6 +20,7 @@
   <depend>grid_map_pcl</depend>
   <depend>grid_map_ros</depend>
   <depend>quad_msgs</depend>
+  <depend>quad_gazebo</depend>
   <depend>nav_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>std_srvs</depend>

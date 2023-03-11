@@ -2,7 +2,7 @@
 #include "ament_index_cpp/get_package_share_directory.hpp"
 
 #include <pcl/io/vtk_lib_io.h>
-#include <pcl_ros/point_cloud.hpp>
+// #include <pcl_ros/point_cloud.hpp>
 #include <pcl_conversions/pcl_conversions.h>
 #include <grid_map_pcl/GridMapPclConverter.hpp>
 #include <grid_map_ros/grid_map_ros.hpp>
@@ -96,8 +96,8 @@ void MeshToGridMapConverter::meshCallback(const pcl_msgs::msg::PolygonMesh::Shar
 
     // Converting from message to an object
     pcl::PolygonMesh polygon_mesh;
-    pcl_conversions::toPCL(mesh_msg, polygon_mesh);
-    meshToGridMap(polygon_mesh, mesh_msg->header.frame_id, mesh_msg.header.stamp.toNSec());
+    pcl_conversions::toPCL(*mesh_msg, polygon_mesh);
+    meshToGridMap(polygon_mesh, mesh_msg->header.frame_id, mesh_msg->header.stamp.nanosec);
 }
 
 // Converts a mesh to grid map and stores the result
