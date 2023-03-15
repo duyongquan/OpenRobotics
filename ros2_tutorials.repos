@@ -26,4 +26,4 @@ repositories:
   robot_localization:
     type: git
     url: https://github.com/cra-ros-pkg/robot_localization.git
-    version: ros2
+    version: galactic-devel
