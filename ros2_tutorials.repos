@@ -3,6 +3,18 @@ repositories:
     type: git
     url: https://github.com/ros-planning/navigation2.git
     version: galactic
+  cartographer:
+    type: git
+    url: https://github.com/ros2/cartographer.git
+    version: ros2
+  cartographer_ros:
+    type: git
+    url: https://github.com/ros2/cartographer_ros.git
+    version: ros2
+  slam_toolbox:
+    type: git
+    url: https://github.com/SteveMacenski/slam_toolbox.git
+    version: galactic
   grid_map:
     type: git
     url: https://github.com/ANYbotics/grid_map.git
@@ -27,3 +39,17 @@ repositories:
     type: git
     url: https://github.com/cra-ros-pkg/robot_localization.git
     version: galactic-devel
+  turtlebot3:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/turtlebot3.git
+    version: galactic-devel
+  turtlebot3_simulations:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+    version: galactic-devel
+  turtlebot3_msgs:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+    version: galactic-devel
+    
+  
