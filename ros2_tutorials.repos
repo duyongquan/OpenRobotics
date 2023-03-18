@@ -51,5 +51,10 @@ repositories:
     type: git
     url: https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
     version: galactic-devel
-    
+  elevation_mapping:
+    type: git
+    url: https://github.com/ANYbotics/elevation_mapping.git
+    version: ros2
+  
+
   
