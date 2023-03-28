@@ -1,0 +1,11 @@
+# Goal: 要移动的距离
+float32 distance
+---
+# Result: 最终的位置
+float32 pose
+---
+# Feedback: 中间反馈的位置和状态
+float32 pose
+uint32 status
+uint32 STATUS_MOVEING = 3
+uint32 STATUS_STOP = 4

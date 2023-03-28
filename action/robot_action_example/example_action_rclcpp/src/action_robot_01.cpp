@@ -127,6 +127,7 @@ class ActionRobot01 : public rclcpp::Node {
 
     if (is_active(handle)) {
       // indicate if client has requested this goal be cancelled
+      // 鲁棒性考虑
       if (handle->is_canceling()) {
         RCLCPP_INFO(this->get_logger(), "Client requested to cancel the goal. Cancelling.");
         // indicate that a goal has been canceled 
@@ -138,6 +139,8 @@ class ActionRobot01 : public rclcpp::Node {
         handle->abort(result);
       }
       handle.reset();
+      bool active = is_active(handle);
+      RCLCPP_INFO(this->get_logger(),"Handle active status is %i after setting", active);
     }
   }
 
@@ -268,7 +271,11 @@ class ActionRobot01 : public rclcpp::Node {
     RCLCPP_INFO(this->get_logger(), "Receiveing a new goal");
     
     if(is_active(current_handle_) || is_running()){
-      RCLCPP_INFO(this->get_logger(), "Current_handle_ is busy");
+
+      RCLCPP_INFO(this->get_logger(), 
+      "Current_handle_ is busy, Current_handle_ active status and is_running() are %i, %i respectively",
+      is_active(current_handle_),is_running()
+      );
        
       if (is_active(pending_handle_)) {
         RCLCPP_INFO(this->get_logger(), "Pending_handle_ is also busy, action server have to terminate pending_handle_");
@@ -276,11 +283,16 @@ class ActionRobot01 : public rclcpp::Node {
       }
       // 传进来的新任务为 抢占 pending_handle_
       RCLCPP_INFO(this->get_logger(), "Another goal preempts pending_handle_");
+      bool handleIsActive = is_active(pending_handle_);
+      RCLCPP_INFO(this->get_logger(),"Pending_handle_ active is %i before instancing", handleIsActive);
       pending_handle_ = goal_handle;
+      handleIsActive = is_active(pending_handle_);
+      RCLCPP_INFO(this->get_logger(),"Pending_handle_ active is %i after instancing", handleIsActive);
+
       preempt_requested_ = true;
     } else{
       // current_handle_ 没有执行 任务，也没有任务被挂起
-      RCLCPP_INFO(this->get_logger(), "current_handle_ is idle");
+      RCLCPP_INFO(this->get_logger(), "Current_handle_ is idle");
       if (is_active(pending_handle_)) {
         // Shouldn't reach a state with a pending goal but no current one.
         RCLCPP_INFO(this->get_logger(), "Forgot to handle a preemption. Terminating the pending goal.");
@@ -289,14 +301,18 @@ class ActionRobot01 : public rclcpp::Node {
       }
 
       // pending_handle_、current_handle_均是 deactive状态
+      bool handleIsActive = is_active(current_handle_);
+      RCLCPP_INFO(this->get_logger(),"Current_handle_ active is %i before instancing", handleIsActive);
       current_handle_ = goal_handle;
+      handleIsActive = is_active(current_handle_);
+      RCLCPP_INFO(this->get_logger(),"Current_handle_ active is %i after instancing", handleIsActive);
 
       // Return quickly to avoid blocking the executor, so spin up a new thread
       RCLCPP_INFO(this->get_logger(),"Executing goal asynchronously.");
       // std::async 将 std::future、 std::promise、 std::packaged_task 三者封装在一起
       // std::packaged_task 中保存了 work()函数 执行的结果
 
-      // 任务一旦开支执行 execution_future_.valid() 变成 true
+      // 任务一旦开支执行 execution_future_.valid() 返回 true，也即is_running()返回true。
       // 当 execute_move 执行完成后 execution_future_.valid() 变成 false
       // execution_future_在is_running函数中判断
       execution_future_ = std::async(std::launch::async,[this]() {work();});
@@ -315,6 +331,8 @@ class ActionRobot01 : public rclcpp::Node {
       RCLCPP_INFO(this->get_logger(),"Executing the goal...");
       try {
         execute_move(current_handle_);
+        bool handleIsActive = is_active(current_handle_);
+        RCLCPP_INFO(this->get_logger(),"Current_handle_ active is %i after execute_move", handleIsActive);
       } catch (std::exception & ex) {
         RCLCPP_INFO(this->get_logger(),
           "Action server failed while executing action callback: \"%s\"", ex.what());
@@ -358,7 +376,8 @@ class ActionRobot01 : public rclcpp::Node {
   std::shared_ptr<const MoveRobot::Goal> accept_pending_goal()
   {
     std::lock_guard<std::recursive_mutex> lock(update_mutex_);
-
+    
+    // 若pending_handle_未实例化 或 pending_handle_没有挂起的任务
     if (!pending_handle_ || !pending_handle_->is_active()) {
       RCLCPP_INFO(this->get_logger(),"Attempting to get pending goal when not available");
       return std::shared_ptr<MoveRobot::Goal>();
