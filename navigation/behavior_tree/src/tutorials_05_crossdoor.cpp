@@ -42,7 +42,7 @@ static const char* xml_text = R"(
                     <IsDoorOpen/>
                     <PassThroughDoor/>
                 </Sequence>
-                <SubTree ID="DoorClosed"/>
+                <SubTree ID="DoorClosed"/>  
                 <PassThroughWindow/>
             </Fallback>
             <CloseDoor/>

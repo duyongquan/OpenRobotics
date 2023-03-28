@@ -44,12 +44,17 @@ public:
     SyncActionNode(name, config)
   {}
 
+  // 该BT::Node被 tick时 要执行的函数
   NodeStatus tick() override
   {
     Position2D mygoal = {1.1, 2.3};
+    // 在名为"goal"的 port中 写入值
     setOutput("goal", mygoal);
     return NodeStatus::SUCCESS;
   }
+
+  // 该BT::Node中 有一个要写入值的 port, 其名称为 “goal”
+  // 值的类型为 “Position2D”
   static PortsList providedPorts()
   {
     return {OutputPort<Position2D>("goal")};
@@ -62,7 +67,8 @@ public:
   PrintTarget(const std::string& name, const NodeConfiguration& config) :
     SyncActionNode(name, config)
   {}
-
+  
+  // tick该 BT::node时要执行的函数
   NodeStatus tick() override
   {
     auto res = getInput<Position2D>("target");
@@ -74,7 +80,8 @@ public:
     printf("Target positions: [ %.1f, %.1f ]\n", goal.x, goal.y);
     return NodeStatus::SUCCESS;
   }
-
+  
+  // 该BT::Node中 有一个要读取值的 port, 其名称为 “target”
   static PortsList providedPorts()
   {
     // Optionally, a port can have a human readable description
@@ -125,6 +132,11 @@ int main()
   factory.registerNodeType<CalculateGoal>("CalculateGoal");
   factory.registerNodeType<PrintTarget>("PrintTarget");
 
+  //  ID（BT::node类同名）  port's name     key    value(optional)
+  //  <CalculateGoal         goal="{GoalPosition}" />
+  //  <PrintTarget          target="{GoalPosition}" />
+  //  <SetBlackboard       output_key="OtherGoal" value="-1;3" />
+  //  <PrintTarget          target="{OtherGoal}" />
   auto tree = factory.createTreeFromText(xml_text);
   tree.tickRootWhileRunning();
 

@@ -53,6 +53,8 @@ int main()
   // The recommended way to create a Node is through inheritance.
   // Even if it requires more boilerplate, it allows you to use more functionalities
   // like ports (we will discuss this in future tutorials).
+
+  // 绑定行为树 中各个BT::node的 要执行的回调函数
   factory.registerNodeType<ApproachObject>("ApproachObject");
 
   // Registering a SimpleActionNode using a function pointer.

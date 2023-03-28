@@ -53,13 +53,18 @@ public:
   // This Action simply write a value in the port "text"
   BT::NodeStatus tick() override
   {
+    // 在名为"text" port 写入值 "The answer is 42"
     setOutput("text", "The answer is 42");
+
+    // getInput<std::string>("message");
     return BT::NodeStatus::SUCCESS;
   }
 
-  // A node having ports MUST implement this STATIC method
+  // 表示 该BT::Node中 有一个 要写入值的port， 该port的名称是"text"
+   // 在一个BT::Node中 声明一个port的方式
   static BT::PortsList providedPorts()
   {
+    // 要写入值的port 的名字叫做 "text"
     return {BT::OutputPort<std::string>("text")};
   }
 };
@@ -76,12 +81,22 @@ int main()
 
   // Similarly to SaySomething, ThinkWhatToSay has an OUTPUT port called "text"
   // Both these ports are std::string, therefore they can connect to each other
+
+  // void BT::BehaviorTreeFactory::registerNodeType(const std::string& ID)
+  // registerNodeType is the method to use to register your custom TreeNode
+  // It accepts only classed derived from either ActionNodeBase, DecoratorNode, ControlNode, or ConditionNode
   factory.registerNodeType<ThinkWhatToSay>("ThinkWhatToSay");
 
   // SimpleActionNodes can not define their own method providedPorts(), therefore
   // we have to pass the PortsList explicitly if we want the Action to use getInput()
   // or setOutput();
+  // 要读取值的port 的名字叫做 "message"
   PortsList say_something_ports = {InputPort<std::string>("message")};
+
+  // void BT::BehaviorTreeFactory::registerSimpleAction(const std::string&  ID
+  //                                                    const SimpleConditionNode::TickFunctor& tick_functor  
+  //                                                    PortList        ports={}
+  // )
   factory.registerSimpleAction("SaySomething2", SaySomethingSimple, say_something_ports);
 
   /* An INPUT can be either a string, for instance:
@@ -93,7 +108,12 @@ int main()
      *
      *     <SaySomething message="{the_answer}" />
      */
+  
+  // 在BT中使用 Port 使BT::Node之间的数据通信 ，一定要xml中 的 写和读 的port的 key相同
+  // "{the_answer}"
 
+  // <ThinkWhatToSay   text="{the_answer}"/>, 名为“text”的port的 key为 "{the_answer}"
+  // <SaySomething2    message="{the_answer}" />, 名为“message”的port的 key为 "{the_answer}"
   auto tree = factory.createTreeFromText(xml_text);
   tree.tickRootWhileRunning();
 
