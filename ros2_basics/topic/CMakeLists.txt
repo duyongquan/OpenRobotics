@@ -14,16 +14,19 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(rcutils)
 
 # include
 include_directories(
   include
+  tools
 )
 
 # dependency
 set(DEPS 
   rclcpp
-  std_msgs)
+  std_msgs
+  rcutils)
 
 # sources
 set(SRCS 
@@ -59,6 +62,10 @@ add_executable(tutorials.topic.member_function_with_unique_network_flow_endpoint
   src/tutorials_topic_demo6_member_function_with_unique_network_flow_endpoints_test.cpp)
 ament_target_dependencies(tutorials.topic.member_function_with_unique_network_flow_endpoints_test ${DEPS})
 
+# demo6 grpc_tool
+add_executable(tutorials.topic.grpc_tool tools/grpc_tool.cpp)
+ament_target_dependencies(tutorials.topic.grpc_tool ${DEPS})
+
 install(TARGETS
   tutorial.topic.initial_env_test
   tutorial.topic.member_function_test
@@ -66,6 +73,7 @@ install(TARGETS
   tutorial.topic.not_composable_test
   tutorials.topic.member_function_with_topic_statistics_test
   tutorials.topic.member_function_with_unique_network_flow_endpoints_test
+  tutorials.topic.grpc_tool
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -70,9 +70,9 @@ private:
     std::shared_ptr<PlannerTester> a_star_palnner_{nullptr};
 
     bool load_finished_{false};
-};  
-}
+};
 
+}  // namespace
 }  // namespace nav2WW
 }  // namespace ros2_tutorials
 

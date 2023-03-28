@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ros2_quadruped</name>
+  <version>1.0.12</version>
+  <description>
+    This ros2 quadruped tutorials
+  </description>
+  <maintainer email="quandy2020@126.com">Du YongQuan</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ros2_quadruped doesn't belong for recursive dependencies -->
+  <exec_depend>quad_behavior_tree</exec_depend>
+  <exec_depend>quad_bringup</exec_depend>
+  <exec_depend>quad_bt_navigator</exec_depend>
+  <exec_depend>quad_common</exec_depend>
+  <exec_depend>quad_core</exec_depend>
+  <exec_depend>quad_costmap</exec_depend>
+  <exec_depend>quad_planner</exec_depend>
+  <exec_depend>quad_robot_driver</exec_depend>
+  <exec_depend>quad_rviz_plugins</exec_depend>
+  <exec_depend>quad_system_tests</exec_depend>
+  <exec_depend>quad_map_server</exec_depend>
+  <exec_depend>quad_mgs</exec_depend>
+  <exec_depend>quad_utils</exec_depend>
+  <exec_depend>quad_global_planner</exec_depend>
+  <exec_depend>quad_local_planner</exec_depend>
+  <exec_depend>quad_nmpc_controller</exec_depend>
+  <exec_depend>quad_gazebo</exec_depend>
+  <exec_depend>legged_control</exec_depend>
+  <exec_depend>quad_gazebo</exec_depend>
+  <exec_depend>a1_description</exec_depend>
+  <exec_depend>spirit_description</exec_depend>
+  
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

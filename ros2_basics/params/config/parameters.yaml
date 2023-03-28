@@ -1,0 +1,6 @@
+/minimal_paser:
+  ros__parameters:
+    param_double: 17.7
+    param_int_: 17
+    param_float: 17.0
+    param_str: "HelloYmalParams"

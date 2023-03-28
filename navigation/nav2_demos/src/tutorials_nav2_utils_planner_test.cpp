@@ -59,15 +59,16 @@ void PlannerTester::activate()
   // The navfn wrapper
   auto state = rclcpp_lifecycle::State();
   planner_tester_ = std::make_shared<NavFnPlannerTester>();
-  planner_tester_->declare_parameter(
-    "GridBased.use_astar", rclcpp::ParameterValue(true));
-  planner_tester_->set_parameter(
-    rclcpp::Parameter(std::string("GridBased.use_astar"), rclcpp::ParameterValue(true)));
-  planner_tester_->set_parameter(
-    rclcpp::Parameter(std::string("expected_planner_frequency"), rclcpp::ParameterValue(-1.0)));
+  // planner_tester_->declare_parameter("GridBased.use_astar", rclcpp::ParameterValue(true));
+  // planner_tester_->set_parameter(
+  //   rclcpp::Parameter(std::string("GridBased.use_astar"), rclcpp::ParameterValue(true)));
+  // planner_tester_->set_parameter(
+  //   rclcpp::Parameter(std::string("expected_planner_frequency"), rclcpp::ParameterValue(-1.0)));
   planner_tester_->onConfigure(state);
   publishRobotTransform();
-  map_pub_ = this->create_publisher<nav_msgs::msg::OccupancyGrid>("map", 1);
+  map_pub_ = this->create_publisher<nav_msgs::msg::OccupancyGrid>("map",
+    rclcpp::QoS(rclcpp::KeepLast(1)).transient_local().reliable());
+
   rclcpp::Rate r(1);
   r.sleep();
   planner_tester_->onActivate(state);
@@ -123,8 +124,7 @@ void PlannerTester::updateRobotPosition(const geometry_msgs::msg::Point & positi
     base_transform_->header.frame_id = "map";
     base_transform_->child_frame_id = "base_link";
   }
-  std::cout << now().nanoseconds() << std::endl;
-
+  // std::cout << now().nanoseconds() << std::endl;
   base_transform_->header.stamp = now() + rclcpp::Duration(0.25s);
   base_transform_->transform.translation.x = position.x;
   base_transform_->transform.translation.y = position.y;
@@ -201,7 +201,7 @@ void PlannerTester::loadDefaultMap()
 void PlannerTester::loadMap(const std::string& pgm_filename)
 {
   // Specs for the default map
-  double resolution = 1.0;
+  double resolution = 0.05;
   bool negate = false;
   double occupancy_threshold = 0.65;
   double free_threshold = 0.196;
@@ -244,6 +244,45 @@ void PlannerTester::loadMap(const std::string& pgm_filename)
   using_fake_costmap_ = false;
 
   setCostmap();
+}
+
+bool PlannerTester::loadMapFromYaml(const std::string& yaml_file)
+{
+  if (map_ == nullptr) {
+    map_ = std::make_shared<nav_msgs::msg::OccupancyGrid>();
+  }
+  
+  switch (nav2_map_server::loadMapFromYaml(yaml_file, *map_)) {
+    case nav2_map_server::MAP_DOES_NOT_EXIST:
+        RCLCPP_ERROR(this->get_logger(), "map not exist");
+        return false;
+    case nav2_map_server::INVALID_MAP_METADATA:
+        RCLCPP_ERROR(this->get_logger(), "map metadata is invalid");
+        return false;
+    case nav2_map_server::INVALID_MAP_DATA:
+        RCLCPP_ERROR(this->get_logger(), "map data is invalid");
+        return false;
+    case nav2_map_server::LOAD_MAP_SUCCESS:
+        // Correcting msg_ header when it belongs to spiecific node
+        RCLCPP_INFO(this->get_logger(), "map load is success");
+        map_->info.map_load_time = this->get_clock()->now();
+        map_->header.frame_id = "map";
+        map_->header.stamp = this->get_clock()->now();
+  }
+
+  map_->header.stamp = this->now();
+  map_->header.frame_id = "map";
+  map_->info.map_load_time = this->now();
+
+  // TODO(orduno): #443 replace with a latched topic
+  map_timer_ = create_wall_timer(1s, [this]() -> void {map_pub_->publish(*map_);});
+
+  map_set_ = true;
+  costmap_set_ = false;
+  using_fake_costmap_ = false;
+
+  setCostmap();
+  return true;
 }
 
 void PlannerTester::loadSimpleCostmap(const TestCostmap & testCostmapType)
@@ -409,7 +448,7 @@ bool PlannerTester::createPlan(
   // Update the costmap of the planner to the set data
   planner_tester_->setCostmap(costmap_.get());
 
-  RCLCPP_DEBUG(this->get_logger(), "Getting the path from the planner");
+  RCLCPP_INFO(this->get_logger(), "Getting the path from the planner");
 
   // First make available the current robot position for the planner to take as starting point
   geometry_msgs::msg::Point robot_position;
@@ -418,7 +457,12 @@ bool PlannerTester::createPlan(
   updateRobotPosition(robot_position);
   sleep(0.05);
 
-  return planner_tester_->createPlan(start, goal, path);
+  bool success = planner_tester_->createPlan(start, goal, path);
+  RCLCPP_INFO(this->get_logger(), "path size: %d", path.poses.size());
+  if (path.poses.empty()) {
+    return false;
+  }
+  return success;
 }
 
 bool PlannerTester::plannerTest(
@@ -426,7 +470,7 @@ bool PlannerTester::plannerTest(
   const ComputePathToPoseCommand & goal,
   ComputePathToPoseResult & path)
 {
-  RCLCPP_DEBUG(this->get_logger(), "Getting the path from the planner");
+  RCLCPP_INFO(this->get_logger(), "Getting the path from the planner");
 
   // First make available the current robot position for the planner to take as starting point
   updateRobotPosition(robot_position);
@@ -441,7 +485,7 @@ bool PlannerTester::plannerTest(
     return false;
   } else if (status == TaskStatus::SUCCEEDED) {
     // TODO(orduno): #443 check why task may report success while planner returns a path of 0 points
-    RCLCPP_DEBUG(this->get_logger(), "Got path, checking for possible collisions");
+    RCLCPP_INFO(this->get_logger(), "Got path, checking for possible collisions");
     return isCollisionFree(path) && isWithinTolerance(robot_position, goal, path);
   }
 

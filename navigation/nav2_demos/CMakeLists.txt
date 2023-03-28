@@ -70,6 +70,10 @@ set(SRCS
   src/tutorials_nav2_utils_dataset_loader.cpp
   src/tutorials_nav2_utils_planner_test.cpp)
 
+# demo0 tutorials_nav2_demo0_path_planner_test.cpp
+add_executable(tutorial.nav2.path_planner src/tutorials_nav2_demo0_path_planner_test ${SRCS})
+ament_target_dependencies(tutorial.nav2.path_planner ${DEPS})
+
 # demo1
 add_executable(tutorial.nav2.b_spline_path_test src/tutorials_nav2_demo1_b_spline_path_test.cpp ${SRCS})
 ament_target_dependencies(tutorial.nav2.b_spline_path_test ${DEPS})
@@ -92,7 +96,7 @@ ament_target_dependencies(tutorial.nav2.costmap_image_show ${DEPS})
 add_executable(tutorial.nav2.navfn_planner src/tutorials_nav2_demo6_navfn_planner_test ${SRCS})
 ament_target_dependencies(tutorial.nav2.navfn_planner ${DEPS})
 
-# tutorials_nav2_demo7_a_star_planner_test.cpp
+# demo7 tutorials_nav2_demo7_a_star_planner_test.cpp
 add_executable(tutorial.nav2.a_star_planner src/tutorials_nav2_demo7_a_star_planner_test ${SRCS})
 ament_target_dependencies(tutorial.nav2.a_star_planner ${DEPS})
 
@@ -102,6 +106,7 @@ install(TARGETS
 )
 
 install(TARGETS
+  tutorial.nav2.path_planner 
   tutorial.nav2.cubic_spline_path_test
   tutorial.nav2.bezier_path
   tutorial.nav2.costmap_image_show
@@ -114,6 +119,7 @@ install(DIRECTORY images DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY maps DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY rviz DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY params DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

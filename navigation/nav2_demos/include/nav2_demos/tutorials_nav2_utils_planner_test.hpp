@@ -156,6 +156,8 @@ public:
 
   void loadMap(const std::string& pgm_filename);
 
+  bool loadMapFromYaml(const std::string& yaml_file);
+
   // Alternatively, use a preloaded 10x10 costmap
   void loadSimpleCostmap(const nav2_util::TestCostmap & testCostmapType);
 

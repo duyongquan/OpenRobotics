@@ -1,5 +1,8 @@
 # ROS2-Publisher-Subscriber
 
+* author :  duyongquan
+* e-mail: quandy2020@126.com
+
 ## 1 Introduction
 
 As we understood from the lectures, nodes are the fundamental units in ROS 2 which are usually written to perform a specific task. They can be created in a few different ways such as-
