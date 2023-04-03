@@ -18,6 +18,7 @@ find_package(nav2_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(interactive_markers REQUIRED)
 find_package(visualization_msgs REQUIRED)
 
 # include
@@ -33,6 +34,7 @@ set(DEPS
   nav_msgs
   tf2
   tf2_geometry_msgs
+  interactive_markers
   visualization_msgs)
 
 # sources
@@ -51,10 +53,22 @@ ament_target_dependencies(tutorial.rviz.basic_shapes ${DEPS})
 add_executable(tutorial.rviz.points_and_lines ${SRCS} src/tutorials_rviz_marker_points_and_lines_test.cpp)
 ament_target_dependencies(tutorial.rviz.points_and_lines ${DEPS})
 
+# simple_marker
+add_executable(tutorial.rviz.simple_marker ${SRCS} src/tutorials_rviz_marker_simple_marker_test.cpp)
+ament_target_dependencies(tutorial.rviz.simple_marker ${DEPS})
+
+# cube
+add_executable(tutorial.rviz.cube ${SRCS} src/tutorials_rviz_marker_cube_test.cpp)
+ament_target_dependencies(tutorial.rviz.cube ${DEPS})
+
+
+
 install(TARGETS
   tutorial.rviz.demo1_initial_env_test
   tutorial.rviz.basic_shapes
   tutorial.rviz.points_and_lines
+  tutorial.rviz.simple_marker
+  tutorial.rviz.cube
   DESTINATION lib/${PROJECT_NAME}
 )
 
