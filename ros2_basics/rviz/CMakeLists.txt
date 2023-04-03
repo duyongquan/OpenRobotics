@@ -40,11 +40,21 @@ set(SRCS
   src/tutorials_rviz_demo1_initial_env.cpp)
 
 # demo1
-add_executable(tutorial.topic.demo1_initial_env_test ${SRCS} src/tutorials_rviz_demo1_initial_env_test.cpp)
-ament_target_dependencies(tutorial.topic.demo1_initial_env_test ${DEPS})
+add_executable(tutorial.rviz.demo1_initial_env_test ${SRCS} src/tutorials_rviz_demo1_initial_env_test.cpp)
+ament_target_dependencies(tutorial.rviz.demo1_initial_env_test ${DEPS})
+
+# basic_shapes
+add_executable(tutorial.rviz.basic_shapes ${SRCS} src/tutorials_rviz_marker_basic_shapes_test.cpp)
+ament_target_dependencies(tutorial.rviz.basic_shapes ${DEPS})
+
+# points_and_lines
+add_executable(tutorial.rviz.points_and_lines ${SRCS} src/tutorials_rviz_marker_points_and_lines_test.cpp)
+ament_target_dependencies(tutorial.rviz.points_and_lines ${DEPS})
 
 install(TARGETS
-  tutorial.topic.demo1_initial_env_test
+  tutorial.rviz.demo1_initial_env_test
+  tutorial.rviz.basic_shapes
+  tutorial.rviz.points_and_lines
   DESTINATION lib/${PROJECT_NAME}
 )
 
