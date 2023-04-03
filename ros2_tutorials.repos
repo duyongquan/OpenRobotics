@@ -55,6 +55,9 @@ repositories:
     type: git
     url: https://github.com/ANYbotics/elevation_mapping.git
     version: ros2
-  
+  visualization_tutorials:
+    type: git
+    url: https://github.com/ros-visualization/visualization_tutorials.git
+    version: ros2
 
   
