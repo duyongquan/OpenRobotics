@@ -24,6 +24,7 @@ set(msg_files
   "msg/AgentGroup.msg"
   "msg/AgentGroups.msg"
   "msg/AgentState.msg"
+  "msg/AgentStates.msg"
   "msg/AllAgentsState.msg"
   "msg/LineObstacle.msg"
   "msg/LineObstacles.msg"

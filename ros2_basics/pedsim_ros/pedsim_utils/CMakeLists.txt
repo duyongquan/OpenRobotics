@@ -23,7 +23,7 @@ pedsim_package()
 include_directories(include)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIRS})
 
-set(library_name ${PROJECT_NAME}_core)
+set(library_name ${PROJECT_NAME})
 add_library(${library_name} SHARED
   src/geometry.cpp
   src/pedsim_utils.cpp
