@@ -10,12 +10,15 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <!-- path_tracking doesn't belong for recursive dependencies -->
-  <!-- <exec_depend>cgmres_nmpc_tracking</exec_depend> -->
-  <!-- <exec_depend>lqr_speed_steer_control_tracking</exec_depend>
-  <exec_depend>model_predictive_speed_steer_control_tracking</exec_depend>
-  <exec_depend>pure_pursuit_tracking</exec_depend>
-  <exec_depend>rear_wheel_feedback_tracking</exec_depend>
-  <exec_depend>stanley_controller_tracking</exec_depend> -->
+  <exec_depend>pedsim_common</exec_depend>
+  <exec_depend>pedsim_gazebo_plugin</exec_depend>
+  <exec_depend>pedsim_msgs</exec_depend>
+  <exec_depend>pedsim_sensors</exec_depend>
+  <exec_depend>pedsim_utils</exec_depend>
+  
+  <!-- <exec_depend>pure_pursuit_tracking</exec_depend> -->
+  <!-- <exec_depend>rear_wheel_feedback_tracking</exec_depend> -->
+  <!-- <exec_depend>stanley_controller_tracking</exec_depend> -->
 
   <export>
     <build_type>ament_cmake</build_type>
