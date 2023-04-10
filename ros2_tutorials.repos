@@ -59,5 +59,8 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/visualization_tutorials.git
     version: ros2
-
+  pedsim_ros2:
+    type: git
+    url: https://github.com/saurabhp369/pedsim_ros2
+    version: main
   
