@@ -1,3 +1,0 @@
-int16[] agent_ids
----
-pedsim_msgs/AgentStates agent_states
