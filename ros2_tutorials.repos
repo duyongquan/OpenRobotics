@@ -63,4 +63,10 @@ repositories:
     type: git
     url: https://github.com/saurabhp369/pedsim_ros2
     version: main
+  turtlebot4:
+    type: git
+    url: https://github.com/turtlebot/turtlebot4.git
+    version: galactic
+
+    
   
