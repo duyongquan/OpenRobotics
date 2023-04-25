@@ -31,7 +31,6 @@ include_directories(
 set(DEPS 
   rclcpp
   std_msgs
-  nav2_msgs
   nav_msgs
   tf2
   tf2_ros
