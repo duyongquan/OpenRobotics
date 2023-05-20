@@ -59,5 +59,14 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/visualization_tutorials.git
     version: ros2
+  yolov8_ros:
+    type: git
+    url: https://github.com/mgonzs13/yolov8_ros.git
+    version: main
+  ultralytics:
+    type: git
+    url: https://github.com/ultralytics/ultralytics.git
+    version: main
+
 
   
