@@ -59,6 +59,7 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/visualization_tutorials.git
     version: ros2
+<<<<<<< HEAD
   yolov8_ros:
     type: git
     url: https://github.com/mgonzs13/yolov8_ros.git
@@ -68,5 +69,16 @@ repositories:
     url: https://github.com/ultralytics/ultralytics.git
     version: main
 
+=======
+  pedsim_ros2:
+    type: git
+    url: https://github.com/saurabhp369/pedsim_ros2
+    version: main
+  turtlebot4:
+    type: git
+    url: https://github.com/turtlebot/turtlebot4.git
+    version: galactic
+>>>>>>> 09e53dbc4d579c969bed21f4a6da5453c0d76561
 
+    
   

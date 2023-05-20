@@ -11,7 +11,7 @@ find_package(xacro REQUIRED)
 
 # install
 install(
-  DIRECTORY urdf launch rviz config world
+  DIRECTORY urdf launch rviz world
   DESTINATION share/${PROJECT_NAME}
 )
 
