@@ -59,6 +59,14 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/visualization_tutorials.git
     version: ros2
+  yolov8_ros:
+    type: git
+    url: https://github.com/mgonzs13/yolov8_ros.git
+    version: main
+  ultralytics:
+    type: git
+    url: https://github.com/ultralytics/ultralytics.git
+    version: main
   pedsim_ros2:
     type: git
     url: https://github.com/saurabhp369/pedsim_ros2
@@ -71,5 +79,7 @@ repositories:
     type: git
     url: https://github.com/ros-controls/ros2_control_demos.git
     version: galactic
-    
-  
+  ros2_video_streamer:
+    type: git
+    url: https://github.com/klintan/ros2_video_streamer
+    version: master
