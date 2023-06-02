@@ -67,6 +67,9 @@ repositories:
     type: git
     url: https://github.com/turtlebot/turtlebot4.git
     version: galactic
-
+  ros2_control_demos:
+    type: git
+    url: https://github.com/ros-controls/ros2_control_demos.git
+    version: galactic
     
   

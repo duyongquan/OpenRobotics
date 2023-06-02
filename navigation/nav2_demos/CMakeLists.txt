@@ -100,6 +100,15 @@ ament_target_dependencies(tutorial.nav2.navfn_planner ${DEPS})
 add_executable(tutorial.nav2.a_star_planner src/tutorials_nav2_demo7_a_star_planner_test ${SRCS})
 ament_target_dependencies(tutorial.nav2.a_star_planner ${DEPS})
 
+# demo8 tutorials_nav2_demo8_costmap_publish_test.cpp
+add_executable(tutorial.nav2.costmap_publish_test src/tutorials_nav2_demo8_costmap_publish_test ${SRCS})
+ament_target_dependencies(tutorial.nav2.costmap_publish_test ${DEPS})
+
+# demo9 tutorials_nav2_demo9_pcl_filter_ground_test.cpp
+add_executable(tutorial.nav2.pcl_filter_ground src/tutorials_nav2_demo9_pcl_filter_ground_test ${SRCS})
+ament_target_dependencies(tutorial.nav2.pcl_filter_ground ${DEPS})
+
+
 install(TARGETS
   tutorial.nav2.b_spline_path_test
   DESTINATION lib/${PROJECT_NAME}
@@ -112,6 +121,8 @@ install(TARGETS
   tutorial.nav2.costmap_image_show
   tutorial.nav2.navfn_planner
   tutorial.nav2.a_star_planner
+  tutorial.nav2.costmap_publish_test
+  tutorial.nav2.pcl_filter_ground
   DESTINATION lib/${PROJECT_NAME}
 )
 
