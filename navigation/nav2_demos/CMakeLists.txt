@@ -28,9 +28,12 @@ find_package(grid_map_core REQUIRED)
 find_package(grid_map_cv REQUIRED)
 find_package(grid_map_msgs REQUIRED)
 find_package(nav2_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
+find_package(PCL REQUIRED COMPONENTS filters common)
 
 include_directories(${Boost_INCLUDE_DIRS}) 
 include_directories(${EIGEN3_INCLUDE_DIR})
+include_directories(${PCL_INCLUDE_DIRS})
 
 # include
 include_directories(
@@ -57,6 +60,7 @@ set(DEPS
   grid_map_core
   grid_map_cv
   grid_map_msgs
+  pcl_conversions
   ${Boost_LIBRARIES})
 
 configure_file(
