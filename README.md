@@ -56,5 +56,5 @@
 
 ## QQ社区交流
 
-![AibotBeginner- Navigtion-Talk](./AibotBeginner- Navigtion-Talk.png)
+![AibotBeginner- Navigtion-Talk](AibotBeginner-Navigtion-Talk.png)
 
