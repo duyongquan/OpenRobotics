@@ -70,22 +70,23 @@
   <tr>
     <th>
       <p align="center">
-           <a href="https://www.youtube.com/watch?v=KlQ-8iD1EFM"><img src="./project_1_lane_finding_basic/img/overview.gif" alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/rviz/circle_path.png" alt="Overview" width="60%" height="60%">
            <br>RVIZ Path
       </p>
     </th>
         <th><p align="center">
-           <a href="./project_2_traffic_sign_classifier/Traffic_Sign_Classifier.ipynb"><img src="./project_2_traffic_sign_classifier/img/softmax.png" alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/rviz/lissajous_path.png" alt="Overview" width="60%" height="60%">
            <br>RVIZ Trajectory
         </p>
     </th>
        <th><p align="center">
-           <a href="https://www.youtube.com/watch?v=gXkMELjZmCc"><img src="./project_3_behavioral_cloning/img/overview.gif" alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/rviz/lissajous_path.png" alt="Overview" width="60%" height="60%">
            <br>RVIZ Marker
         </p>
     </th>
   </tr>
 </table>
+
 
 * RVIZ Path
 * RVIZ Trajectory

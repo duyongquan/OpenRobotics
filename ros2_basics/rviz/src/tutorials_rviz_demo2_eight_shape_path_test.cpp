@@ -90,7 +90,7 @@ private:
     bool load_waypoint_finished_{false};
     std::deque<geometry_msgs::msg::PoseStamped> poses_;
 
-    int path_type_;
+    int path_type_ = 1;
 };  // class EightPathGenerator
 
 
