@@ -52,24 +52,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-nonpersisting_obstacle_layer:
-    plugin: nav2_costmap_2d/NonPersistentVoxelLayer
-    enabled:              true
-    track_unknown_space:  true
-    max_obstacle_height:  1.8
-    unknown_threshold:    15
-    mark_threshold:       2
-    combination_method:   1
-    obstacle_range: 3.0
-    origin_z: 0.
-    z_resolution: 0.05
-    z_voxels: 16
-    publish_voxel_map: true
-    observation_sources: rgbd
-    rgbd:
-        data_type: PointCloud2
-        topic: /intel_realsense_r200_depth/points
-        marking: true
-        min_obstacle_height: 0.7
-        max_obstacle_height: 1.7

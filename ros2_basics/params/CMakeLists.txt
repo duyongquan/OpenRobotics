@@ -24,12 +24,17 @@ set(DEPS
 set(SRCS 
   src/tutorials_params_demo1_yaml_config.cpp)
 
-# demo1
+# demo1 tutorials_params_demo1_yaml_config_test.cpp
 add_executable(tutorial.params.yaml_config_test ${SRCS} src/tutorials_params_demo1_yaml_config_test.cpp)
 ament_target_dependencies(tutorial.params.yaml_config_test ${DEPS})
 
+# demo2 tutorials_params_demo2_nav_bringup_yaml_test.cpp
+add_executable(tutorial.params.nav_bringup_yaml_test ${SRCS} src/tutorials_params_demo2_nav_bringup_yaml_test.cpp)
+ament_target_dependencies(tutorial.params.nav_bringup_yaml_test ${DEPS})
+
 install(TARGETS
   tutorial.params.yaml_config_test
+  tutorial.params.nav_bringup_yaml_test
   DESTINATION lib/${PROJECT_NAME}
 )
 
