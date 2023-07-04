@@ -17,6 +17,7 @@ find_package(nav2_costmap_2d REQUIRED)
 find_package(nav2_map_server REQUIRED)
 find_package(nav2_navfn_planner REQUIRED)
 find_package(nav2_planner REQUIRED)
+find_package(nav2_controller REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -28,12 +29,9 @@ find_package(grid_map_core REQUIRED)
 find_package(grid_map_cv REQUIRED)
 find_package(grid_map_msgs REQUIRED)
 find_package(nav2_msgs REQUIRED)
-find_package(pcl_conversions REQUIRED)
-find_package(PCL REQUIRED COMPONENTS filters common)
 
 include_directories(${Boost_INCLUDE_DIRS}) 
 include_directories(${EIGEN3_INCLUDE_DIR})
-include_directories(${PCL_INCLUDE_DIRS})
 
 # include
 include_directories(
@@ -52,6 +50,7 @@ set(DEPS
   nav2_map_server
   nav2_planner
   nav2_navfn_planner
+  nav2_controller
   sensor_msgs
   geometry_msgs
   tf2_geometry_msgs
@@ -60,7 +59,6 @@ set(DEPS
   grid_map_core
   grid_map_cv
   grid_map_msgs
-  pcl_conversions
   ${Boost_LIBRARIES})
 
 configure_file(
@@ -72,7 +70,8 @@ set(SRCS
   src/tutorials_nav2_utils_poses_publisher.cpp
   src/tutorials_nav2_utils_opencv_to_costmap.cpp
   src/tutorials_nav2_utils_dataset_loader.cpp
-  src/tutorials_nav2_utils_planner_test.cpp)
+  src/tutorials_nav2_utils_planner_test.cpp
+  src/tutorials_nav2_utils_controller_test.cpp)
 
 # demo0 tutorials_nav2_demo0_path_planner_test.cpp
 add_executable(tutorial.nav2.path_planner src/tutorials_nav2_demo0_path_planner_test ${SRCS})
@@ -109,9 +108,12 @@ add_executable(tutorial.nav2.costmap_publish_test src/tutorials_nav2_demo8_costm
 ament_target_dependencies(tutorial.nav2.costmap_publish_test ${DEPS})
 
 # demo9 tutorials_nav2_demo9_pcl_filter_ground_test.cpp
-add_executable(tutorial.nav2.pcl_filter_ground src/tutorials_nav2_demo9_pcl_filter_ground_test ${SRCS})
-ament_target_dependencies(tutorial.nav2.pcl_filter_ground ${DEPS})
+# add_executable(tutorial.nav2.pcl_filter_ground src/tutorials_nav2_demo9_pcl_filter_ground_test ${SRCS})
+# ament_target_dependencies(tutorial.nav2.pcl_filter_ground ${DEPS})
 
+# tutorials_nav2_controller_node_main.cpp
+add_executable(tutorial.nav2_controller_node src/tutorials_nav2_controller_node_main.cpp ${SRCS})
+ament_target_dependencies(tutorial.nav2_controller_node ${DEPS})
 
 install(TARGETS
   tutorial.nav2.b_spline_path_test
@@ -126,7 +128,8 @@ install(TARGETS
   tutorial.nav2.navfn_planner
   tutorial.nav2.a_star_planner
   tutorial.nav2.costmap_publish_test
-  tutorial.nav2.pcl_filter_ground
+  # tutorial.nav2.pcl_filter_ground
+  tutorial.nav2_controller_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

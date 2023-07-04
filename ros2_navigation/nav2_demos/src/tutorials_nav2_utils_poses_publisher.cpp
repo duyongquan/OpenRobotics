@@ -21,6 +21,7 @@ PosesPublisher::PosesPublisher(rclcpp::Node* node)
     goal_sub_ = node->create_subscription<geometry_msgs::msg::PointStamped>(
         "clicked_point", map_qos,
             std::bind(&PosesPublisher::HandleGoalPointCallback, this, std::placeholders::_1));
+    
 }
 
 PosesPublisher::~PosesPublisher()

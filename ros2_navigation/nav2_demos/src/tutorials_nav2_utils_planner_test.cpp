@@ -45,7 +45,7 @@ void PlannerTester::activate()
   }
   is_active_ = true;
 
-  path_publisher_ = this->create_publisher<ComputePathToPoseResult>("global_path", 10);
+  path_publisher_ = this->create_publisher<ComputePathToPoseResult>("plan", 10);
 
   // Launch a thread to process the messages for this node
   spin_thread_ = std::make_unique<nav2_util::NodeThread>(this);
@@ -125,7 +125,8 @@ void PlannerTester::updateRobotPosition(const geometry_msgs::msg::Point & positi
     base_transform_->child_frame_id = "base_link";
   }
   // std::cout << now().nanoseconds() << std::endl;
-  base_transform_->header.stamp = now() + rclcpp::Duration(0.25s);
+  // base_transform_->header.stamp = now() + rclcpp::Duration(0.25s);
+  base_transform_->header.stamp = now();
   base_transform_->transform.translation.x = position.x;
   base_transform_->transform.translation.y = position.y;
   base_transform_->transform.rotation.w = 1.0;
@@ -135,6 +136,8 @@ void PlannerTester::updateRobotPosition(const geometry_msgs::msg::Point & positi
 
 void PlannerTester::publishRobotTransform()
 {
+  //  RCLCPP_INFO(this->get_logger(), "publishRobotTransform");
+
   if (base_transform_) {
     tf_broadcaster_->sendTransform(*base_transform_);
   }

@@ -44,6 +44,11 @@ private:
         bool goal_ok = pose_publisher_->GetGoalPoint(goal);
         nav_msgs::msg::Path path;
 
+        bool update = CheckGoalUpdate(start, goal);
+        if (!update) {
+            return;
+        }
+
         if (start_ok && goal_ok) {
             RCLCPP_ERROR(this->get_logger(), "Start compute A->B path");
             bool success = path_planner_->createPlan(start, goal, path);
@@ -74,10 +79,26 @@ private:
         load_finished_ = true;
     }
 
+
+    bool CheckGoalUpdate(const geometry_msgs::msg::PoseStamped& start, 
+        const geometry_msgs::msg::PoseStamped & goal)
+    {
+        double dx = start.pose.position.x - goal.pose.position.x;
+        double dy = start.pose.position.y - goal.pose.position.y;
+
+        auto dist = std::hypotf(dx, dy);
+        if ( std::abs( dist - distance_) > 0.05) {
+            distance_ = dist;
+            return true;
+        }
+        return false;
+    }
+
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<PosesPublisher> pose_publisher_ {nullptr};
     std::shared_ptr<PlannerTester> path_planner_{nullptr};
 
+    double distance_{0.0f};
     bool load_finished_{false};
 }; 
 

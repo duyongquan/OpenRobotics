@@ -23,7 +23,8 @@ def generate_launch_description():
 
      # Create our own temporary YAML files that include substitutions
     param_substitutions = {
-        'use_sim_time': use_sim_time}
+        'use_sim_time': use_sim_time,
+        'log_level': 'debug'}
 
     configured_params = RewrittenYaml(
             source_file=params_file,
@@ -71,14 +72,26 @@ def generate_launch_description():
                           'use_namespace': 'False',
                           'rviz_config': rviz_config_file}.items())
 
-    start_a_star_planner_cmd = Node(
+    # path planning
+    start_path_planning_cmd = Node(
         package='nav2_demos',
         executable='tutorial.nav2.path_planner',
         name='path_planner',
         namespace=namespace,
         output='screen',
-        parameters=[configured_params],)
-         # prefix=['xterm -e gdb  --args'],)
+        arguments= ["--ros-args", "--log-level", "debug",],
+        parameters=[configured_params])
+        # prefix=['xterm -e gdb  --args'])
+
+    # path controller
+    # start_path_controller_cmd = Node(
+    #     package='nav2_demos',
+    #     executable='tutorial.nav2_controller_node',
+    #     name='path_controller',
+    #     namespace=namespace,
+    #     output='screen',
+    #     parameters=[configured_params],)
+    #      # prefix=['xterm -e gdb  --args'],)
 
      # Create the launch description and populate
     ld = LaunchDescription()
@@ -92,7 +105,8 @@ def generate_launch_description():
     ld.add_action(declare_params_file_cmd)
 
     # Add the actions to launch all of the navigation nodes
+    ld.add_action(start_path_planning_cmd)
+    # ld.add_action(start_path_controller_cmd)
     ld.add_action(rviz_cmd)
-    ld.add_action(start_a_star_planner_cmd)
 
     return ld

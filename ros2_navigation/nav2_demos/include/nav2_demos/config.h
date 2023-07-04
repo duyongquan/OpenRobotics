@@ -8,7 +8,7 @@ namespace ros2_tutorials
 namespace nav2
 {
 
-std::string kSourceDirectory = "/home/quan/workspace/robot/github/ros2_ws/src/ros2_tutorials/navigation/nav2_demos";
+std::string kSourceDirectory = "/home/quan/workspace/robot/github/ros2_ws/src/ros2_tutorials/ros2_navigation/nav2_demos";
     
 }  // namespace nav2
 }  // namespace ros2_tutorials
