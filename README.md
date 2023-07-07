@@ -1,4 +1,4 @@
-<center> <font color='green' size=10> ros2_tutorials </font>  </center>
+<center> <font color='green' size=10> <b>ROS2: OpenRoboticsToolkit</b> </font>  </center>
 
 ## Introduction
 
