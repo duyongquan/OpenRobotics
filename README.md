@@ -80,12 +80,13 @@
         </p>
     </th>
        <th><p align="center">
-           <img src="./images/ros2_basics/rviz/lissajous_path.png" alt="Overview" width="60%" height="60%">
+           <img src="./images/ros2_basics/rviz/pioint_and_line.gif" alt="Overview" width="60%" height="60%">
            <br>RVIZ Marker
         </p>
     </th>
   </tr>
 </table>
+
 
 
 * RVIZ Path
