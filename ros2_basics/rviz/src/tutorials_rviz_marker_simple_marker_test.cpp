@@ -24,7 +24,7 @@ public:
         
         // create an interactive marker for our server
         visualization_msgs::msg::InteractiveMarker interactive_marker;
-        interactive_marker.header.frame_id = "base_link";
+        interactive_marker.header.frame_id = "map";
         interactive_marker.header.stamp = this->get_clock()->now();
         interactive_marker.name = "my_marker";
         interactive_marker.description = "Simple 1-DOF Control";

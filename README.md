@@ -81,12 +81,29 @@
     </th>
        <th><p align="center">
            <img src="./images/ros2_basics/rviz/pioint_and_line.gif" alt="Overview" width="60%" height="60%">
-           <br>RVIZ Marker
+           <br>RVIZ Marker: Point and Line
+        </p>
+    </th>
+  </tr>
+   <tr>
+    <th>
+      <p align="center">
+           <img src="./images/ros2_basics/rviz/cube_shape.gif" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: Cube shape
+      </p>
+    </th>
+        <th><p align="center">
+           <img src="./images/ros2_basics/rviz/simple_marker.gif" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: Simple marker
+        </p>
+    </th>
+       <th><p align="center">
+           <img src="./images/ros2_basics/rviz/cubes.gif" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: cube
         </p>
     </th>
   </tr>
 </table>
-
 
 
 * RVIZ Path
