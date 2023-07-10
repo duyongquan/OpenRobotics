@@ -17,16 +17,6 @@
   <depend>interactive_markers</depend>
   <depend>visualization_msgs</depend>
 
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(nav2_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
-find_package(tf2 REQUIRED)
-find_package(tf2_geometry_msgs REQUIRED)
-find_package(interactive_markers REQUIRED)
-find_package(visualization_msgs REQUIRED)
-
-
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
   

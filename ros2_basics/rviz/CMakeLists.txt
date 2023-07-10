@@ -62,10 +62,14 @@ ament_target_dependencies(tutorial.rviz.simple_marker ${DEPS})
 add_executable(tutorial.rviz.cube ${SRCS} src/tutorials_rviz_marker_cube_test.cpp)
 ament_target_dependencies(tutorial.rviz.cube ${DEPS})
 
-
 # eight_shape_path
 add_executable(tutorial.rviz.eight_shape_path ${SRCS} src/tutorials_rviz_demo2_eight_shape_path_test.cpp)
 ament_target_dependencies(tutorial.rviz.eight_shape_path ${DEPS})
+
+# tutorials_rviz_demo4_markers_array_lines_test.cpp
+add_executable(tutorial.rviz.markers_array_lines ${SRCS} src/tutorials_rviz_demo4_markers_array_lines_test.cpp)
+ament_target_dependencies(tutorial.rviz.markers_array_lines ${DEPS})
+
 
 install(TARGETS
   tutorial.rviz.demo1_initial_env_test
@@ -74,6 +78,7 @@ install(TARGETS
   tutorial.rviz.simple_marker
   tutorial.rviz.cube
   tutorial.rviz.eight_shape_path
+  tutorial.rviz.markers_array_lines
   DESTINATION lib/${PROJECT_NAME}
 )
 
