@@ -69,7 +69,7 @@ repositories:
     version: main
   pedsim_ros2:
     type: git
-    url: https://github.com/saurabhp369/pedsim_ros2
+    url: https://github.com/saurabhp369/pedsim_ros2.git
     version: main
   turtlebot4:
     type: git
@@ -81,5 +81,9 @@ repositories:
     version: galactic
   ros2_video_streamer:
     type: git
-    url: https://github.com/klintan/ros2_video_streamer
+    url: https://github.com/klintan/ros2_video_streamer.git
+    version: master
+  gazebo_tutorials:
+    type: git
+    url: https://github.com/osrf/gazebo_tutorials.git
     version: master
