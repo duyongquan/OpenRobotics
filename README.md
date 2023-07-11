@@ -172,17 +172,18 @@
   <tr>
     <th>
       <p align="center">
-           <a href="https://www.youtube.com/watch?v=KlQ-8iD1EFM"><img src="./project_1_lane_finding_basic/img/overview.gif" alt="Overview" width="60%" height="60%"></a>
-           <br>Gazebo Sensor
+         <img src="./images/ros2_simulations/sam_bot_description.png" alt="Overview" width="60%" height="60%">
+         <br>Gazebo: sam_bot_description
       </p>
     </th>
         <th><p align="center">
-           <a href="./project_2_traffic_sign_classifier/Traffic_Sign_Classifier.ipynb"><img src="./project_2_traffic_sign_classifier/img/softmax.png" alt="Overview" width="60%" height="60%"></a>
-           <br>Gazebo differential robot
+           <img src="./images/ros2_simulations/turtlebot3.png" alt="Overview" width="60%" height="60%">
+           <br>Gazebo: turtlebot3
         </p>
     </th>
   </tr>
 </table>
+
 
 * Gazebo Sensors
 * Gazebo Differential Robot
