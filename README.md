@@ -310,7 +310,7 @@
     </th> 
     <th><p align="center">
            <img src="./images/ros2_gridmap/vectors_preview.jpg" alt="Overview" width="60%" height="60%">
-           <br>GridMap:
+           <br>GridMap: vectors_preview
         </p>
     </th>
   </tr>
