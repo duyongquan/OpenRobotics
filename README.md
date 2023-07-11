@@ -84,15 +84,15 @@
            <br>RVIZ Marker: Point and Line
         </p>
     </th>
-  </tr>
-   <tr>
-    <th>
+     <th>
       <p align="center">
            <img src="./images/ros2_basics/rviz/cube_shape.gif" alt="Overview" width="60%" height="60%">
            <br>RVIZ Marker: Cube shape
       </p>
     </th>
-        <th><p align="center">
+  </tr>
+   <tr>
+     <th><p align="center">
            <img src="./images/ros2_basics/rviz/simple_marker.gif" alt="Overview" width="60%" height="60%">
            <br>RVIZ Marker: Simple marker
         </p>
@@ -102,8 +102,64 @@
            <br>RVIZ Marker: cube
         </p>
     </th>
+     <th>
+      <p align="center">
+           <img src="./images/ros2_basics/rviz/ArrowMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: ArrowMarker
+      </p>
+    </th>
+        <th><p align="center">
+           <img src="./images/ros2_basics/rviz/CubeListMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: CubeListMarker
+        </p>
+    </th>
+  </tr>
+  <tr>
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/CylinderMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: CylinderMarker
+        </p>
+    </th>
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/LineListMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: LineListMarker
+        </p>
+    </th>
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/LineStripMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: LineStripMarker
+        </p>
+    </th> 
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/PointsMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: PointsMarker
+        </p>
+    </th>
+  </tr>
+  <tr>
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/SphereListMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: SphereListMarker
+        </p>
+    </th>
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/SphereMarker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: SphereMarker
+        </p>
+    </th>
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/mesh_resource_marker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: mesh_resource_marker
+        </p>
+    </th> 
+    <th><p align="center">
+           <img src="./images/ros2_basics/rviz/triangle_list_marker.png" alt="Overview" width="60%" height="60%">
+           <br>RVIZ Marker: triangle_list_marker
+        </p>
+    </th>
   </tr>
 </table>
+
 
 
 * RVIZ Path
