@@ -328,7 +328,12 @@
 ## Part VI 激光SLAM
 
 * slam_toolbox
+
+<img src="./images/ros2_slam/slam_toolbox_sync.png" alt="Overview" width="100%" height="80%">
+
 * cartographer
+
+<img src="./images/ros2_slam/cartographer.png" alt="Overview" width="90%" height="70%">
 
 ## Part VII Navigation2导航
 
@@ -336,11 +341,18 @@
 
 * path planning
 
-  |    Dijkstra Path Planning    | Dijkstra 最短路径算法TODO | <img src="./images/ros2_gridmap/polygon_iterator_preview.gif" alt="Overview" width="20%" height="20%"> |
-  | :--------------------------: | :-----------------------: | :----------------------------------------------------------: |
-  |     **A* Path Planning**     |   **A*搜尋演算法TODO**    |                                                              |
-  | **Hybrid A*  Path Planning** | **混合A*搜尋演算法TODO**  |                                                              |
-  |   **Theta* Path Planning**   |         **TODO**          |                                                              |
+  |      Dijkstra Path Planning      | Dijkstra 最短路径算法TODO | <img src="./images/ros2_gridmap/polygon_iterator_preview.gif" alt="Overview" width="20%" height="20%"> |
+  | :------------------------------: | :-----------------------: | :----------------------------------------------------------: |
+  |       **A* Path Planning**       |   **A*搜尋演算法TODO**    |                                                              |
+  |   **Hybrid A*  Path Planning**   | **混合A*搜尋演算法TODO**  |                                                              |
+  |     **Theta* Path Planning**     |         **TODO**          |                                                              |
+  |     **dubins_path_planner**      |         **TODO**          |                                                              |
+  |  **informed_rrt_star_planner**   |         **TODO**          |                                                              |
+  |   **potential_field_planner**    |         **TODO**          |                                                              |
+  |         **rrt_planner**          |         **TODO**          |                                                              |
+  |   **voronoi_road_map_planner**   |         **TODO**          |                                                              |
+  | **breadth_first_search_planner** |         **TODO**          |                                                              |
+  |  **depth_first_search_planner**  |         **TODO**          |                                                              |
 
 * path tracking
 
@@ -357,3 +369,4 @@
 
 ![AibotBeginner- Navigtion-Talk](AibotBeginner-Navigtion-Talk.png)
 
+* 躬身入局挺膺负责，方有成事之可冀
