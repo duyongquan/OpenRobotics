@@ -65,9 +65,10 @@ $$
 在上述三条约束条件的限制下，速度空间$（v,w）$会有一定的范围，另外会随着电机的线加速度、角加速度进行变换，速度空间会动态变化，我们将其称为**动态窗口**。在满足约束条件的情况下，进行采样$（v,w）$，可以得到相应的轨迹:
 
 <center class="half"> 
-    <img src="./../../_static/navigation/DWA2.png" width="400"/> 
-    <img src="./../../_static/navigation/DWA.png" width="330"/>
+    <img src="./../../../_static/navigation/DWA2.png" width="400"/> 
+    <img src="./../../../_static/navigation/DWA.png" width="330"/>
 </center>
+
 
 ### 2.3 评价函数
 
