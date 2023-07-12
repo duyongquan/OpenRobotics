@@ -34,22 +34,22 @@
   </tr>
     <th>
       <p align="center">
-           <a href="https://www.youtube.com/watch?v=KlQ-8iD1EFM"><img src="./project_1_lane_finding_basic/img/overview.gif" alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/lifecycle/lifecycle.png" alt="Overview" width="60%" height="60%">
            <br>ROS2 Lifecycle
       </p>
     </th>
         <th><p align="center">
-           <a href="./project_2_traffic_sign_classifier/Traffic_Sign_Classifier.ipynb"><img src="./project_2_traffic_sign_classifier/img/softmax.png" alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/composition/composition.png" alt="Overview" width="60%" height="60%">
            <br>ROS2 Composition
         </p>
     </th>
        <th><p align="center">
-           <a href="https://www.youtube.com/watch?v=gXkMELjZmCc"><img src="./project_3_behavioral_cloning/img/overview.gif" alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/timer/timer.png" alt="Overview" width="60%" height="60%">
            <br>ROS2 Timer
         </p>
     </th>
         <th><p align="center">
-           <a href="https://www.youtube.com/watch?v=g5BhDtoheE4"><img src="./project_4_advanced_lane_finding/img/overview.gif"                         alt="Overview" width="60%" height="60%"></a>
+           <img src="./images/ros2_basics/executor/executor.png" alt="Overview" width="60%" height="60%">
            <br>ROS2 Executors
         </p>
     </th>
