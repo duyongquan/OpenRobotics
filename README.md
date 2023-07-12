@@ -325,17 +325,32 @@
 * Gridmap:  map_visualization
 * Gridmap:  grid_map_costmap_2d
 
-## Part VI Navigation2导航
+## Part VI 激光SLAM
+
+* slam_toolbox
+* cartographer
+
+## Part VII Navigation2导航
 
 * costmap2d
 
-* A*  path planner
+* path planning
 
-* Hybird A* path planner
+  |    Dijkstra Path Planning    | Dijkstra 最短路径算法TODO | <img src="./images/ros2_gridmap/polygon_iterator_preview.gif" alt="Overview" width="20%" height="20%"> |
+  | :--------------------------: | :-----------------------: | :----------------------------------------------------------: |
+  |     **A* Path Planning**     |   **A*搜尋演算法TODO**    |                                                              |
+  | **Hybrid A*  Path Planning** | **混合A*搜尋演算法TODO**  |                                                              |
+  |   **Theta* Path Planning**   |         **TODO**          |                                                              |
 
-* DWA local planner
+* path tracking
 
-* TEB local planner
+  |        DWA Controller        | TODO |      |
+  | :--------------------------: | ---- | ---- |
+  | **Pure  pursuit Controller** | TODO |      |
+  | **Rotation shim controller** | TODO |      |
+  |      **TEB Controller**      | TODO |      |
+  |      **LQR Controller**      | TODO |      |
+  |      **MPC Controller**      | TODO |      |
 
 
 ## QQ社区交流
