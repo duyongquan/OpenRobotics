@@ -46,6 +46,8 @@ from launch.substitutions import Command, LaunchConfiguration, PythonExpression
 
 def generate_launch_description():
   this_directory = get_package_share_directory('velodyne_description')
+  launch_dir = os.path.join(this_directory, 'launch')
+  
   xacro_path = os.path.join(this_directory, 'urdf', 'example.urdf.xacro')
   rviz_config_file = os.path.join(this_directory, 'rviz', 'example.rviz')
   world = os.path.join(this_directory, 'world', 'example.world')
@@ -54,10 +56,12 @@ def generate_launch_description():
     'gpu',
     default_value='False',
     description='Whether to use Gazebo gpu_ray or ray')
+  
   declare_organize_cloud_cmd = DeclareLaunchArgument(
     'organize_cloud',
     default_value='False',
     description='Organize PointCloud2 into 2D array with NaN placeholders, otherwise 1D array and leave out invlaid points')
+  
   gpu = LaunchConfiguration('gpu')
   organize_cloud = LaunchConfiguration('organize_cloud')
   robot_description = Command(['xacro',' ', xacro_path, ' gpu:=', gpu, ' organize_cloud:=', organize_cloud])
@@ -102,11 +106,18 @@ def generate_launch_description():
     default_value='True',
     description='Whether to launch the Gazebo GUI or not (headless)')
   gui = LaunchConfiguration('gui')
-  start_gazebo = IncludeLaunchDescription(
-    PythonLaunchDescriptionSource(os.path.join(
-      get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')),
-    launch_arguments={'world' : world, 'gui' : gui}.items()
-  )
+  # start_gazebo = IncludeLaunchDescription(
+  #   PythonLaunchDescriptionSource(os.path.join(
+  #     get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')),
+  #   launch_arguments={'world' : world, 'gui' : gui}.items()
+  # )
+
+  # Specify the actions
+  start_gazebo_server_cmd = ExecuteProcess(
+    cmd=['gzserver', '-s', 'libgazebo_ros_init.so',  '-s', 'libgazebo_ros_factory.so', world], cwd=[launch_dir], output='screen')
+
+  start_gazebo_client_cmd = ExecuteProcess(
+    cmd=['gzclient'], cwd=[launch_dir], output='screen')  
 
   ld = LaunchDescription()
 
@@ -114,7 +125,9 @@ def generate_launch_description():
   ld.add_action(declare_gpu_cmd)
   ld.add_action(declare_organize_cloud_cmd)
   ld.add_action(declare_gui_cmd)
-  ld.add_action(start_gazebo)
+#   ld.add_action(start_gazebo)
+  ld.add_action(start_gazebo_server_cmd)
+  ld.add_action(start_gazebo_client_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(spawn_example_cmd)
   ld.add_action(start_rviz_cmd)

@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(nav2_util REQUIRED)
 
 # include
 include_directories(
@@ -18,7 +19,8 @@ include_directories(
 # dependency
 set(DEPS 
   rclcpp
-  std_msgs)
+  std_msgs
+  nav2_util)
 
 # sources
 set(SRCS 
@@ -39,6 +41,8 @@ install(TARGETS
 )
 
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

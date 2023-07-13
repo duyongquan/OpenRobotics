@@ -12,6 +12,11 @@ def generate_launch_description():
     namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
+    params_file = os.path.join(
+        get_package_share_directory('params'),
+        'config',
+        'nav2_params.yaml')
+
     return LaunchDescription([
         # Set env var to print messages to stdout immediately
         SetEnvironmentVariable('RCUTILS_LOGGING_BUFFERED_STREAM', '1'),
@@ -26,13 +31,8 @@ def generate_launch_description():
 
         Node(
             package='params',
-            executable='tutorial.params.yaml_config_test',
-            parameters=[
-                {'param_double': 200.02},
-                {'param_int': 400},
-                {'param_float': 500.5},
-                {'param_str': 'Hello String'},
-            ],
+            executable='tutorial.params.nav_bringup_yaml_test',
+            parameters = [params_file],
             output='screen',
             # prefix=['xterm -e gdb  --args'],
         )
