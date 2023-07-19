@@ -87,3 +87,7 @@ repositories:
     type: git
     url: https://github.com/osrf/gazebo_tutorials.git
     version: master
+  SMACC2:
+    type: git
+    url: https://github.com/robosoft-ai/SMACC2.git
+    version: humble
