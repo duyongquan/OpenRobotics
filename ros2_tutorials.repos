@@ -91,3 +91,15 @@ repositories:
     type: git
     url: https://github.com/robosoft-ai/SMACC2.git
     version: humble
+  teb_local_planner:
+    type: git
+    url: https://github.com/rst-tu-dortmund/teb_local_planner.git
+    version: galactic
+  teb_local_planner_tutorials:
+    type: git
+    url: https://github.com/rst-tu-dortmund/teb_local_planner_tutorials.git
+    version: master
+  mpc_local_planner:
+    type: git
+    url: https://github.com/rst-tu-dortmund/mpc_local_planner.git
+    version: ros2-master
