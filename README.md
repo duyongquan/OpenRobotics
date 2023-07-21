@@ -381,7 +381,7 @@
       </th>
           <th><p align="center">       
               <img src="./images/ros2_navigation/costmap2d/costmap_2d_markers.png" alt="Overview" width="60%" height="60%">
-              <br>Nav2 Costmap2D: Visualization Tool
+              <br>Costmap2D: Visualization Tool
              </p>
         	</th>
       </tr>
