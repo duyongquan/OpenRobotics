@@ -54,8 +54,6 @@
         </p>
     </th>
 </table>
-
-
 * ROS2 Topic 
 * ROS2 Service
 * ROS2 Parameters
@@ -338,7 +336,56 @@
 
 ## Part VII Navigation2导航
 
-* costmap2d
+* costmap2d 
+
+  <table style="width:100%">
+     <tr>
+      <th>
+        <p align="center">
+            <img src="./images/ros2_navigation/costmap2d/nav2_constmap2d.png" alt="Overview" width="60%" height="60%">
+             <br>Costmap2D: Framework
+        </p>
+      </th>
+          <th><p align="center">
+            <img src="./images/ros2_navigation/costmap2d/initialization.png" alt="Overview" width="60%" height="60%">
+             <br>Costmap2D: Initialization
+          </p>
+      </th>
+         <th><p align="center">
+             <img src="./images/ros2_navigation/costmap2d/map_coordinate_system.png" alt="Overview" width="60%" height="60%">
+             <br>Costmap2D: Map Frame 
+          </p>
+      </th>
+          <th><p align="center">       
+              <img src="./images/ros2_navigation/costmap2d/world_coordinate_system.png" alt="Overview" width="60%" height="60%">
+              <br>Costmap2D: World Frame 
+             </p>
+        	</th>
+      </tr>
+      <tr>
+      <th>
+        <p align="center">
+            <img src="./images/ros2_navigation/costmap2d/static_layer.png" alt="Overview" width="60%" height="60%">
+             <br>Costmap2D: Static Layer
+        </p>
+      </th>
+          <th><p align="center">
+            <img src="./images/ros2_navigation/costmap2d/obstacle_layer_workflow.png" alt="Overview" width="60%" height="60%">
+             <br>Costmap2D: Obstacle Layer
+          </p>
+      </th>
+         <th><p align="center">
+             <img src="./images/ros2_navigation/costmap2d/inflated_layers.png" alt="Overview" width="60%" height="60%">
+             <br>Costmap2D: Inflated Layer
+          </p>
+      </th>
+          <th><p align="center">       
+              <img src="./images/ros2_navigation/costmap2d/costmap_2d_markers.png" alt="Overview" width="60%" height="60%">
+              <br>Nav2 Costmap2D: Visualization Tool
+             </p>
+        	</th>
+      </tr>
+  </table>
 
 * path planning
 
