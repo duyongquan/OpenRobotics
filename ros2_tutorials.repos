@@ -103,3 +103,7 @@ repositories:
     type: git
     url: https://github.com/rst-tu-dortmund/mpc_local_planner.git
     version: ros2-master
+  navigation:
+    type: git
+    url: https://github.com/ros-planning/navigation.git
+    version: noetic-devel
