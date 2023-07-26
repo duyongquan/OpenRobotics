@@ -3,6 +3,10 @@
 * author :  duyongquan
 * e-mail: quandy2020@126.com
 
+![pathfinding_algorithms_survery](../../../source/_static/navigation/path_planning/pathfinding_algorithms_survery.png)
+
+
+
 ## A* 算法路径规划
 
 ### 1 编译

@@ -107,3 +107,9 @@ repositories:
     type: git
     url: https://github.com/ros-planning/navigation.git
     version: noetic-devel
+  robot_navigation:
+    type: git
+    url: https://github.com/locusrobotics/robot_navigation.git
+    version: noetic
+
+    
