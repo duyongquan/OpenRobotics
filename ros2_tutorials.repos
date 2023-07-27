@@ -111,5 +111,9 @@ repositories:
     type: git
     url: https://github.com/locusrobotics/robot_navigation.git
     version: noetic
+  gazebo_models_worlds_collection：
+    type: git
+    url: https://github.com/leonhartyao/gazebo_models_worlds_collection.git
+    version: master
 
     
