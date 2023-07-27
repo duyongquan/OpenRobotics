@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ros2_controller</name>
+  <version>0.0.1</version>
+  <description>
+    ros2_controller
+  </description>
+  <maintainer email="quandy2020@126.com">Du YongQuan</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- path_tracking doesn't belong for recursive dependencies -->
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+
+  <exec_depend>motion_model</exec_depend>
+  <exec_depend>waypoint_generator</exec_depend>
+  <exec_depend>ros2_controller_msgs</exec_depend>
+  <exec_depend>pure_pursuit_controller</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>
+
