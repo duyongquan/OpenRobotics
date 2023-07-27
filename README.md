@@ -404,13 +404,31 @@
 
 * path tracking
 
-  |        DWA Controller        | TODO |      |
-  | :--------------------------: | ---- | ---- |
-  | **Pure  pursuit Controller** | TODO |      |
-  | **Rotation shim controller** | TODO |      |
-  |      **TEB Controller**      | TODO |      |
-  |      **LQR Controller**      | TODO |      |
-  |      **MPC Controller**      | TODO |      |
+  <table style="width:100%">
+     <tr>
+      <th>
+        <p align="center">
+            <img src="./images/ros2_navigation/controller/DWBLocalPlanner.gif" alt="Overview" width="60%" height="60%">
+             <br>DWA Controller
+        </p>
+      </th>
+          <th><p align="center">
+            <img src="./images/ros2_navigation/controller/RegulatedPurePursuitController.gif" alt="Overview" width="60%" height="60%">
+             <br>Pure pursuit Controller
+          </p>
+      </th>
+         <th><p align="center">
+             <img src="./images/ros2_navigation/controller/RotationShimController.gif" alt="Overview" width="80%" height="60%">
+             <br>Rotation shim controller
+          </p>
+      </th>
+          <th><p align="center">       
+              <img src="./images/ros2_navigation/controller/TEBController.gif" alt="Overview" width="80%" height="60%">
+              <br>TEB Controller
+             </p>
+        	</th>
+      </tr>
+  </table>
 
 
 ## QQ社区交流
