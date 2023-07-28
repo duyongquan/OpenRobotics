@@ -111,9 +111,17 @@ repositories:
     type: git
     url: https://github.com/locusrobotics/robot_navigation.git
     version: noetic
-  gazebo_models_worlds_collection：
+  gazebo_models_worlds_collection:
     type: git
     url: https://github.com/leonhartyao/gazebo_models_worlds_collection.git
     version: master
+  quad-sdk:
+    type: git
+    url: https://github.com/robomechanics/quad-sdk.git
+    version: main
+  global_body_planner:
+    type: git
+    url: https://github.com/jcnorby/global_body_planner.git
+    version: main
 
     
