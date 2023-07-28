@@ -9,6 +9,14 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>grid_map_core</depend>
+  <depend>grid_map_ros</depend>
+  <depend>quad_msgs</depend>
+  <depend>ament_index_cpp</depend>
+
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
