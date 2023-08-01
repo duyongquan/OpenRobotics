@@ -1,4 +1,3 @@
-
 #include "quad_global_planner/terrain_map_publisher.hpp"
 
 int main(int argc, char ** argv)

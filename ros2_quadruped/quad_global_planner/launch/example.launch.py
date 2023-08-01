@@ -24,6 +24,9 @@ def generate_launch_description():
         get_package_share_directory('quad_global_planner'),
         'params', 'params.yaml')
 
+    rviz_config = os.path.join(
+        get_package_share_directory('quad_global_planner'),
+        'rviz', 'global_planner.rviz')
 
     # Declare the launch arguments
     declare_namespace_cmd = DeclareLaunchArgument(
@@ -50,6 +53,41 @@ def generate_launch_description():
         # prefix=['xterm -e gdb  --args'],
     )
 
+    start_global_body_planner_cmd = Node(
+        package='quad_global_planner',
+        executable='global_body_planner_node',
+        name='global_body_planner',
+        parameters = [params_file],
+        output='screen',
+        # prefix=['xterm -e gdb  --args'],
+    )
+
+    start_rviz_interface_cmd = Node(
+        package='quad_global_planner',
+        executable='rviz_interface_node',
+        name='rviz_interface_node',
+        parameters = [params_file],
+        output='screen',
+        # prefix=['xterm -e gdb  --args'],
+    )
+
+
+    start_grid_map_visualization_cmd = Node(
+        package='grid_map_visualization',
+        executable='grid_map_visualization',
+        name='grid_map_visualization',
+        parameters = [params_file],
+        output='screen',
+    )
+
+
+    # Launch rviz
+    start_rviz_cmd = Node(
+        package='rviz2',
+        executable='rviz2',
+        arguments=['-d', rviz_config],
+        output='screen')
+
     # Create the launch description and populate
     ld = LaunchDescription()
 
@@ -60,5 +98,9 @@ def generate_launch_description():
 
     # Add the actions to launch all of the global planner nodes
     ld.add_action(start_terrain_map_publisher_cmd)
+    ld.add_action(start_global_body_planner_cmd)
+    ld.add_action(start_rviz_interface_cmd)
+    ld.add_action(start_rviz_cmd)
+    ld.add_action(start_grid_map_visualization_cmd)
 
     return ld

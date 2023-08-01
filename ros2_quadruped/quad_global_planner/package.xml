@@ -14,8 +14,11 @@
   <depend>sensor_msgs</depend>
   <depend>grid_map_core</depend>
   <depend>grid_map_ros</depend>
-  <depend>quad_msgs</depend>
+  <depend>quad_msgs</depend> 
+  <depend>visualization_msgs</depend> 
   <depend>ament_index_cpp</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

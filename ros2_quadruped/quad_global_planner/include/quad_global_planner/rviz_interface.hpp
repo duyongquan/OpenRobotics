@@ -2,6 +2,7 @@
 #define ROS2_QUADRUPED__QUAD_GLOBAL_PLANNER__RVIZ_INTERFACE_HPP_
 
 #include "rclcpp/rclcpp.hpp"
+#include "nav_msgs/msg/path.hpp"
 #include "grid_map_core/grid_map_core.hpp"
 #include "grid_map_ros/grid_map_ros.hpp"
 #include "sensor_msgs/msg/image.hpp"
@@ -21,7 +22,7 @@ namespace quad_global_planner {
    RVizInterface is a container for all of the logic utilized in the template node.
    The implementation must provide a clean and high level interface to the core algorithm
 */
-class RVizInterface 
+class RVizInterface : public rclcpp::Node
 {
 public:
 	/**
@@ -29,7 +30,7 @@ public:
 	 * @param[in] nh ROS NodeHandle to publish and subscribe from
 	 * @return Constructed object of type RVizInterface
 	 */
-	RVizInterface(ros::NodeHandle nh);
+	RVizInterface();
 
 	/**
 	 * @brief Calls ros spinOnce and pubs data at set frequency
@@ -41,28 +42,32 @@ private:
      * @brief Callback function to handle new body plan data
      * @param[in] Body plan message contining interpolated output of body planner
      */
-    void bodyPlanCallback(const global_body_planner::BodyPlan::ConstPtr& msg);
+    void bodyPlanCallback(const quad_msgs::msg::BodyPlan::SharedPtr msg);
 
     /**
      * @brief Callback function to handle new body plan discrete state data
      * @param[in] Body plan message contining discrete output of body planner
      */
-    void discreteBodyPlanCallback(const global_body_planner::BodyPlan::ConstPtr& msg);
+    void discreteBodyPlanCallback(const quad_msgs::msg::BodyPlan::SharedPtr msg);
 
 	/// ROS subscriber for the body plan
-	ros::Subscriber body_plan_sub_;
+	rclcpp::Subscription<quad_msgs::msg::BodyPlan>::SharedPtr body_plan_sub_{nullptr};
 
 	/// ROS subscriber for the body plan
-	ros::Subscriber discrete_body_plan_sub_;
+	rclcpp::Subscription<quad_msgs::msg::BodyPlan>::SharedPtr discrete_body_plan_sub_{nullptr};
 
 	/// ROS Publisher for the interpolated body plan vizualization
-	ros::Publisher body_plan_viz_pub_;
+	rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr body_plan_viz_pub_{nullptr};
 
 	/// ROS Publisher for the discrete body plan vizualization
-	ros::Publisher discrete_body_plan_viz_pub_;
+	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr discrete_body_plan_viz_pub_{nullptr};
 
-	/// Nodehandle to pub to and sub from
-	ros::NodeHandle nh_;
+	// Load rosparams from parameter server
+    std::string body_plan_topic_;
+	std::string body_plan_viz_topic_;
+	std::string discrete_body_plan_topic_;
+	std::string discrete_body_plan_viz_topic_;
+	std::string footstep_plan_viz_topic_;
 
 	/// Update rate for sending and receiving data, unused since pubs are called in callbacks
 	double update_rate_;

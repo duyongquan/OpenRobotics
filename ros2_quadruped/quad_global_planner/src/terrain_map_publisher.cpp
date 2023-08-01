@@ -6,6 +6,7 @@
 
 #include "ament_index_cpp/get_package_share_directory.hpp"
 
+
 using namespace std::chrono_literals;
 
 namespace ros2_quadruped {
@@ -20,7 +21,7 @@ TerrainMapPublisher::TerrainMapPublisher()
 
     // Setup pubs and subs
     terrain_map_pub_ = this->create_publisher<grid_map_msgs::msg::GridMap>(
-        "terrain_map_topic", rclcpp::SystemDefaultsQoS());
+        terrain_map_topic_, rclcpp::SystemDefaultsQoS());
 
     // Add image subscriber if data source requests an image
     if (map_data_source_.compare("image") == 0) {
@@ -42,7 +43,8 @@ void TerrainMapPublisher::createMap()
     // Set initial map parameters and geometry
     terrain_map_.setFrameId(map_frame_);
     terrain_map_.setGeometry(grid_map::Length(12.0, 5.0), 0.2, grid_map::Position(4.0, 0.0));
-    RCLCPP_INFO(this->get_logger(), "Created map with size %f x %f m (%i x %i cells).",
+
+    RCLCPP_INFO_ONCE(this->get_logger(), "Created map with size %f x %f m (%i x %i cells).",
         terrain_map_.getLength().x(), terrain_map_.getLength().y(),
         terrain_map_.getSize()(0), terrain_map_.getSize()(1));
 
@@ -134,7 +136,7 @@ void TerrainMapPublisher::loadMapFromCSV()
     terrain_map_.setFrameId(map_frame_);
     terrain_map_.setGeometry(grid_map::Length(x_length, y_length), x_res, grid_map::Position(
     x_data[0].front()-0.5*x_res + 0.5*x_length, y_data.front()[0]-0.5*y_res + 0.5*y_length));
-    RCLCPP_INFO(this->get_logger(), "Created map with size %f x %f m (%i x %i cells).",
+    RCLCPP_INFO_ONCE(this->get_logger(), "Created map with size %f x %f m (%i x %i cells).",
         terrain_map_.getLength().x(), terrain_map_.getLength().y(),
         terrain_map_.getSize()(0), terrain_map_.getSize()(1));
 
