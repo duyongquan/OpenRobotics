@@ -2,7 +2,7 @@
 Author: duyongquan duyongquan1@xiaomi.com
 Date: 2023-07-28 21:06:20
 LastEditors: duyongquan duyongquan1@xiaomi.com
-LastEditTime: 2023-07-28 21:14:41
+LastEditTime: 2023-08-01 13:22:40
 FilePath: /ros2_tutorials/src/ROS2-OpenRoboticsToolkit/ros2_quadruped/quad_global_planner/launch/example.launch.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -44,6 +44,7 @@ def generate_launch_description():
     start_terrain_map_publisher_cmd = Node(
         package='quad_global_planner',
         executable='terrain_map_publisher_node',
+        name='terrain_map_publisher',
         parameters = [params_file],
         output='screen',
         # prefix=['xterm -e gdb  --args'],
