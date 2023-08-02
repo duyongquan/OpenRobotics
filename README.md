@@ -3,7 +3,7 @@
 ## Introduction
 
 * 此工程为导航算法需要的基础知识。[详细文档](https://ros2-tutorials.readthedocs.io/en/latest/#)
-
+* 此工程在孵化ROS2的四足机器人项目。
 * 详细的视频讲解 [哔哩哔哩 bilibili](https://space.bilibili.com/478832908)
 
 ## Part I ROS2 rclcpp
@@ -430,6 +430,40 @@
       </tr>
   </table>
 
+## Part VIII  Quadruped Robot
+
+<table style="width:100%">
+   <tr>
+    <th>
+      <p align="center">
+          <img src="./images/ros2_quad/TerrainMap.png" alt="Overview" width="100%" height="60%">
+           <br>TerrainMap
+      </p>
+    </th>
+        <th><p align="center">
+          <img src="./images/ros2_quad/rrt-connect1.gif" alt="Overview" width="80%" height="60%">
+           <br>RRT Connect
+        </p>
+    </th>
+       <th><p align="center">
+           <img src="./images/ros2_quad/" alt="Overview" width="80%" height="60%">
+           <br>Gazebo simulation
+        </p>
+    </th>
+        <th><p align="center">       
+            <img src="./images/ros2_quad/.gif" alt="Overview" width="80%" height="60%">
+            <br>NMPC
+           </p>
+      	</th>
+    </tr>
+</table>
+
+* TerrainMap
+* RRT Connect (Global path planner)
+
+- [ ] Gazebo simulation
+- [ ] NMPC 
+- [ ] Footsetp Planner
 
 ## QQ社区交流
 
