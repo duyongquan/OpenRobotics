@@ -19,14 +19,6 @@ repositories:
     type: git
     url: https://github.com/ANYbotics/grid_map.git
     version: ros2
-  gazebo_ros_demos:
-    type: git
-    url: https://github.com/ros-simulation/gazebo_ros_demos.git
-    version: foxy
-  gazebo_ros_pkgs:
-    type: git
-    url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
-    version: galactic
   pcl_msgs:
     type: git
     url: https://github.com/ros-perception/pcl_msgs.git
@@ -35,10 +27,6 @@ repositories:
     type: git
     url: https://github.com/ros-perception/perception_pcl.git
     version: ros2
-  robot_localization:
-    type: git
-    url: https://github.com/cra-ros-pkg/robot_localization.git
-    version: galactic-devel
   turtlebot3:
     type: git
     url: https://github.com/ROBOTIS-GIT/turtlebot3.git
@@ -67,18 +55,6 @@ repositories:
     type: git
     url: https://github.com/ultralytics/ultralytics.git
     version: main
-  pedsim_ros2:
-    type: git
-    url: https://github.com/saurabhp369/pedsim_ros2.git
-    version: main
-  turtlebot4:
-    type: git
-    url: https://github.com/turtlebot/turtlebot4.git
-    version: galactic
-  ros2_control_demos:
-    type: git
-    url: https://github.com/ros-controls/ros2_control_demos.git
-    version: galactic
   ros2_video_streamer:
     type: git
     url: https://github.com/klintan/ros2_video_streamer.git
@@ -103,25 +79,4 @@ repositories:
     type: git
     url: https://github.com/rst-tu-dortmund/mpc_local_planner.git
     version: ros2-master
-  navigation:
-    type: git
-    url: https://github.com/ros-planning/navigation.git
-    version: noetic-devel
-  robot_navigation:
-    type: git
-    url: https://github.com/locusrobotics/robot_navigation.git
-    version: noetic
-  gazebo_models_worlds_collection:
-    type: git
-    url: https://github.com/leonhartyao/gazebo_models_worlds_collection.git
-    version: master
-  quad-sdk:
-    type: git
-    url: https://github.com/robomechanics/quad-sdk.git
-    version: main
-  global_body_planner:
-    type: git
-    url: https://github.com/jcnorby/global_body_planner.git
-    version: main
-
     
