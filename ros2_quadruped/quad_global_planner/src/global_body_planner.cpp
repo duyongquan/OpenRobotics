@@ -47,6 +47,10 @@ GlobalBodyPlanner::GlobalBodyPlanner()
 
 void GlobalBodyPlanner::terrainMapCallback(const grid_map_msgs::msg::GridMap::SharedPtr msg) 
 {
+    if (make_plan_finished_) {
+        return;
+    }
+
     // Get the map in its native form
     grid_map::GridMap map;
     grid_map::GridMapRosConverter::fromMessage(*msg, map);
@@ -217,12 +221,14 @@ void GlobalBodyPlanner::makePlan()
         return;
     }
 
-    // Update the plan
-    callPlanner();
-
+    if (!make_plan_finished_) {
+        // Update the plan
+        callPlanner();
+        make_plan_finished_ = true;
+        // start_make_plan_ = false;
+    }
+ 
     publishPlan();
-
-    start_make_plan_ = false;
 }
 
 }  // namespace quad_global_planner

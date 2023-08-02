@@ -156,6 +156,9 @@ private:
 
     /// Start create a path plan flag
     bool start_make_plan_{false};
+
+    /// Check global path plan finish flag
+    bool make_plan_finished_{false};
 };
 
 }  // namespace quad_global_planner
