@@ -65,24 +65,24 @@ void interpOdometry(quad_msgs::msg::BodyState state_1, quad_msgs::msg::BodyState
     interp_state.twist.angular.z = math_utils::lerp(state_1.twist.angular.z, state_2.twist.angular.z, t_interp);
 }
 
-void interpJointState(sensor_msgs::msg::JointState state_1,
-                      sensor_msgs::msg::JointState state_2, double t_interp,
-                      sensor_msgs::msg::JointState &interp_state) 
-{
-    interpHeader(state_1.header, state_2.header, t_interp, interp_state.header);
+// void interpJointState(sensor_msgs::msg::JointState state_1,
+//                       sensor_msgs::msg::JointState state_2, double t_interp,
+//                       sensor_msgs::msg::JointState &interp_state) 
+// {
+//     interpHeader(state_1.header, state_2.header, t_interp, interp_state.header);
 
-    // Interp joints
-    interp_state.name.resize(state_1.position.size());
-    interp_state.position.resize(state_1.position.size());
-    interp_state.velocity.resize(state_1.position.size());
-    interp_state.effort.resize(state_1.position.size());
-    for (int i = 0; i < state_1.position.size(); i++) {
-        interp_state.name[i] = state_1.name[i];
-        interp_state.position[i] = math_utils::lerp(state_1.position[i], state_2.position[i], t_interp);
-        interp_state.velocity[i] = math_utils::lerp(state_1.velocity[i], state_2.velocity[i], t_interp);
-        interp_state.effort[i] = math_utils::lerp(state_1.effort[i], state_2.effort[i], t_interp);
-    }
-}
+//     // Interp joints
+//     interp_state.name.resize(state_1.position.size());
+//     interp_state.position.resize(state_1.position.size());
+//     interp_state.velocity.resize(state_1.position.size());
+//     interp_state.effort.resize(state_1.position.size());
+//     for (int i = 0; i < state_1.position.size(); i++) {
+//         interp_state.name[i] = state_1.name[i];
+//         interp_state.position[i] = math_utils::lerp(state_1.position[i], state_2.position[i], t_interp);
+//         interp_state.velocity[i] = math_utils::lerp(state_1.velocity[i], state_2.velocity[i], t_interp);
+//         interp_state.effort[i] = math_utils::lerp(state_1.effort[i], state_2.effort[i], t_interp);
+//     }
+// }
 
 void interpMultiFootState(quad_msgs::msg::MultiFootState state_1,
                           quad_msgs::msg::MultiFootState state_2, double t_interp,
@@ -137,16 +137,16 @@ void interpGRFArray(quad_msgs::msg::GRFArray state_1, quad_msgs::msg::GRFArray s
     }
 }
 
-void interpRobotState(quad_msgs::msg::RobotState state_1,
-                      quad_msgs::msg::RobotState state_2, double t_interp,
-                      quad_msgs::msg::RobotState &interp_state)
-{
-    // Interp individual elements
-    interpHeader(state_1.header, state_2.header, t_interp, interp_state.header);
-    interpOdometry(state_1.body, state_2.body, t_interp, interp_state.body);
-    interpJointState(state_1.joints, state_2.joints, t_interp, interp_state.joints);
-    interpMultiFootState(state_1.feet, state_2.feet, t_interp, interp_state.feet);
-}
+// void interpRobotState(quad_msgs::msg::RobotState state_1,
+//                       quad_msgs::msg::RobotState state_2, double t_interp,
+//                       quad_msgs::msg::RobotState &interp_state)
+// {
+//     // Interp individual elements
+//     interpHeader(state_1.header, state_2.header, t_interp, interp_state.header);
+//     interpOdometry(state_1.body, state_2.body, t_interp, interp_state.body);
+//     interpJointState(state_1.joints, state_2.joints, t_interp, interp_state.joints);
+//     interpMultiFootState(state_1.feet, state_2.feet, t_interp, interp_state.feet);
+// }
 
 void interpRobotPlan(quad_msgs::msg::RobotPlan msg, double t,
                      quad_msgs::msg::RobotState &interp_state,
@@ -364,14 +364,14 @@ void ikRobotState(const quad_utils::QuadKD &kinematics,
 
 void ikRobotState(const quad_utils::QuadKD &kinematics, quad_msgs::msg::RobotState &state) 
 {
-    ikRobotState(kinematics, state.body, state.feet, state.joints);
+//     ikRobotState(kinematics, state.body, state.feet, state.joints);
 }
 
-void fkRobotState(const quad_utils::QuadKD &kinematics,
-                  quad_msgs::msg::BodyState body_state,
-                  sensor_msgs::msg::JointState joint_state,
-                  quad_msgs::msg::MultiFootState &multi_foot_state) 
-{
+// void fkRobotState(const quad_utils::QuadKD &kinematics,
+//                   quad_msgs::msg::BodyState body_state,
+//                   sensor_msgs::msg::JointState joint_state,
+//                   quad_msgs::msg::MultiFootState &multi_foot_state) 
+// {
     // multi_foot_state.header = joint_state.header;
     // // If this message is empty set the joint names
 
@@ -449,12 +449,12 @@ void fkRobotState(const quad_utils::QuadKD &kinematics,
     //     multi_foot_state.feet[i].velocity.y = foot_velocities(i * 3 + 1);
     //     multi_foot_state.feet[i].velocity.z = foot_velocities(i * 3 + 2);
     // }
-}
+// }
 
-void fkRobotState(const quad_utils::QuadKD &kinematics, quad_msgs::msg::RobotState &state) 
-{
-    fkRobotState(kinematics, state.body, state.joints, state.feet);
-}
+// void fkRobotState(const quad_utils::QuadKD &kinematics, quad_msgs::msg::RobotState &state) 
+// {
+//     fkRobotState(kinematics, state.body, state.joints, state.feet);
+// }
 
 quad_msgs::msg::BodyState eigenToBodyStateMsg(const Eigen::VectorXd &state) 
 {

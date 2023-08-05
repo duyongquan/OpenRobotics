@@ -142,9 +142,9 @@ void interpOdometry(quad_msgs::msg::BodyState state_1, quad_msgs::msg::BodyState
  * @param[in] t_interp Fraction of time between the messages [0,1]
  * @param[out] interp_state Interpolated JointState message
  */
-void interpJointState(sensor_msgs::msg::JointState state_1,
-                      sensor_msgs::msg::JointState state_2, double t_interp,
-                      sensor_msgs::msg::JointState &interp_state);
+// void interpJointState(sensor_msgs::msg::JointState state_1,
+//                       sensor_msgs::msg::JointState state_2, double t_interp,
+//                       sensor_msgs::msg::JointState &interp_state);
 
 /**
  * @brief Interpolate data between two FootState messages.

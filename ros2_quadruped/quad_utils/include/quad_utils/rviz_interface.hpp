@@ -148,13 +148,13 @@ private:
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr foot_3_plan_continuous_viz_pub_;
 
     /// ROS Publisher for the estimated joint states visualization
-    rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr estimate_joint_states_viz_pub_;
+    // rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr estimate_joint_states_viz_pub_;
 
     /// ROS Publisher for the ground truth joint states visualization
-    rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr ground_truth_joint_states_viz_pub_;
+    // rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr ground_truth_joint_states_viz_pub_;
 
     /// ROS Publisher for the trajectory joint states visualization
-    rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr trajectory_joint_states_viz_pub_;
+    // rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr trajectory_joint_states_viz_pub_;
 
     /// ROS Subscriber for the state estimate
     rclcpp::Subscription<quad_msgs::msg::RobotState>::SharedPtr state_estimate_sub_;
