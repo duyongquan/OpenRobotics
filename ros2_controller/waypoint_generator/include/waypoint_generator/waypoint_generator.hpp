@@ -1,11 +1,3 @@
-/*
- * @Author: duyongquan duyongquan1@xiaomi.com
- * @Date: 2023-07-27 14:08:46
- * @LastEditors: duyongquan duyongquan1@xiaomi.com
- * @LastEditTime: 2023-07-27 16:24:34
- * @FilePath: /ros2_tutorials/src/ROS2-OpenRoboticsToolkit/ros2_controller/waypoint_generator/include/waypoint_generator/waypoint_generator.hpp
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 #ifndef ROS2_CONTROLLER__WAYPOINT_GENERATOR_HPP_
 #define ROS2_CONTROLLER__WAYPOINT_GENERATOR_HPP_
 

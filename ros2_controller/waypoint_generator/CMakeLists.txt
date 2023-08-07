@@ -36,14 +36,20 @@ set(dependencies
 
 # sources
 set(SRCS 
-  src/waypoint_generator.cpp)
+  src/waypoint_generator.cpp
+  src/bernoulli_curve.cpp)
 
 # ros2_controller.motion_model.vehicle_position_publisher
 add_executable(ros2_controller.waypoint_generator src/waypoint_generator_node.cpp ${SRCS})
 ament_target_dependencies(ros2_controller.waypoint_generator ${dependencies})
 
+# ros2_controller.path_visualizer_node
+add_executable(ros2_controller.path_visualizer src/path_visualizer_node.cpp ${SRCS})
+ament_target_dependencies(ros2_controller.path_visualizer ${dependencies})
+
 install(TARGETS
   ros2_controller.waypoint_generator
+  ros2_controller.path_visualizer
   DESTINATION lib/${PROJECT_NAME}
 )
 
