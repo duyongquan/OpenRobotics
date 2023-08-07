@@ -37,7 +37,8 @@ set(dependencies
 # sources
 set(SRCS 
   src/waypoint_generator.cpp
-  src/bernoulli_curve.cpp)
+  src/bernoulli_curve.cpp
+  src/lissajous_curve.cpp)
 
 # ros2_controller.motion_model.vehicle_position_publisher
 add_executable(ros2_controller.waypoint_generator src/waypoint_generator_node.cpp ${SRCS})

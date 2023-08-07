@@ -1,5 +1,5 @@
-#ifndef ROS2_CONTROLLER__BERNOULLI_CURVE_HPP_
-#define ROS2_CONTROLLER__BERNOULLI_CURVE_HPP_
+#ifndef ROS2_CONTROLLER__LISSAJOUS_CURVE_HPP_
+#define ROS2_CONTROLLER__LISSAJOUS_CURVE_HPP_
 
 #include "rclcpp/rclcpp.hpp"
 #include "nav_msgs/msg/path.hpp"
@@ -14,17 +14,17 @@
 
 namespace ros2_controller {
 namespace waypoint_generator {
-namespace lemniscate_bernoulli {
+namespace lissajous_curve {
 
 /**
  * Adjust this parameter to change the shape of the lemniscate
  *  
  * @param a Default 1.0
  */
-nav_msgs::msg::Path CreatePath(double a = 10.0);
+nav_msgs::msg::Path CreatePath();
 
-}  // namespace lemniscate_bernoulli
+}  // namespace lissajous_curve
 }  // namespace waypoint_generator
 }  // namespace ros2_controller
 
-#endif  // ROS2_CONTROLLER__BERNOULLI_CURVE_HPP_
+#endif  // ROS2_CONTROLLER__LISSAJOUS_CURVE_HPP_

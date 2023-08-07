@@ -1,4 +1,5 @@
 #include "waypoint_generator/bernoulli_curve.hpp"
+#include "waypoint_generator/lissajous_curve.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 #include "visualization_msgs/msg/marker.hpp"
@@ -22,7 +23,8 @@ public:
 
     void timer_callback()
     {
-        auto plan = lemniscate_bernoulli::CreatePath(2);
+        // auto plan = lemniscate_bernoulli::CreatePath(2);
+        auto plan = lissajous_curve::CreatePath();
         RCLCPP_INFO(this->get_logger(), "path size: %d", plan.poses.size());
         // path_publisher_->publish(plan);
 

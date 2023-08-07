@@ -1,5 +1,6 @@
 #include "waypoint_generator/waypoint_generator.hpp"
 #include "waypoint_generator/bernoulli_curve.hpp"
+#include "waypoint_generator/lissajous_curve.hpp"
 
 namespace ros2_controller
 {
@@ -47,7 +48,7 @@ void VehicleWaypointGenerator::HandleNavGoalMessage(const geometry_msgs::msg::Po
 
     // Create a follow path
     // auto plan = CreatePath(path_type_);
-    auto plan = lemniscate_bernoulli::CreatePath();
+    auto plan = lissajous_curve::CreatePath();
 
     if (plan.poses.empty()) {
         RCLCPP_WARN(this->get_logger(), "Create a invaild path");
