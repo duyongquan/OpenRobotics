@@ -1,0 +1,10 @@
+<class_libraries>
+    <library path="mpc_controller">
+        <class type="ros2_controller::mpc_controller::MPCController" base_class_type="nav2_core::Controller">
+            <description>
+                mpc_controller
+            </description>
+        </class>
+    </library>
+</class_libraries>
+

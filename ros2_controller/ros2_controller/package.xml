@@ -22,6 +22,7 @@
   <exec_depend>waypoint_generator</exec_depend>
   <exec_depend>ros2_controller_msgs</exec_depend>
   <exec_depend>pure_pursuit_controller</exec_depend>
+  <exec_depend>mpc_controller</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

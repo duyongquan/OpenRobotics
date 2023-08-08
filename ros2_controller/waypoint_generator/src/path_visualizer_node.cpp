@@ -1,5 +1,6 @@
 #include "waypoint_generator/bernoulli_curve.hpp"
 #include "waypoint_generator/lissajous_curve.hpp"
+#include "waypoint_generator/trajectory_generation.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 #include "visualization_msgs/msg/marker.hpp"
@@ -24,12 +25,16 @@ public:
     void timer_callback()
     {
         // auto plan = lemniscate_bernoulli::CreatePath(2);
-        auto plan = lissajous_curve::CreatePath();
+        // auto plan = lissajous_curve::CreatePath();
+        // auto plan = trajectory_generator_.CreatePath(TrajectoryType::Circle);
+        // auto plan = trajectory_generator_.CreatePath(TrajectoryType::Epitrochoid);
+        // auto plan = trajectory_generator_.CreatePath(TrajectoryType::Infinite);
+        auto plan = trajectory_generator_.CreatePath(TrajectoryType::Square);
         RCLCPP_INFO(this->get_logger(), "path size: %d", plan.poses.size());
-        // path_publisher_->publish(plan);
+        path_publisher_->publish(plan);
 
-        auto marker_msg = ToMarker(plan);
-        marker_pub_->publish(marker_msg);
+        // auto marker_msg = ToMarker(plan);
+        // marker_pub_->publish(marker_msg);
     }
 
     visualization_msgs::msg::Marker ToMarker(const nav_msgs::msg::Path& path)
@@ -100,6 +105,8 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_pub_{nullptr};
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher_{nullptr};
     rclcpp::TimerBase::SharedPtr timer_{nullptr};
+
+    TrajectoryGenerator trajectory_generator_;
 };
 
 

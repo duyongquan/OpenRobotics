@@ -1,6 +1,8 @@
 #ifndef ROS2_CONTROLLER__WAYPOINT_GENERATOR_HPP_
 #define ROS2_CONTROLLER__WAYPOINT_GENERATOR_HPP_
 
+#include "waypoint_generator/trajectory_generation.hpp"
+
 #include <chrono>
 #include <cinttypes>
 #include <functional>
@@ -43,12 +45,6 @@ private:
 
     nav_msgs::msg::Path CreatePath(const std::string& type);
 
-    nav_msgs::msg::Path CreateLissajousPath();
-
-    nav_msgs::msg::Path CreateCirclePath();
-
-    nav_msgs::msg::Path CreateRectanglePath();
-
     void HandleFollowPathGoalResponseCallback(GoalHandleFollowPath::SharedPtr goal_handle);
     void HandleFollowPathFeedbackCallback(GoalHandleFollowPath::SharedPtr,
         const std::shared_ptr<const FollowPath::Feedback> feedback);
@@ -58,7 +54,9 @@ private:
 
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr nav_goal_subscription_{nullptr};
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher_{nullptr};
-    // rclcpp::Service<PathType>::SharedPtr path_type_server_{nullptr};
+    rclcpp::Service<PathType>::SharedPtr path_type_server_{nullptr};
+
+    std::shared_ptr<TrajectoryGenerator> trajectory_generator_{nullptr};
 
     std::string path_type_;
     std::string deault_path_type_;
