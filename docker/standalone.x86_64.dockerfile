@@ -1,74 +1,74 @@
-ARG BASE_IMAGE=nvcr.io/nvidia/tritonserver:22.09-py3
+ARG BASE_IMAGE=osrf/ros:galactic-desktop
 FROM ${BASE_IMAGE}
 
 MAINTAINER duyongquan <quandy2020@126.com>
 
-# sources
-RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list
+# # sources
+# RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list
 
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends apt-utils \
-    build-essential \
-    git  \
-    wget \
-    cmake \
-    libssl-dev \
-    cppcheck \
-    curl \
-    doxygen \
-    libboost-all-dev \
-    libatlas-base-dev \
-    libsuitesparse-dev \
-    libglew-dev \
-    stow \
-    gdb \
-    google-perftools \
-    google-mock \
-    libcairo2-dev \
-    libgoogle-glog-dev \
-    liblua5.3-dev \
-    lsb-release \
-    graphviz \
-    libblas-dev \
-    libcurl4-openssl-dev \
-    libfreetype6-dev \
-    liblapack-dev \
-    libpcap-dev \
-    software-properties-common \
-    unzip \
-    vim \
-    locate \
-    libfmt-dev \
-    python3-pip \
-    yasm \
-    pkg-config \
-    libjpeg-dev \
-    libtiff-dev \
-    libpng-dev \
-    libavcodec-dev \
-    libavformat-dev \
-    libswscale-dev \
-    libv4l-dev \
-    gfortran \
-    libtbb2 \
-    libtbb-dev \
-    libpq-dev \
-    ros-noetic-tf2-eigen \
-    ros-noetic-urdf \
-    zip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo '\n\n\n' 
+# RUN apt-get update -y && \
+#     apt-get install -y --no-install-recommends apt-utils \
+#     build-essential \
+#     git  \
+#     wget \
+#     cmake \
+#     libssl-dev \
+#     cppcheck \
+#     curl \
+#     doxygen \
+#     libboost-all-dev \
+#     libatlas-base-dev \
+#     libsuitesparse-dev \
+#     libglew-dev \
+#     stow \
+#     gdb \
+#     google-perftools \
+#     google-mock \
+#     libcairo2-dev \
+#     libgoogle-glog-dev \
+#     liblua5.3-dev \
+#     lsb-release \
+#     graphviz \
+#     libblas-dev \
+#     libcurl4-openssl-dev \
+#     libfreetype6-dev \
+#     liblapack-dev \
+#     libpcap-dev \
+#     software-properties-common \
+#     unzip \
+#     vim \
+#     locate \
+#     libfmt-dev \
+#     python3-pip \
+#     yasm \
+#     pkg-config \
+#     libjpeg-dev \
+#     libtiff-dev \
+#     libpng-dev \
+#     libavcodec-dev \
+#     libavformat-dev \
+#     libswscale-dev \
+#     libv4l-dev \
+#     gfortran \
+#     libtbb2 \
+#     libtbb-dev \
+#     libpq-dev \
+#     ros-noetic-tf2-eigen \
+#     ros-noetic-urdf \
+#     zip && \
+#     apt-get clean && rm -rf /var/lib/apt/lists/* && \
+#     echo '\n\n\n' 
 
-WORKDIR /workspace/ros2_ws
+# WORKDIR /workspace/ros2_ws
 
 # Installer
 # COPY ./install /tmp/install
@@ -90,5 +90,4 @@ WORKDIR /workspace/ros2_ws
 # RUN bash /tmp/install/install_osqp.sh
 
 # Build X-SLAM
-ENV TERM xterm
 ENV PYTHONIOENCODING UTF-8
