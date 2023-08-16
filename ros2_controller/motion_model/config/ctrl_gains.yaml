@@ -1,0 +1,13 @@
+# PID gains for the steer_bot_hardware_gazebo plugin.
+gains:
+    rear_right_wheel_joint:
+        p: 100000.0
+        d: 10.0
+        i: 0.50
+        i_clamp: 3.0
+    rear_left_wheel_joint:
+        p: 100000.0
+        d: 10.0
+        i: 0.50
+        i_clamp: 3.0
+

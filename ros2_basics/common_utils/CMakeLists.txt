@@ -7,6 +7,8 @@ endif()
 
 set(CMAKE_BUILD_TYPE Debug)
 
+add_compile_options(-g -O0)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -24,11 +26,16 @@ set(DEPS
   std_msgs)
 
 # demo0 tutorials_common_utils_demo0_backward_cpp_test.cpp
-add_executable(tutorial.common_utils.backward_cpp src/tutorials_common_utils_demo0_backward_cpp_test.cpp)
-ament_target_dependencies(tutorial.common_utils.backward_cpp ${DEPS})
+# add_executable(tutorial.common_utils.backward_cpp src/tutorials_common_utils_demo0_backward_cpp_test.cpp)
+# ament_target_dependencies(tutorial.common_utils.backward_cpp ${DEPS})
+
+# demo1 tutorials_common_utils_demo1_gdb_cpp_test
+add_executable(tutorial.common_utils.gdb src/tutorials_common_utils_demo1_gdb_cpp_test.cpp)
+ament_target_dependencies(tutorial.common_utils.gdb ${DEPS})
 
 install(TARGETS
-  tutorial.common_utils.backward_cpp
+  # tutorial.common_utils.backward_cpp
+  tutorial.common_utils.gdb 
   DESTINATION lib/${PROJECT_NAME}
 )
 

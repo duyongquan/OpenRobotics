@@ -60,7 +60,7 @@ nav_msgs::msg::Path TrajectoryGenerator::CreateCirclePath()
     for (double theta = 0.0; theta <= 2.0 * M_PI; theta += angular_velocity * 0.05)
     {
         pose.pose.position.x = radius * std::cos(theta);
-        pose.pose.position.y = radius * std::sin(theta);
+        pose.pose.position.y = radius - radius * std::sin(theta);
         double next_theta = theta + angular_velocity * 0.05;
 
         double dy = -radius * std::cos(next_theta) - pose.pose.position.y;

@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<!--
+  Robot model adapted from https://github.com/CIR-KIT/steer_drive_ros/blob/kinetic-devel/steer_drive_controller/test/common/urdf/steerbot.xacro
+
+  Modifications:
+    Remove base_footprint link. Useful for navigation but not necessary for a simple example.
+    Added materials for URDF
+    Updated inertials
+
+  Geometry:
+    The Ackermann steering controllers require the longitudinal
+    separation between the front and back wheel axes and the
+    lateral separation between the left and right front steering axes.
+    
+    For this model:
+    wheel_separation_h = base_length - 2 * axle_offset = 0.4
+    wheel_separation_w = base_width  + 2 * axle_offset = 0.4
+-->
+<robot name="ackermann_bot" xmlns:xacro="http://wiki.ros.org/xacro">
+  <!-- Include xacro for inertials, materials and wheels -->
+  <xacro:include filename="$(find motion_model)/urdf/common/common_properties.xacro"/>
+  <xacro:include filename="$(find motion_model)/urdf/ackermann/wheel.xacro"/>
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:arg name="lidar_visual"    default="false"/>
+
+  <!-- Gazebo plugins -->
+  <gazebo>
+    <!-- Load ros_control plugin using the steer_bot_hardware_gazebo
+    implementation of the hardware_interface::RobotHW -->
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <!-- Math constants -->
+  <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+
+  <!-- Robot base dimensions -->
+  <xacro:property name="base_length" value="0.5" /> 
+  <xacro:property name="base_width" value="0.3" /> 
+  <xacro:property name="base_height" value="0.1" /> 
+  <xacro:property name="base_mass" value="5" /> 
+
+  <!-- Wheel link dimensions -->
+  <xacro:property name="wheel_radius" value="0.1" />
+  <xacro:property name="wheel_thickness" value="0.08" />
+  <xacro:property name="wheel_mass" value="1" />
+
+  <!-- Steering link dimensions -->
+  <xacro:property name="steer_radius" value="0.05" />
+  <xacro:property name="steer_thickness" value="0.02" />
+  <xacro:property name="steer_mass" value="1" />
+
+  <!-- Axle positions -->
+  <xacro:property name="axle_offset" value="0.05" />
+  <xacro:property name="steer_offset" value="0.02" />
+
+  <link name="base_footprint"/>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+    <origin xyz="0 0 0.0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Base link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${base_length} ${base_width} ${base_height}"/>
+      </geometry>
+      <material name="green" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${base_length} ${base_width} ${base_height}"/>
+      </geometry>
+    </collision>
+    <!-- <xacro:solid_cuboid_inertial 
+        rpy="0 0 0" xyz="0 0 0"
+        mass="${base_mass}"
+        x="${base_length}" y="${base_width}" z="${base_height}" /> -->
+  </link>
+
+  <!-- Front steer and rear wheel joints required for ackermann_steering_controller -->
+  <xacro:front_steer
+    name="front"
+    parent="base"
+    steer_radius="${steer_radius}"
+    steer_thickness="${steer_thickness}" 
+    steer_mass="${steer_mass}" 
+    base_length="${base_length}"
+    base_width="${base_width}"
+    axle_offset="${axle_offset}"
+    steer_height="${wheel_radius+steer_offset}">
+  </xacro:front_steer>
+
+  <xacro:rear_wheel
+    name="rear"
+    parent="base"
+    wheel_radius="${wheel_radius/4}"
+    wheel_thickness="${wheel_thickness/2}"
+    wheel_mass="${wheel_mass/32}">
+    <origin xyz="${-base_length/2+axle_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
+  </xacro:rear_wheel>
+
+  <!-- Steerable front wheels -->
+  <xacro:front_wheel_lr 
+    name="front_right"
+    parent="base"
+    reflect="-1"
+    wheel_radius="${wheel_radius}"
+    wheel_thickness="${wheel_thickness}" 
+    wheel_mass="${wheel_mass}" 
+    steer_radius="${steer_radius}"
+    steer_thickness="${steer_thickness}" 
+    steer_mass="${steer_mass}" 
+    base_length="${base_length}"
+    base_width="${base_width}"
+    axle_offset="${axle_offset}"
+    steer_height="${wheel_radius+steer_offset}">
+  </xacro:front_wheel_lr>
+  <xacro:front_wheel_lr
+    name="front_left"
+    parent="base"
+    reflect="1"
+    wheel_radius="${wheel_radius}"
+    wheel_thickness="${wheel_thickness}"
+    wheel_mass="${wheel_mass}" 
+    steer_radius="${steer_radius}"
+    steer_thickness="${steer_thickness}" 
+    steer_mass="${steer_mass}" 
+    base_length="${base_length}"
+    base_width="${base_width}"
+    axle_offset="${axle_offset}"
+    steer_height="${wheel_radius+steer_offset}">
+  </xacro:front_wheel_lr>
+
+  <!-- Rear wheels -->
+  <xacro:rear_wheel_lr
+    name="rear_right"
+    parent="base"
+    wheel_radius="${wheel_radius}"
+    wheel_thickness="${wheel_thickness}"
+    wheel_mass="${wheel_mass}">
+    <origin xyz="${-base_length/2+axle_offset} ${-base_width/2-axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
+  </xacro:rear_wheel_lr>
+  <xacro:rear_wheel_lr
+    name="rear_left"
+    parent="base"
+    wheel_radius="${wheel_radius}"
+    wheel_thickness="${wheel_thickness}"
+    wheel_mass="${wheel_mass}">
+    <origin xyz="${-base_length/2+axle_offset} ${+base_width/2+axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
+  </xacro:rear_wheel_lr>
+
+  <!-- Colour -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://motion_model/meshes/lidar.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+  </link>
+  <gazebo reference="lidar_link">
+    <material>Gazebo/FlatBlack</material>
+    <sensor type="ray" name="lds_lfcd_sensor">
+      <pose>0 0 0 0 0 1.57079631</pose>
+      <visualize>$(arg lidar_visual)</visualize>
+      <update_rate>1500</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>270</samples>
+            <resolution>1</resolution>
+            <min_angle>-2.1</min_angle>
+            <max_angle>2.1</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.05</min>
+          <max>10.0</max>
+          <resolution>0.009</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_lds_lfcd_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>lidar_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

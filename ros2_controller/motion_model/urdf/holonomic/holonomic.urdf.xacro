@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<robot name="holonomic_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find motion_model)/urdf/common/common_properties.xacro"/>
+  <xacro:include filename="$(find motion_model)/urdf/holonomic/holonomic.gazebo.xacro"/>
+
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 0.2465" rpy="0 0 0"/>
+  </joint>
+
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0070361 -0.0010307 -0.094165"
+        rpy="0 0 0" />
+      <mass
+        value="7" />
+      <inertia
+        ixx="0.114"
+        ixy="3.4187E-05"
+        ixz="-0.0079587"
+        iyy="0.084746"
+        iyz="-0.00069939"
+        izz="0.14914" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.5 0.5 0.09" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.5 0.5 0.09" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0.23721 0 0.0453"
+      rpy="0 1.111E-15 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.0 -0.07 0.37" rpy="0 0 ${-M_PI*0.5}"/>
+  </joint>
+
+  <link name="imu_link"/> 
+
+  <link
+    name="lidar_link">
+    <inertial>
+      <origin
+        xyz="-0.25974 -0.001068 -0.098004"
+        rpy="0 0 3.141592" />
+      <mass
+        value="0.05" />
+      <inertia
+        ixx="6.003E-06"
+        ixy="2.5645E-07"
+        ixz="-2.0674E-06"
+        iyy="8.525E-06"
+        iyz="7.9724E-08"
+        izz="3.7518E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.141592" />
+      <geometry>
+        <mesh
+          filename="package://motion_model/meshes/lidar.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://motion_model/meshes/lidar.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+</robot>

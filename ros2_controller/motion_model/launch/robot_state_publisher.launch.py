@@ -21,39 +21,70 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
-
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
 
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    urdf_file_name = 'smart.xacro'
-
-    print('urdf_file_name : {}'.format(urdf_file_name))
-
-    urdf_path = os.path.join(
+    # Robot urdf file
+    diff_urdf = os.path.join(
         get_package_share_directory('motion_model'),
         'urdf',
-        urdf_file_name)
+        'diff',
+        'differential_bot.urdf.xacro'
+    )
 
-    with open(urdf_path, 'r') as infp:
-        robot_desc = infp.read()
+    bicycle_urdf = os.path.join(
+        get_package_share_directory('motion_model'),
+        'urdf',
+        'bicycle',
+        'bicycle_bot.urdf.xacro'
+    )
 
-    return LaunchDescription([
-        DeclareLaunchArgument(
-            'use_sim_time',
-            default_value='false',
-            description='Use simulation (Gazebo) clock if true'),
+    ackermann_urdf = os.path.join(
+        get_package_share_directory('motion_model'),
+        'urdf',
+        'ackermann',
+        'ackermann.urdf.xacro'
+    )
 
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[{
-                'use_sim_time': use_sim_time,
-                'robot_description': robot_desc
-            }],
-        ),
-    ])
+    holonomic__urdf = os.path.join(
+        get_package_share_directory('motion_model'),
+        'urdf',
+        'holonomic',
+        'holonomic.urdf.xacro'
+    )
+
+    # Launch configuration variables specific to simulation
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    urdf_file_name = LaunchConfiguration('urdf_file_name', default='')
+
+    # Declare the launch arguments
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation (Gazebo) clock if true')
+
+
+    print('urdf_file_name : {}'.format(ackermann_urdf))
+
+
+    robot_state_publisher_cmd = Node(package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'urdf_file_name': urdf_file_name,
+            'robot_description': ParameterValue(Command(['xacro ', str(ackermann_urdf)]), value_type=str)
+        }],
+    )
+    
+    ld = LaunchDescription()
+
+    # Add the commands to the launch description
+    ld.add_action(declare_use_sim_time_cmd)
+    ld.add_action(robot_state_publisher_cmd)
+
+    return ld

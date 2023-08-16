@@ -1,0 +1,251 @@
+<?xml version="1.0" ?>
+<robot name="differential_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find motion_model)/urdf/common/common_properties.xacro"/>
+  <xacro:include filename="$(find motion_model)/urdf/diff/differential_bot.gazebo.xacro"/>
+
+
+<!-- base -->
+
+<link name="base_footprint"/>
+
+ <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+    <origin xyz="0 0 0.010" rpy="0 0 ${M_PI*0.5}"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0 0 0.2465" rpy="0 0 ${-M_PI*0.5}"/>
+      <geometry>
+        <mesh filename="package://motion_model/meshes/body.STL"/>
+      </geometry>
+      <material name="light_black"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0.064  0.048" rpy="0 0 ${M_PI*0.5}"/>
+      <geometry>
+        <box size="0.265 0.265 0.089"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0.064 0.048" rpy="0 0 ${M_PI*0.5}"/>
+      <mass value="0.01"/>
+      <inertia ixx="8.7002718e-03" ixy="-4.7576583e-05" ixz="1.1160499e-04" 
+               iyy="8.6195418e-03" iyz="-3.5422299e-06" 
+               izz="1.4612727e-02" /> 
+    </inertial>
+  </link>
+
+<!-- body -->
+
+ <link name="body_link">
+    <visual>
+      <origin xyz="-0 0 0.2465" rpy="0 0 ${-M_PI*0.5}"/>
+      <geometry>
+        <mesh filename="package://motion_model/meshes/base_plate.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+  </link>
+
+  <joint
+    name="body_joint"
+    type="fixed">
+    <origin
+      xyz="0.0039057 0 -0.08"
+      rpy="-6.913E-15 -1.1102E-16 -5.4234E-31" />
+    <parent
+      link="base_link" />
+    <child
+      link="body_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+<!-- wheel -->
+
+<joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_left_link"/>
+    <origin xyz="0.280 0.0  0.100" rpy="${-M_PI*0.5} 0 ${-M_PI*0.5}"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="wheel_left_link"> 
+
+     <visual>
+      <origin xyz="0 0 0" rpy="${-M_PI*0.5} 0 0"/>
+      <geometry>
+        <mesh filename="package://motion_model/meshes/left_wheel.STL"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.050" radius="0.100"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="2.8498940e-02" />
+      <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09"
+               iyy="1.1192413e-05" iyz="-1.4400107e-11"
+               izz="2.0712558e-05" />
+      </inertial>
+  </link>
+
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_right_link"/>
+    <origin xyz="-0.280 0.0  0.100" rpy="${-M_PI*0.5} 0 ${-M_PI*0.5}"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="wheel_right_link">   
+
+    <visual>
+      <origin xyz="0 0 -0.025" rpy="${-M_PI*0.5} 0 0"/>
+      <geometry>
+        <mesh filename="package://motion_model/meshes/right_wheel.STL"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.050" radius="0.100"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="2.8498940e-02" />
+      <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09"
+               iyy="1.1192413e-05" iyz="-1.4400107e-11"
+               izz="2.0712558e-05" />
+      </inertial>
+  </link>
+
+<!-- caster -->
+
+  <joint name="caster_back_left_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_back_left_link"/>
+    <origin xyz="-0.177 0.264 0.008" rpy="${-M_PI*0.5} 0 ${-M_PI*0.5}"/>
+  </joint>
+
+  <link name="caster_back_left_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.020"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="caster_back_right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_back_right_link"/>
+    <origin xyz="0.177 0.264 0.008" rpy="${-M_PI*0.5} 0 ${-M_PI*0.5}"/>
+  </joint>
+
+  <link name="caster_back_right_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.020"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="caster_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_front_link"/>
+    <origin xyz="0 -0.150 0.020" rpy="${-M_PI*0.5} 0 ${-M_PI*0.5}"/>
+  </joint>
+
+  <link name="caster_front_link">
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.020"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+
+<!-- imu -->
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.0 -0.07 0.37" rpy="0 0 ${-M_PI*0.5}"/>
+  </joint>
+
+  <link name="imu_link"/>
+
+
+<!-- scan -->
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 -0.28 0.21" rpy="0 0 ${-M_PI*0.5}"/>
+  </joint>
+
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://motion_model/meshes/lidar.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+  </link>
+</robot>
