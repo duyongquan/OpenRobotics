@@ -1,0 +1,25 @@
+map_generator:
+  ros__parameters:
+    use_sim_time: True
+    width_min: 0.6
+    width_max: 1.5
+    obstacle_number: 10
+    connectivity: 0.5
+    node_rad: 3
+    road_rad: 4
+    complexity: 0.035
+    fill: 0.3
+    fractal: 1
+    attenuation: 0.1
+    road_width: 0.5
+    add_wall_x: 0
+    add_wall_y: 1
+    maze_type: 1
+    seed: 510
+    num_nodes: 64
+    update_freq: 1.0
+    resolution: 0.1
+    x_length: 20
+    y_length: 20
+    z_length: 2
+    type: 2

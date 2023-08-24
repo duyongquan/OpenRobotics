@@ -13,6 +13,6 @@ terrain_map_publisher:
     terrain_map: "terrain_map"
     update_rate: 10
     map_data_source: csv
-    terrain_type: rough_terrain     # slope or rough_terrain
+    terrain_type: slope     # slope or rough_terrain
 
 
