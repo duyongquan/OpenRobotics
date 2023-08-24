@@ -12,6 +12,10 @@
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <exec_depend>decomp_ros_msgs</exec_depend>
+  <exec_depend>decomp_ros_utils</exec_depend>
+  <exec_depend>decomp_test_node</exec_depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>

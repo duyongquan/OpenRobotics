@@ -35,7 +35,7 @@ set(SRCS
   src/maps.cpp
   src/perlinnoise.cpp)
 
-# 
+# map_generator
 add_executable(ros2_navigation.map_generator src/map_generator_node.cpp ${SRCS})
 ament_target_dependencies(ros2_navigation.map_generator ${dependencies})
 
