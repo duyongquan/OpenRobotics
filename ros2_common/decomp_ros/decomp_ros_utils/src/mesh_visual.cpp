@@ -5,18 +5,18 @@ namespace decomp_rviz_plugins {
                          Ogre::SceneNode *parent_node) {
     scene_manager_ = scene_manager;
     frame_node_ = parent_node->createChildSceneNode();
-    obj_.reset(new rviz::MeshShape(scene_manager_, frame_node_));
+    // obj_.reset(new rviz::MeshShape(scene_manager_, frame_node_));
   }
 
   MeshVisual::~MeshVisual() { scene_manager_->destroySceneNode(frame_node_); }
 
   void MeshVisual::setMessage(const vec_E<vec_Vec3f> &bds) {
-    obj_->clear();
+    // obj_->clear();
 
     if (bds.empty())
       return;
 
-    obj_->beginTriangles();
+    // obj_->beginTriangles();
     int free_cnt = 0;
     for (const auto &vs: bds) {
       if (vs.size() > 2) {
@@ -31,14 +31,14 @@ namespace decomp_rviz_plugins {
         int ref_cnt = free_cnt;
         Ogre::Vector3 normal(n(0), n(1), n(2));
         for (unsigned int i = 0; i < vs.size(); i++) {
-          obj_->addVertex(Ogre::Vector3(vs[i](0), vs[i](1), vs[i](2)), normal);
+          // obj_->addVertex(Ogre::Vector3(vs[i](0), vs[i](1), vs[i](2)), normal);
           if (i > 1 && i < vs.size())
-            obj_->addTriangle(ref_cnt, free_cnt - 1, free_cnt);
+            // obj_->addTriangle(ref_cnt, free_cnt - 1, free_cnt);
           free_cnt++;
         }
       }
     }
-    obj_->endTriangles();
+    // obj_->endTriangles();
   }
 
   // Position and orientation are passed through to the SceneNode.
@@ -51,6 +51,6 @@ namespace decomp_rviz_plugins {
   }
 
   void MeshVisual::setColor(float r, float g, float b, float a) {
-    obj_->setColor(r, g, b, a);
+    // obj_->setColor(r, g, b, a);
   }
 }

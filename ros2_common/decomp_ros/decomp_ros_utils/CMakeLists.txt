@@ -54,23 +54,23 @@ set(dependencies
 
 set(nav2_rviz_plugins_headers_to_moc
   include/decomp_ros_utils/bound_visual.hpp
-  include/decomp_ros_utils/data_ros_utils.hpp
-  include/decomp_ros_utils/ellipsoid_array_display.hpp
-  include/decomp_ros_utils/ellipsoid_array_visual.hpp
-  include/decomp_ros_utils/mesh_visual.hpp
-  include/decomp_ros_utils/polyhedron_array_display.hpp
-  include/decomp_ros_utils/vector_visual.hpp
+  # include/decomp_ros_utils/data_ros_utils.hpp
+  # include/decomp_ros_utils/ellipsoid_array_display.hpp
+  # include/decomp_ros_utils/ellipsoid_array_visual.hpp
+  # include/decomp_ros_utils/mesh_visual.hpp
+  # include/decomp_ros_utils/polyhedron_array_display.hpp
+  # include/decomp_ros_utils/vector_visual.hpp
 )
 
 set(library_name ${PROJECT_NAME})
 
 add_library(${library_name} SHARED
   src/bound_visual.cpp
-  # src/ellipsoid_array_display.cpp
-  # src/ellipsoid_array_visual.cpp
-  # src/mesh_visual.cpp
-  # src/mesh_visual.cpp
-  # src/vector_visual.cpp
+  src/ellipsoid_array_display.cpp
+  src/ellipsoid_array_visual.cpp
+  src/mesh_visual.cpp
+  src/polyhedron_array_display.cpp
+  src/vector_visual.cpp
   ${nav2_rviz_plugins_headers_to_moc}
 )
 
@@ -85,6 +85,26 @@ target_include_directories(${library_name} PUBLIC
 
 target_link_libraries(${library_name}
   rviz_common::rviz_common
+  rviz_ogre_vendor::OgreMain
+  rviz_ogre_vendor::OgreOverlay
+)
+
+target_compile_definitions(${library_name} PRIVATE "RVIZ_DEFAULT_PLUGINS_BUILDING_LIBRARY")
+
+pluginlib_export_plugin_description_file(rviz_common plugins_description.xml)
+
+install(
+  TARGETS ${library_name}
+  EXPORT ${library_name}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
+)
+
+install(
+  DIRECTORY include/
+  DESTINATION include/
 )
 
 if(BUILD_TESTING)

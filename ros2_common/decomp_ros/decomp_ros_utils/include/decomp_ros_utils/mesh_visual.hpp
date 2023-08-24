@@ -24,7 +24,7 @@ namespace decomp_rviz_plugins {
       void setColor(float r, float g, float b, float a);
 
     private:
-      std::unique_ptr<rviz::MeshShape> obj_;
+      // std::unique_ptr<rviz::MeshShape> obj_;
 
       Ogre::SceneNode *frame_node_;
 

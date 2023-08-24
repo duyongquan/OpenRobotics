@@ -3,25 +3,16 @@
 
 #include <decomp_basis/data_type.h>
 
-#include <OGRE/OgreVector3.h>
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
-
 #include "rviz_rendering/objects/billboard_line.hpp"
 #include "rviz_rendering/objects/shape.hpp"
 #include "rviz_common/display_context.hpp"
 #include "rviz_common/message_filter_display.hpp"
 
-
-
-
-#include <OgreManualObject.h>
-#include <OgreMaterialManager.h>
-#include <OgreSceneNode.h>
-#include <OgreVector3.h>
-#include <OgreQuaternion.h>
-
-
+// #include <OgreManualObject.h>
+// #include <OgreMaterialManager.h>
+// #include <OgreSceneNode.h>
+// #include <OgreQuaternion.h>
+// #include <OgreSceneManager.h>
 
 namespace decomp_rviz_plugins {
 class BoundVisual {
@@ -37,7 +28,7 @@ public:
   void setScale(float s);
 
 private:
-  std::vector<std::unique_ptr<rviz::BillboardLine>> objs_;
+  std::vector<std::unique_ptr<rviz_rendering::BillboardLine>> objs_;
 
   Ogre::SceneNode *frame_node_;
 

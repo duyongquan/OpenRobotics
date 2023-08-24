@@ -2,10 +2,6 @@
 #define DECOMP_ROS__DECOMP_ROS_UTILS__VECTOR_VISUAL_HPP_
 
 #include <decomp_basis/data_type.h>
-#include <OGRE/OgreVector3.h>
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
-
 #include "rviz_rendering/objects/arrow.hpp"
 
 namespace decomp_rviz_plugins 
@@ -24,7 +20,7 @@ public:
   void setScale(float s);
 
 private:
-  std::vector<std::unique_ptr<rviz::Arrow>> objs_;
+  std::vector<std::unique_ptr<rviz_rendering::Arrow>> objs_;
 
   Ogre::SceneNode *frame_node_;
 
