@@ -4,9 +4,12 @@
 #include <decomp_geometry/polyhedron.h>
 #include <Eigen/Eigenvalues>
 
-#include <OGRE/OgreVector3.h>
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreSceneManager.h>
+#include <OgreManualObject.h>
+#include <OgreMaterialManager.h>
+#include <OgreSceneNode.h>
+#include <Ogre.h>
+#include <OgreQuaternion.h>
+
 
 // #include <rviz/ogre_helpers/mesh_shape.h>
 

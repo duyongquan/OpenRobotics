@@ -5,6 +5,10 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+# Qt5 boilerplate options from http://doc.qt.io/qt-5/cmake-manual.html
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -14,7 +18,6 @@ find_package(pluginlib REQUIRED)
 find_package(geometry_msgs REQUIRED) 
 find_package(decomp_ros_msgs REQUIRED) 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Test Concurrent)
-
 find_package(rviz_common REQUIRED)
 find_package(rviz_default_plugins REQUIRED)
 find_package(rviz_ogre_vendor REQUIRED)
@@ -22,16 +25,17 @@ find_package(rviz_rendering REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
-
 find_package(Eigen3 REQUIRED)
 find_package(decomp_util REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIRS})
-include_directories(${DECOMP_UTIL_INCLUDE_DIRS})
 
 # include
 include_directories(
   include
 )
+
+include_directories(${EIGEN3_INCLUDE_DIRS})
+include_directories(${DECOMP_UTIL_INCLUDE_DIRS})
+
 
 # dependency
 set(dependencies 
@@ -49,17 +53,16 @@ set(dependencies
   rviz_rendering
   tf2
   tf2_geometry_msgs
-  visualization_msgs
-  )
+  visualization_msgs)
 
-set(nav2_rviz_plugins_headers_to_moc
+set(rviz_plugins_headers_to_moc
   include/decomp_ros_utils/bound_visual.hpp
-  # include/decomp_ros_utils/data_ros_utils.hpp
-  # include/decomp_ros_utils/ellipsoid_array_display.hpp
-  # include/decomp_ros_utils/ellipsoid_array_visual.hpp
-  # include/decomp_ros_utils/mesh_visual.hpp
-  # include/decomp_ros_utils/polyhedron_array_display.hpp
-  # include/decomp_ros_utils/vector_visual.hpp
+  include/decomp_ros_utils/data_ros_utils.hpp
+  include/decomp_ros_utils/ellipsoid_array_display.hpp
+  include/decomp_ros_utils/ellipsoid_array_visual.hpp
+  include/decomp_ros_utils/mesh_visual.hpp
+  include/decomp_ros_utils/polyhedron_array_display.hpp
+  include/decomp_ros_utils/vector_visual.hpp
 )
 
 set(library_name ${PROJECT_NAME})
@@ -71,7 +74,7 @@ add_library(${library_name} SHARED
   src/mesh_visual.cpp
   src/polyhedron_array_display.cpp
   src/vector_visual.cpp
-  ${nav2_rviz_plugins_headers_to_moc}
+  ${rviz_plugins_headers_to_moc}
 )
 
 ament_target_dependencies(${library_name}

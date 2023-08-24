@@ -9,7 +9,8 @@ BoundVisual::BoundVisual(Ogre::SceneManager *scene_manager, Ogre::SceneNode *par
 
 BoundVisual::~BoundVisual() { scene_manager_->destroySceneNode(frame_node_); }
 
-void BoundVisual::setMessage(const vec_E<vec_Vec3f>& bds) {
+void BoundVisual::setMessage(const vec_E<vec_Vec3f>& bds) 
+{
   objs_.clear();
 
   if (bds.empty())
@@ -24,21 +25,21 @@ void BoundVisual::setMessage(const vec_E<vec_Vec3f>& bds) {
   for (const auto &vs : bds) {
     for (unsigned int i = 0; i <= vs.size(); i++) {
       if (i < vs.size()) {
-        // if(!std::isnan(vs[i](0)))
-        //   // objs_[cnt]->addPoint(Ogre::Vector3(vs[i](0), vs[i](1), vs[i](2)));
+        if(!std::isnan(vs[i](0)))
+          objs_[cnt]->addPoint(Ogre::Vector3(vs[i](0), vs[i](1), vs[i](2)));
       }
       else {
-        // if(!std::isnan(vs[0](0)))
-        // // objs_[cnt]->addPoint(Ogre::Vector3(vs[0](0), vs[0](1), vs[0](2)));
+        if(!std::isnan(vs[0](0)))
+        objs_[cnt]->addPoint(Ogre::Vector3(vs[0](0), vs[0](1), vs[0](2)));
       }
     }
     cnt++;
   }
 }
 
-// void BoundVisual::setFramePosition(const Ogre::Vector3 &position) {
-//   frame_node_->setPosition(position);
-// }
+void BoundVisual::setFramePosition(const Ogre::Vector3 &position) {
+  frame_node_->setPosition(position);
+}
 
 void BoundVisual::setFrameOrientation(const Ogre::Quaternion &orientation) {
   frame_node_->setOrientation(orientation);

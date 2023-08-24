@@ -41,9 +41,9 @@ namespace decomp_rviz_plugins {
           E(i, j) = it.e[3 * i + j];
       Eigen::SelfAdjointEigenSolver<Mat3f> es(E);
 
-      // Ogre::Vector3 scale(2 * es.eigenvalues()[0], 2 * es.eigenvalues()[1],
-      //                     2 * es.eigenvalues()[2]);
-      // objs_[cnt]->setScale(scale);
+      Ogre::Vector3 scale(2 * es.eigenvalues()[0], 2 * es.eigenvalues()[1],
+                          2 * es.eigenvalues()[2]);
+      objs_[cnt]->setScale(scale);
 
       Ogre::Vector3 d(it.d[0], it.d[1], it.d[2]);
       objs_[cnt]->setPosition(d);
@@ -55,9 +55,9 @@ namespace decomp_rviz_plugins {
     }
   }
 
-  // void EllipsoidArrayVisual::setFramePosition(const Ogre::Vector3 &position) {
-  //   frame_node_->setPosition(position);
-  // }
+  void EllipsoidArrayVisual::setFramePosition(const Ogre::Vector3 &position) {
+    frame_node_->setPosition(position);
+  }
 
   void EllipsoidArrayVisual::setFrameOrientation(
                                              const Ogre::Quaternion &orientation) {

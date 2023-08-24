@@ -4,6 +4,12 @@
 #include <decomp_basis/data_type.h>
 #include "rviz_rendering/objects/arrow.hpp"
 
+#include <OgreManualObject.h>
+#include <OgreMaterialManager.h>
+#include <OgreSceneNode.h>
+#include <Ogre.h>
+#include <OgreQuaternion.h>
+
 namespace decomp_rviz_plugins 
 {
 class VectorVisual 

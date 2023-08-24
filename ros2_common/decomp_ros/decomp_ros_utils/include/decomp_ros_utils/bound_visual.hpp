@@ -8,12 +8,6 @@
 #include "rviz_common/display_context.hpp"
 #include "rviz_common/message_filter_display.hpp"
 
-// #include <OgreManualObject.h>
-// #include <OgreMaterialManager.h>
-// #include <OgreSceneNode.h>
-// #include <OgreQuaternion.h>
-// #include <OgreSceneManager.h>
-
 namespace decomp_rviz_plugins {
 class BoundVisual {
 public:

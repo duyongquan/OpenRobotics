@@ -15,6 +15,12 @@
 #include <QtWidgets>
 #include <QBasicTimer>
 
+#include <OgreManualObject.h>
+#include <OgreMaterialManager.h>
+#include <OgreSceneNode.h>
+#include <Ogre.h>
+#include <OgreQuaternion.h>
+
 namespace decomp_rviz_plugins {
 
 class EllipsoidArrayVisual;
