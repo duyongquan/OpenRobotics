@@ -33,14 +33,20 @@ set(dependencies
 # sources
 set(SRCS 
   src/maps.cpp
-  src/perlinnoise.cpp)
+  src/perlinnoise.cpp
+  src/random_forest_sensing.cpp)
 
 # map_generator
 add_executable(ros2_navigation.map_generator src/map_generator_node.cpp ${SRCS})
 ament_target_dependencies(ros2_navigation.map_generator ${dependencies})
 
+# random_forest_sensing_node
+add_executable(ros2_navigation.random_forest_sensing src/random_forest_sensing_node.cpp ${SRCS})
+ament_target_dependencies(ros2_navigation.random_forest_sensing ${dependencies})
+
 install(TARGETS
   ros2_navigation.map_generator
+  ros2_navigation.random_forest_sensing
   DESTINATION lib/${PROJECT_NAME}
 )
 
