@@ -336,6 +336,10 @@
 
 ## Part VII Navigation2导航
 
+* ros2 navigation
+
+  <img src="./images/ros2_navigation/ros2_navigation.gif" alt="Overview" width="80%" height="60%">
+
 * costmap2d 
 
   <table style="width:100%">
