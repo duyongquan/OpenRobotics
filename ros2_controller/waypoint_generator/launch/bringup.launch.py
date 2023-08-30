@@ -68,7 +68,7 @@ def generate_launch_description():
     start_waypoint_generator_cmd = Node(
         package='waypoint_generator',
         executable='ros2_controller.waypoint_generator',
-         name='waypoint_generator',
+        name='waypoint_generator',
         output='screen',
         parameters=[configured_params])
 

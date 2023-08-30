@@ -1,4 +1,5 @@
 waypoint_generator:
   ros__parameters:
     use_sim_time: True
-    path_type: "epitrochoid"  # circle epitrochoid infinite square
+    path_type: "square"  # circle epitrochoid infinite square
+    global_frame: map

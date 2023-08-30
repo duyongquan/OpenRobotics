@@ -60,6 +60,7 @@ private:
 
     std::string path_type_;
     std::string deault_path_type_;
+    std::string global_frame_;
 };  
 
 }  // namespace waypoint_generator

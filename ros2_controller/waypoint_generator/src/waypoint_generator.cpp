@@ -12,7 +12,10 @@ VehicleWaypointGenerator::VehicleWaypointGenerator()
       deault_path_type_("rectangle")
 {
     this->declare_parameter("path_type", "circle");
+    this->declare_parameter("global_frame", "odom");
+
     path_type_ = this->get_parameter("path_type").as_string();
+    global_frame_ = this->get_parameter("global_frame").as_string();
 
     path_publisher_ = this->create_publisher<nav_msgs::msg::Path>(
         "plan", rclcpp::SystemDefaultsQoS());
@@ -43,6 +46,13 @@ void VehicleWaypointGenerator::HandleNavGoalMessage(const geometry_msgs::msg::Po
 
     // Create a follow path
     auto plan = CreatePath(path_type_);
+
+    if (global_frame_.empty()) {
+        RCLCPP_ERROR(this->get_logger(), "global_frame must set value.");
+        return;
+    }
+    // global_frame
+    plan.header.frame_id = global_frame_;
 
     if (plan.poses.empty()) {
         RCLCPP_WARN(this->get_logger(), "Create a invaild path");
