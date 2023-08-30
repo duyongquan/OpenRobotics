@@ -49,6 +49,10 @@ ament_target_dependencies(ros2_controller.waypoint_generator ${dependencies})
 add_executable(ros2_controller.path_visualizer src/path_visualizer_node.cpp ${SRCS})
 ament_target_dependencies(ros2_controller.path_visualizer ${dependencies})
 
+
+# install
+install(DIRECTORY launch params DESTINATION share/${PROJECT_NAME})
+
 install(TARGETS
   ros2_controller.waypoint_generator
   ros2_controller.path_visualizer

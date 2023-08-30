@@ -11,6 +11,9 @@ VehicleWaypointGenerator::VehicleWaypointGenerator()
     : rclcpp::Node("waypoint_generator"),
       deault_path_type_("rectangle")
 {
+    this->declare_parameter("path_type", "circle");
+    path_type_ = this->get_parameter("path_type").as_string();
+
     path_publisher_ = this->create_publisher<nav_msgs::msg::Path>(
         "plan", rclcpp::SystemDefaultsQoS());
 
