@@ -1,0 +1,7 @@
+<class_libraries>
+  <library path="voronoi_layer">
+    <class type="nav2_costmap_2d::VoronoiLayer" base_class_type="nav2_costmap_2d::Layer">
+      <description>voronoi_layer</description>
+    </class>
+  </library>
+</class_libraries>
