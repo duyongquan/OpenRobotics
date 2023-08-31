@@ -50,6 +50,26 @@ set(library_name voronoi_layer)
 add_library(${library_name} SHARED ${SRCS})
 ament_target_dependencies(${library_name} ${dependencies})
 
+install(TARGETS
+  voronoi_layer
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+install(TARGETS
+  voronoi_layer
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(FILES plugins.xml
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include/
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)
@@ -57,4 +77,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+ament_export_include_directories(include)
+ament_export_libraries(voronoi_layer)
+ament_export_dependencies(${dependencies})
+pluginlib_export_plugin_description_file(nav2_costmap_2d plugins.xml)
 ament_package()

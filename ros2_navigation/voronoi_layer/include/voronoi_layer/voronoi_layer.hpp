@@ -49,13 +49,12 @@
 
 #include "voronoi_layer/dynamic_voronoi.hpp"
 
-
 namespace nav2_costmap_2d {
 class VoronoiLayer : public Layer
 {
 public:
   VoronoiLayer();
-  virtual ~VoronoiLayer();
+  ~VoronoiLayer();
 
   void onInitialize() override;
 
@@ -70,6 +69,8 @@ public:
     int min_i, int min_j, int max_i, int max_j) override;
 
   void matchSize() override;
+
+  virtual bool isClearable() {return true;}
 
   void reset() override
   {

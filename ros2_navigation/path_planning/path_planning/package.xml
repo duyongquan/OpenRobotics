@@ -34,7 +34,7 @@
   <exec_depend>rrt_planner</exec_depend>
   <exec_depend>rrt_star_planner</exec_depend>
   <exec_depend>state_lattice_planner</exec_depend>
-  <exec_depend>voronoi_road_map_planner</exec_depend>
+  <exec_depend>voronoi_planner</exec_depend>
   <exec_depend>wave_front_planner</exec_depend>
   <exec_depend>nav2_straightline_planner</exec_depend>
 

@@ -37,11 +37,7 @@
 #include <string>
 #include <vector>
 
-#include "pluginlib/class_list_macros.hpp"
 #include "nav2_costmap_2d/costmap_math.hpp"
-
-
-// PLUGINLIB_EXPORT_CLASS(nav2_costmap_2d::VoronoiLayer, nav2_costmap_2d::Layer)
 
 using nav2_costmap_2d::NO_INFORMATION;
 using nav2_costmap_2d::LETHAL_OBSTACLE;
@@ -63,23 +59,23 @@ VoronoiLayer::~VoronoiLayer()
 
 void VoronoiLayer::onInitialize()
 {
-//   ros::NodeHandle nh("~/" + name_);
   current_ = true;
   auto node = node_.lock();
   if (!node) {
     throw std::runtime_error{"Failed to lock node"};
   }
 
+  declareParameter("enabled", rclcpp::ParameterValue(true));
+  node->get_parameter(name_ + "." + "enabled", enabled_);
+
   voronoi_grid_pub_ = node->create_publisher<nav_msgs::msg::OccupancyGrid>(
         "voronoi_grid", rclcpp::SystemDefaultsQoS());
-
-
-//   dsrv_ = std::make_unique<dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>>(nh);
-//   dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>::CallbackType cb =
-//       boost::bind(&VoronoiLayer::reconfigureCB, this, _1, _2);
-//   dsrv_->setCallback(cb);
 }
 
+void VoronoiLayer::matchSize()
+{
+
+}
 
 const DynamicVoronoi& VoronoiLayer::getVoronoi() const
 {
@@ -186,46 +182,49 @@ void VoronoiLayer::updateCosts(
   voronoi_.update();
   voronoi_.prune();
 
-//   publishVoronoiGrid(master_grid);
+  publishVoronoiGrid(master_grid);
 }
 
-// void VoronoiLayer::publishVoronoiGrid(const costmap_2d::Costmap2D& master_grid)
-// {
-//   unsigned int nx = master_grid.getSizeInCellsX();
-//   unsigned int ny = master_grid.getSizeInCellsY();
+void VoronoiLayer::publishVoronoiGrid(const nav2_costmap_2d::Costmap2D& master_grid)
+{
+  unsigned int nx = master_grid.getSizeInCellsX();
+  unsigned int ny = master_grid.getSizeInCellsY();
 
-//   double resolution = master_grid.getResolution();
-//   nav_msgs::OccupancyGrid grid;
-//   // Publish Whole Grid
-//   grid.header.frame_id = "map";
-//   grid.header.stamp = ros::Time::now();
-//   grid.info.resolution = resolution;
+  double resolution = master_grid.getResolution();
+  nav_msgs::msg::OccupancyGrid grid;
+  // Publish Whole Grid
+  grid.header.frame_id = "map";
+  grid.header.stamp = rclcpp::Clock().now();
+  grid.info.resolution = resolution;
 
-//   grid.info.width = nx;
-//   grid.info.height = ny;
+  grid.info.width = nx;
+  grid.info.height = ny;
 
-//   grid.info.origin.position.x = master_grid.getOriginX();
-//   grid.info.origin.position.y = master_grid.getOriginY();
-//   grid.info.origin.position.z = 0.0;
-//   grid.info.origin.orientation.w = 1.0;
+  grid.info.origin.position.x = master_grid.getOriginX();
+  grid.info.origin.position.y = master_grid.getOriginY();
+  grid.info.origin.position.z = 0.0;
+  grid.info.origin.orientation.w = 1.0;
 
-//   grid.data.resize(nx * ny);
+  grid.data.resize(nx * ny);
 
-//   for (unsigned int x = 0; x < nx; x++)
-//   {
-//     for (unsigned int y = 0; y < ny; y++)
-//     {
-//       if (voronoi_.isVoronoi(x, y))
-//       {
-//         grid.data[x + y * nx] = 128;
-//       }
-//       else
-//       {
-//         grid.data[x + y * nx] = 0;
-//       }
-//     }
-//   }
-//   voronoi_grid_pub_.publish(grid);
-// }
+  for (unsigned int x = 0; x < nx; x++)
+  {
+    for (unsigned int y = 0; y < ny; y++)
+    {
+      if (voronoi_.isVoronoi(x, y))
+      {
+        grid.data[x + y * nx] = 127;
+      }
+      else
+      {
+        grid.data[x + y * nx] = 0;
+      }
+    }
+  }
+  voronoi_grid_pub_->publish(grid);
+}
 
-}  // namespace costmap_2d
+}  // namespace nav2_costmap_2d
+
+#include "pluginlib/class_list_macros.hpp"
+PLUGINLIB_EXPORT_CLASS(nav2_costmap_2d::VoronoiLayer, nav2_costmap_2d::Layer)
