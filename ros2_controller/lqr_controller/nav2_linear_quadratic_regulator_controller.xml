@@ -1,0 +1,10 @@
+<class_libraries>
+    <library path="nav2_linear_quadratic_regulator_controller">
+        <class type="ros2_controller::lqr_controller::LQRController" base_class_type="nav2_core::Controller">
+            <description>
+                nav2_linear_quadratic_regulator_controller
+            </description>
+        </class>
+    </library>
+</class_libraries>
+
