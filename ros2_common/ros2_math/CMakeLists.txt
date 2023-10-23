@@ -21,8 +21,11 @@ set(dependencies
 )
 
 add_library(${library_name} SHARED
+  src/angle.cpp
   src/linear_interpolation.cpp
   src/math_utils.cpp
+  src/matrix_operations.cpp
+  src/sin_table.cpp
   src/vec2d.cpp
 )
 
