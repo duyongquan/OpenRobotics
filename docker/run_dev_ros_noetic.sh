@@ -3,7 +3,9 @@
 xhost +
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $ROOT/print_color.sh
+source $ROOT/scripts/print_color.sh
+
+print_info "$ROOT"
 
 # Prevent running as root.
 if [[ $(id -u) -eq 0 ]]; then
@@ -45,6 +47,7 @@ DOCKER_ARGS+=("-e NVIDIA_DRIVER_CAPABILITIES=all")
 
 # Run container from image
 print_info "Running $BASE_NAME"
+
 docker run -it --rm \
     --privileged \
     --network host \

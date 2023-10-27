@@ -3,7 +3,7 @@
 xhost +
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $ROOT/print_color.sh
+source $ROOT/scripts/print_color.sh
 
 # Prevent running as root.
 if [[ $(id -u) -eq 0 ]]; then

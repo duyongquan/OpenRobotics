@@ -7,8 +7,6 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     binutils \
     mesa-utils \
     module-init-tools \
-    x-window-system \
-    git \
     && rm -rf /var/lib/apt/lists/*
 
 # OpenRobitcs workspace

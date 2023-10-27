@@ -3,13 +3,7 @@ FROM osrf/ros:galactic-desktop
 MAINTAINER duyongquan <quandy2020@126.com>
 
 # install packages
-RUN apt-get update && apt-get install -q -y --no-install-recommends \
-    binutils \
-    mesa-utils \
-    module-init-tools \
-    x-window-system \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -q -y --no-install-recommends 
 
 # OpenRobitcs workspace
 ENV ROS2_WS /workspace
