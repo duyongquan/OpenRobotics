@@ -1,12 +1,15 @@
 #ifndef ROS2_CONTROLLER__LQR_CONTROLLER__LQR_QUADRATIC_ROS_HPP_
 #define ROS2_CONTROLLER__LQR_CONTROLLER__LQR_QUADRATIC_ROS_HPP_
 
+#include "lqr_controller/linear_quadratic_regulator.hpp"
+
 #include <string>
 #include <vector>
 #include <memory>
 #include <algorithm>
 #include <mutex>
 
+#include <builtin_interfaces/msg/time.hpp>
 #include "nav2_costmap_2d/footprint_collision_checker.hpp"
 #include "nav2_core/controller.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -94,6 +97,36 @@ public:
      * or in absolute values in false case.
      */
     void setSpeedLimit(const double & speed_limit, const bool & percentage) override;
+
+protected:
+    void initSolver();
+
+    // struct RobotModel {
+    //     Eigen::MatrixXd A;
+    //     Eigen::MatrixXd B;
+    //     Eigen::MatrixXd Q;
+    //     Eigen::MatrixXd R;
+    //     Eigen::MatrixXd K;
+    //     Eigen::MatrixXd state;
+    // };
+
+    rclcpp_lifecycle::LifecycleNode::WeakPtr node_;
+    std::shared_ptr<tf2_ros::Buffer> tf_;
+    std::string plugin_name_;
+    std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros_;
+    nav2_costmap_2d::Costmap2D * costmap_;
+    rclcpp::Logger logger_ {rclcpp::get_logger("LQRController")};
+    rclcpp::Clock::SharedPtr clock_;
+
+    nav_msgs::msg::Path global_plan_;
+    std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<nav_msgs::msg::Path>> global_path_pub_;
+
+    int max_num_iteration_;
+    double tolerance_;
+    rclcpp::Time last_time_;
+    
+    int index_ = 0;
+    geometry_msgs::msg::PoseStamped closest_pose_;
 };
 
 

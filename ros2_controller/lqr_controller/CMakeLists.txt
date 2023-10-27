@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(nav2_linear_quadratic_regulator_controller)
 
 find_package(ament_cmake REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 find_package(nav2_common REQUIRED)
 find_package(nav2_core REQUIRED)
 find_package(nav2_costmap_2d REQUIRED)
@@ -14,7 +15,7 @@ find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED) 
 find_package(ros2_math REQUIRED) 
 
-nav2_package()
+# nav2_package()
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(
@@ -22,6 +23,7 @@ include_directories(
 )
 
 set(dependencies
+  builtin_interfaces
   rclcpp
   geometry_msgs
   nav2_costmap_2d
