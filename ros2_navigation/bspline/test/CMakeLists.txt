@@ -1,0 +1,4 @@
+# Test test_non_uniform_bspline
+add_executable(test_non_uniform_bspline test_non_uniform_bspline.cpp)
+ament_target_dependencies(test_non_uniform_bspline ${dependencies})
+target_link_libraries(test_non_uniform_bspline ${library_name})

@@ -1,0 +1,4 @@
+# Test test_non_uniform_bspline
+add_executable(test_ros_visualization_tools test_ros_visualization_tools.cpp)
+ament_target_dependencies(test_ros_visualization_tools ${dependencies})
+target_link_libraries(test_ros_visualization_tools ${library_name})
