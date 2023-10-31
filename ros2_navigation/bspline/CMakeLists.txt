@@ -15,7 +15,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(nav2_msgs REQUIRED)
 find_package(nav_msgs REQUIRED) 
-
+find_package(visualization_tools REQUIRED) 
 find_package(Eigen3 REQUIRED)
 
 include_directories(
@@ -32,10 +32,13 @@ set(dependencies
   std_msgs
   nav2_msgs
   nav_msgs
+  visualization_tools
 )
 
 add_library(${library_name} SHARED
   src/non_uniform_bspline.cpp
+  src/ros_tinyspline.cpp
+  src/tinyspline.c
 )
 ament_target_dependencies(${library_name} ${dependencies})
 

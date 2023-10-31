@@ -91,7 +91,7 @@ public:
 
             // Sphere List
             ns = "sphere_list";
-            visualization_msgs::msg::Marker marker_spherelist = RosVizTools::newSphereList(1.0, ns, 0, visualization_tools::LIME_GREEN, frame_id);
+            visualization_msgs::msg::Marker marker_spherelist = RosVizTools::newSphereList(.0, ns, 0, visualization_tools::LIME_GREEN, frame_id);
             for (int i = 0; i < 10; ++i) {
                 geometry_msgs::msg::Point p;
                 p.x = i;
