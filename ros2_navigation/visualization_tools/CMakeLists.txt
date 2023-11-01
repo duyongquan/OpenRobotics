@@ -14,10 +14,16 @@ find_package(visualization_msgs REQUIRED)
 find_package(tf2 REQUIRED) 
 find_package(tf2_ros REQUIRED) 
 find_package(tf2_geometry_msgs REQUIRED) 
+find_package(bspline REQUIRED) 
+find_package(trajectory REQUIRED) 
+find_package(Eigen3 REQUIRED)
 
 include_directories(
   include
+  ${EIGEN3_INCLUDE_DIR}
 )
+
+add_definitions(${EIGEN3_DEFINITIONS})
 
 set(dependencies
   rclcpp
@@ -27,11 +33,14 @@ set(dependencies
   tf2_geometry_msgs
   tf2_ros
   tf2
+  bspline
+  trajectory
 )
 
 set(library_name ${PROJECT_NAME})
 add_library(${library_name} SHARED
   src/ros_visualization_tools.cpp
+  src/planning_visualization.cpp
   src/color.cpp
 )
 

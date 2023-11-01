@@ -6,7 +6,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "visualization_tools/ros_visualization_tools.hpp"
-
+#include "bspline/non_uniform_bspline.hpp"
 
 using namespace std::chrono_literals;
 
@@ -58,7 +58,7 @@ private:
         p.y = 4.0;
         marker.points.push_back(p);
 
-        p.x = 3.0;
+        p.x = -3.0;
         p.y = 0.0;
         marker.points.push_back(p);
 
@@ -86,9 +86,12 @@ private:
         points_markers_->publish();
     }
 
+    
+
 private:
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<visualization_tools::RosVizTools> points_markers_{nullptr};
+    std::shared_ptr<NonUniformBspline> non_uniform_bspline_{nullptr};
 };
 
 }  // namespace 
