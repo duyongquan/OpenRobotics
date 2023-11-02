@@ -6,6 +6,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "visualization_tools/ros_visualization_tools.hpp"
+#include "visualization_tools/planning_visualization.hpp"
 #include "bspline/non_uniform_bspline.hpp"
 
 using namespace std::chrono_literals;
@@ -22,6 +23,8 @@ public:
     {
         points_markers_ = std::make_shared<visualization_tools::RosVizTools>(this, "control_points");
 
+        visualization_ = std::make_shared<visualization_tools::PlanningVisualization>(this);
+
         // timer
         timer_ = create_wall_timer(1000ms, std::bind(&NonUniformBsplineNode::Run, this));
 
@@ -30,7 +33,8 @@ public:
 
     void Run()
     {
-        showControlPoints();
+        // showControlPoints();
+        testBspline();
     }
 
 private:
@@ -88,11 +92,29 @@ private:
         points_markers_->publish();
     }
 
-    
+    void testBspline()
+    {
+        // [(3 , 1), (2.5, 4), (0, 1), (-2.5, 4),(-3, 0), (-2.5, -4), (0, -1), (2.5, -4), (3, -1),]
+        // [(3 , 1), (2.5, 4), (0, 1), (-2.5, 4),(-3, 0), (-2.5, -4), (0, -1), (2.5, -4), (3, -1),]
+        Eigen::MatrixXd points(9, 3);
+        points << 3,   1, 0,
+                  2.5, 4, 0,
+                  0, 1, 0,
+                  -2.5, 4, 0,
+                  -3, 0, 0,
+                  -2.5, -4, 0,
+                  0, -1, 0,
+                  2.5, -4, 0,
+                  3, -1, 0;
+
+        non_uniform_bspline_->setUniformBspline(points, 3, 0.1);
+        visualization_->drawBspline(*non_uniform_bspline_.get(), 0.1, Eigen::Vector4d(1.0, 0, 0.0, 1), true, 0.2, Eigen::Vector4d(0, 1, 0, 1));
+    }
 
 private:
     rclcpp::TimerBase::SharedPtr timer_ {nullptr};
     std::shared_ptr<visualization_tools::RosVizTools> points_markers_{nullptr};
+    std::shared_ptr<visualization_tools::PlanningVisualization> visualization_{nullptr}; 
     std::shared_ptr<NonUniformBspline> non_uniform_bspline_{nullptr};
 };
 
