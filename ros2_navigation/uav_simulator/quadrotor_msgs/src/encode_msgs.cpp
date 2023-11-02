@@ -1,6 +1,10 @@
 #include "quadrotor_msgs/encode_msgs.h"
 #include <quadrotor_msgs/comm_types.h>
 
+#include <cstdlib>
+#include <algorithm>
+#include <memory.h>
+
 namespace quadrotor_msgs
 {
 
@@ -18,13 +22,13 @@ void encodeSO3Command(const quadrotor_msgs::msg::SO3Command &so3_command,
   so3_cmd_input.des_qz = so3_command.orientation.z*125;
   so3_cmd_input.des_qw = so3_command.orientation.w*125;
 
-  so3_cmd_input.kR[0] = so3_command.kR[0]*50;
-  so3_cmd_input.kR[1] = so3_command.kR[1]*50;
-  so3_cmd_input.kR[2] = so3_command.kR[2]*50;
+  so3_cmd_input.kR[0] = so3_command.kr[0]*50;
+  so3_cmd_input.kR[1] = so3_command.kr[1]*50;
+  so3_cmd_input.kR[2] = so3_command.kr[2]*50;
 
-  so3_cmd_input.kOm[0] = so3_command.kOm[0]*100;
-  so3_cmd_input.kOm[1] = so3_command.kOm[1]*100;
-  so3_cmd_input.kOm[2] = so3_command.kOm[2]*100;
+  so3_cmd_input.kOm[0] = so3_command.kom[0]*100;
+  so3_cmd_input.kOm[1] = so3_command.kom[1]*100;
+  so3_cmd_input.kOm[2] = so3_command.kom[2]*100;
 
   so3_cmd_input.cur_yaw = so3_command.aux.current_yaw*1e4;
 
@@ -35,7 +39,7 @@ void encodeSO3Command(const quadrotor_msgs::msg::SO3Command &so3_command,
   so3_cmd_input.enable_motors = so3_command.aux.enable_motors;
   so3_cmd_input.use_external_yaw = so3_command.aux.use_external_yaw;
 
-  so3_cmd_input.seq = so3_command.header.seq % 255;
+  // so3_cmd_input.seq = so3_command.header.seq % 255;
 
   output.resize(sizeof(so3_cmd_input));
   memcpy(&output[0], &so3_cmd_input, sizeof(so3_cmd_input));
@@ -61,10 +65,10 @@ void encodePPRGains(const quadrotor_msgs::msg::Gains &gains,
                     std::vector<uint8_t> &output)
 {
   struct PPR_GAINS ppr_gains;
-  ppr_gains.Kp = gains.Kp;
-  ppr_gains.Kd = gains.Kd;
-  ppr_gains.Kp_yaw = gains.Kp_yaw;
-  ppr_gains.Kd_yaw = gains.Kd_yaw;
+  ppr_gains.Kp = gains.kp;
+  ppr_gains.Kd = gains.kd;
+  ppr_gains.Kp_yaw = gains.kp_yaw;
+  ppr_gains.Kd_yaw = gains.kd_yaw;
 
   output.resize(sizeof(ppr_gains));
   memcpy(&output[0], &ppr_gains, sizeof(ppr_gains));

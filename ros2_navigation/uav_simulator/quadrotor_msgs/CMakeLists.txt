@@ -64,11 +64,20 @@ if(cpp_typesupport_target)
   target_link_libraries(${PROJECT_NAME}_library INTERFACE
   "${cpp_typesupport_target}")
 
+  # add_executable(test_exe src/test_exe.cpp)
+  add_library(decode_msgs src/decode_msgs.cpp)
+  target_link_libraries(decode_msgs ${PROJECT_NAME}_library)
+
+  add_library(encode_msgs src/encode_msgs.cpp)
+  target_link_libraries(encode_msgs ${PROJECT_NAME}_library)
+
+
   install(DIRECTORY include/
     DESTINATION include/${PROJECT_NAME}
   )
   install(
-    TARGETS ${PROJECT_NAME}_library EXPORT export_${PROJECT_NAME}
+    TARGETS ${PROJECT_NAME}_library decode_msgs encode_msgs
+    EXPORT export_${PROJECT_NAME}
   )
 
   # Export old-style CMake variables
@@ -76,19 +85,6 @@ if(cpp_typesupport_target)
 
   # Export modern CMake targets
   ament_export_targets(export_${PROJECT_NAME})
-  
-  # add_executable(test_exe src/test_exe.cpp)
-  add_library(decode_msgs src/decode_msgs.cpp)
-  target_include_directories(decode_msgs INTERFACE
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
-  target_link_libraries(decode_msgs INTERFACE "${cpp_typesupport_target}")
-
-  add_library(encode_msgs src/encode_msgs.cpp)
-  target_include_directories(encode_msgs INTERFACE
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
-  target_link_libraries(encode_msgs INTERFACE "${cpp_typesupport_target}")
 
 endif()
 
