@@ -11,6 +11,16 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+
+# tutorials01_test_casadi_env
+add_executable(tutorials01_test_casadi_env src/tutorials01_test_casadi_env.cpp)
+
+install(TARGETS tutorials01_test_casadi_env
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
