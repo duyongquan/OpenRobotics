@@ -25,6 +25,8 @@ setup(
             'tutorials02_test_casadi_rosenbrock = casadi_python.tutorials02_test_casadi_rosenbrock:main',
             'tutorials03_test_casadi_himmelblau = casadi_python.tutorials03_test_casadi_himmelblau:main',
             'tutorials04_test_casadi_mpc_single_shooting = casadi_python.tutorials04_test_casadi_mpc_single_shooting:main',
+            'tutorials05_test_casadi_mpc_robot_tracking_mul_shooting = casadi_python.tutorials05_test_casadi_mpc_robot_tracking_mul_shooting:main',
+            'tutorials06_test_casadi_mpc_obs_avoid_mul = casadi_python.tutorials06_test_casadi_mpc_obs_avoid_mul:main',
         ],
     },
 )

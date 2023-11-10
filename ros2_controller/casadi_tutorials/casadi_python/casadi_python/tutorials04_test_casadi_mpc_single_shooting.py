@@ -8,6 +8,7 @@ import numpy as np
 import time
 from casadi_python.draw import Draw_MPC_point_stabilization_v1
 
+# https://github.com/MMehrez/MPC-and-MHE-implementation-in-MATLAB-using-Casadi/tree/master/workshop_github
 
 def shift_movement(T, t0, x0, u, f):
     f_value = f(x0, u[:, 0])
