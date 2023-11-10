@@ -23,6 +23,7 @@ setup(
             'publisher_member_function = casadi_python.publisher_member_function:main',
             'tutorials01_test_casadi_env = casadi_python.tutorials01_test_casadi_env:main',
             'tutorials02_test_casadi_rosenbrock = casadi_python.tutorials02_test_casadi_rosenbrock:main',
+            'tutorials03_test_casadi_himmelblau = casadi_python.tutorials03_test_casadi_himmelblau:main',
         ],
     },
 )

@@ -9,6 +9,9 @@ subject to   z+(1-x)^2-y == 0
 Joel Andersson, 2015
 """
 
+
+
+
 def main(args=None):
     # rclpy.init(args=args)
     # tutorials_node = TutorialsCasADIEnvNode()
