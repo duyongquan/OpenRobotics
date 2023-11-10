@@ -30,6 +30,6 @@ def generate_launch_description():
             package='common_utils',
             executable='tutorial.common_utils.gdb',
             output='screen',
-            prefix=['terminator -e gdb -ex run '],
+            prefix=['xterm -e gdb -ex run '],
         )
     ])

@@ -1,7 +1,7 @@
 '''
-Author: duyongquan duyongquan1@xiaomi.com
+Author: duyongquan quandy2020@126.com
 Date: 2023-07-28 21:06:20
-LastEditors: duyongquan duyongquan1@xiaomi.com
+LastEditors: duyongquan quandy2020@126.com
 LastEditTime: 2023-08-01 13:22:40
 FilePath: /ros2_tutorials/src/ROS2-OpenRoboticsToolkit/ros2_quadruped/quad_global_planner/launch/example.launch.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
