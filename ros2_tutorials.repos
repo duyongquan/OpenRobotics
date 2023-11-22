@@ -79,4 +79,8 @@ repositories:
     type: git
     url: https://github.com/rst-tu-dortmund/mpc_local_planner.git
     version: ros2-master
-    
+  robot_localization:
+    type: git
+    url: https://github.com/cra-ros-pkg/robot_localization.git
+    version: ros2
+  
