@@ -3,8 +3,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+import math
 
-delta = 0.1
+delta = 0.01
 minXY = -5.0
 maxXY = 5.0
 nContour = 50
@@ -31,6 +32,9 @@ def HimmelblauFunction(x, y):
     """
     return (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
 
+def TestFunction(x, y):
+    return np.exp(x + 3 * y - 0.1) + np.exp(x - 3 * y - 0.1) + np.exp(-x - 0.1)
+
 
 def ConstrainFunction(x):
     return (2.0 * x + 1.0)
@@ -43,6 +47,13 @@ def CreateMeshData():
     Z = [HimmelblauFunction(ix, iy) for (ix, iy) in zip(X, Y)]
     return(X, Y, Z)
 
+
+def CreateTestMeshData():
+    x = np.arange(minXY, maxXY, delta)
+    y = np.arange(minXY, maxXY, delta)
+    X, Y = np.meshgrid(x, y)
+    Z = [TestFunction(ix, iy) for (ix, iy) in zip(X, Y)]
+    return(X, Y, Z)
 
 def SteepestDescentMethod(start, Jacob):
     u"""
@@ -66,18 +77,21 @@ def SteepestDescentMethod(start, Jacob):
 
 
 # Main
-start = np.matrix([random.uniform(minXY, maxXY), random.uniform(minXY, maxXY)])
+for i in range(0, 4):
 
-result = SteepestDescentMethod(start, Jacob)
-(X, Y, Z) = CreateMeshData()
-CS = plt.contour(X, Y, Z, nContour)
+    start = np.matrix([random.uniform(minXY, maxXY), random.uniform(minXY, maxXY)])
 
-Xc = np.arange(minXY, maxXY, delta)
-Yc = [ConstrainFunction(x) for x in Xc]
+    result = SteepestDescentMethod(start, Jacob)
+    (X, Y, Z) = CreateMeshData()
+    CS = plt.contour(X, Y, Z, nContour)
+    plt.clabel(CS, inline=True, fontsize=10)
 
-plt.plot(start[0, 0], start[0, 1], "xr")
+    Xc = np.arange(minXY, maxXY, delta)
+    Yc = [ConstrainFunction(x) for x in Xc]
 
-plt.plot(result[:, 0], result[:, 1], "-r")
+    plt.plot(start[0, 0], start[0, 1], "xr")
 
-plt.axis([minXY, maxXY, minXY, maxXY])
-plt.show()
+    plt.plot(result[:, 0], result[:, 1], "-r")
+
+    plt.axis([minXY, maxXY, minXY, maxXY])
+    plt.show()
