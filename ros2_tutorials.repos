@@ -83,4 +83,8 @@ repositories:
     type: git
     url: https://github.com/cra-ros-pkg/robot_localization.git
     version: ros2
+  ceres-solver:
+    type: git
+    url: https://github.com/ceres-solver/ceres-solver.git
+    version: master
   
