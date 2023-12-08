@@ -83,6 +83,10 @@ repositories:
     type: git
     url: https://github.com/cra-ros-pkg/robot_localization.git
     version: ros2
+  robot_pose_ekf:
+    type: git
+    url: https://github.com/udacity/robot_pose_ekf.git
+    version: master
   ceres-solver:
     type: git
     url: https://github.com/ceres-solver/ceres-solver.git
