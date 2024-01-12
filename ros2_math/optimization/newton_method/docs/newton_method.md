@@ -2,7 +2,7 @@
 
 quandy2020@126.com
 
-## Rosenbrock函数
+## 1 Rosenbrock函数
 
 * Rosenbrock function
 
@@ -38,7 +38,7 @@ H =
     \end{bmatrix}
 $$
 
-## Newton's method
+## 2 Newton's method
 
 梯度下降（或称最陡下降）是一种用于寻找函数最小值的一阶迭代优化算法。为了通过梯度下降找到函数的局部最小值，沿着当前点处函数梯度（或近似梯度）的负方向迈出一步。如果沿着梯度的正方向迈出一步，那么就是在逼近该函数的局部最大值；这个过程则被称为梯度上升。
 
@@ -53,7 +53,7 @@ $$
 
 ![](./newton_method.png)
 
-## Python code
+## 3 Python code
 
 * Rosenbrock function
 
@@ -113,7 +113,7 @@ $$
 
   ![](./rosenbrock_problem.png)
 
-* 完整代码
+* Python完整代码
 
   ```python
   import matplotlib.pyplot as plt
@@ -197,4 +197,73 @@ $$
       main()
   ```
   
+
+## 4 Ceres code
+
+* Ceres Solver求解Rosenbrock函数极值
+
+  ```c++
+  // f(x,y) = (1-x)^2 + 100(y - x^2)^2;
+  struct Rosenbrock {
+    bool operator()(const double* parameters, double* cost) const {
+      const double x = parameters[0];
+      const double y = parameters[1];
+      cost[0] = (1.0 - x) * (1.0 - x) + 100.0 * (y - x * x) * (y - x * x);
+      return true;
+    }
   
+    static ceres::FirstOrderFunction* Create() {
+      constexpr int kNumParameters = 2;
+      return new ceres::NumericDiffFirstOrderFunction<Rosenbrock,
+                                                      ceres::CENTRAL,
+                                                      kNumParameters>(
+          new Rosenbrock);
+    }
+  };
+  ```
+
+* C++完整代码
+
+  ```C++
+  #include "ceres/ceres.h"
+  #include "glog/logging.h"
+  
+  // f(x,y) = (1-x)^2 + 100(y - x^2)^2;
+  struct Rosenbrock {
+    bool operator()(const double* parameters, double* cost) const {
+      const double x = parameters[0];
+      const double y = parameters[1];
+      cost[0] = (1.0 - x) * (1.0 - x) + 100.0 * (y - x * x) * (y - x * x);
+      return true;
+    }
+  
+    static ceres::FirstOrderFunction* Create() {
+      constexpr int kNumParameters = 2;
+      return new ceres::NumericDiffFirstOrderFunction<Rosenbrock,
+                                                      ceres::CENTRAL,
+                                                      kNumParameters>(
+          new Rosenbrock);
+    }
+  };
+  
+  int main(int argc, char** argv) {
+    google::InitGoogleLogging(argv[0]);
+  
+    double parameters[2] = {-1.2, 1.0};
+  
+    ceres::GradientProblemSolver::Options options;
+    options.minimizer_progress_to_stdout = true;
+  
+    ceres::GradientProblemSolver::Summary summary;
+    ceres::GradientProblem problem(Rosenbrock::Create());
+    ceres::Solve(options, problem, parameters, &summary);
+  
+    std::cout << summary.FullReport() << "\n";
+    std::cout << "Initial x: " << -1.2 << " y: " << 1.0 << "\n";
+    std::cout << "Final   x: " << parameters[0] << " y: " << parameters[1]
+              << "\n";
+    return 0;
+  }
+  ```
+
+  ![](rosenbrock_function_ceres.png)
