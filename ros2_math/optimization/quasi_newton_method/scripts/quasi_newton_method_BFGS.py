@@ -47,7 +47,7 @@ def ShowFunction():
     # Plot the surface
     surf = axRos.plot_surface(X, Y, Z, cmap=cm.gist_heat_r,
                         linewidth=0, antialiased=False)
-    axRos.set_zlim(0, 20)
+    axRos.set_zlim(0, 2000)
     figRos.colorbar(surf, shrink=0.05, aspect=1)
     plt.show()
 
@@ -165,4 +165,4 @@ def BFGS(f,x0,max_it,plot=False):
     return x
 
 ShowFunction()
-# x_opt = BFGS(f,[-1.2,1],100,plot=True)
+x_opt = BFGS(f,[-1.2,1],100,plot=True)
