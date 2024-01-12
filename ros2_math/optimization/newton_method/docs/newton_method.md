@@ -48,10 +48,19 @@ x_{n+1} = x_n - \alpha \nabla F(x)
 $$
 
 * 梯度处处垂直于等高线。 
+
 * 在每次线搜索后，新的梯度始终与先前的步进方向正交（对于任何线搜索都成立）。 
 * 因此，迭代往往以非常低效的方式在山谷中蜿蜒前行。
 
-![](./newton_method.png)
+*  牛顿法如下：![](./newton_method.png)
+
+* 梯度下降法如下：
+
+  ![](gradient_descent_method.png)
+
+* 步长搜索
+
+  ![](backtracking_line_search.png)
 
 ## 3 Python code
 
