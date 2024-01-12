@@ -63,8 +63,8 @@ add_executable(tutorials.topic.member_function_with_unique_network_flow_endpoint
 ament_target_dependencies(tutorials.topic.member_function_with_unique_network_flow_endpoints_test ${DEPS})
 
 # demo6 grpc_tool
-add_executable(tutorials.topic.grpc_tool tools/grpc_tool.cpp)
-ament_target_dependencies(tutorials.topic.grpc_tool ${DEPS})
+# add_executable(tutorials.topic.grpc_tool tools/grpc_tool.cpp)
+# ament_target_dependencies(tutorials.topic.grpc_tool ${DEPS})
 
 install(TARGETS
   tutorial.topic.initial_env_test
@@ -73,7 +73,7 @@ install(TARGETS
   tutorial.topic.not_composable_test
   tutorials.topic.member_function_with_topic_statistics_test
   tutorials.topic.member_function_with_unique_network_flow_endpoints_test
-  tutorials.topic.grpc_tool
+  # tutorials.topic.grpc_tool
   DESTINATION lib/${PROJECT_NAME}
 )
 
