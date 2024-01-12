@@ -7,12 +7,12 @@ quandy2020@126.com
 * Rosenbrock function
 
 $$
-f(x, y) = (a - x)^2 + b(y - x^2)
+f(x, y) = (a - x)^2 + b(y - x^2)^2
 $$
 
 ​     其中全局最小值$(x, y) = (a, a^2)$, 当$a = 1, b = 100$
 $$
-f(x, y) = (1 - x)^2 + 100(y - x^2)
+f(x, y) = (1 - x)^2 + 100(y - x^2)^2
 $$
 ​    优化问题：
 $$
@@ -198,7 +198,25 @@ $$
   ```
   
 
-## 4 Ceres code
+
+
+## 4  鞍点函数测试
+
+* a single saddle point function
+  $$
+  f(x, y) = 0.01x^2 -0.1y^2
+  $$
+
+![](single_saddle_point.png)
+
+* multiple saddle points function
+  $$
+  f(x, y) = (x^2 + y - 11)^2 + (x+y^2-7)^2
+  $$
+
+![](./multiple_saddle_points.png)
+
+##  5 Ceres code
 
 * Ceres Solver求解Rosenbrock函数极值
 
